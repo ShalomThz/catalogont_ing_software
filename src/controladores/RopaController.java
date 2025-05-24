@@ -100,8 +100,8 @@ public class RopaController {
         return lista;
     }
     
-    public void editarRopaPorModelo(Ropa ropa) {
-    String sql = "UPDATE ropa SET nombre = ?, precio = ?, talla = ?, color = ?, categoria_id = ?, imagen = ? WHERE modelo = ?";
+public void editarRopaPorId(Ropa ropa) {
+    String sql = "UPDATE ropa SET nombre = ?, precio = ?, talla = ?, color = ?, categoria_id = ?, imagen = ? WHERE id = ?";
     try (Connection con = ConexionDB.getConexion();
          PreparedStatement ps = con.prepareStatement(sql)) {
 
@@ -111,7 +111,7 @@ public class RopaController {
         ps.setString(4, ropa.getColor());
         ps.setInt(5, ropa.getCategoria().getId());
         ps.setString(6, ropa.getImagen());
-        ps.setString(7, ropa.getModelo());
+        ps.setInt(7, ropa.getId());
 
         ps.executeUpdate();
 
@@ -120,6 +120,7 @@ public class RopaController {
     }
 }
 
+//cuidadoooooo eso borra toda la ropa que tenga ese modelo
     public void eliminarRopaPorModelo(String modelo) {
     String sql = "DELETE FROM ropa WHERE modelo = ?";
     try (Connection con = ConexionDB.getConexion();
@@ -132,5 +133,19 @@ public class RopaController {
         e.printStackTrace(); // Considera usar logger
     }
 }
+    
+    public void eliminarRopaPorId(int id) {
+    String sql = "DELETE FROM ropa WHERE id = ?";
+    try (Connection con = ConexionDB.getConexion();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        ps.setInt(1, id);
+        ps.executeUpdate();
+
+    } catch (SQLException e) {
+        e.printStackTrace(); // Considera usar logger
+    }
+}
+
 
 }
