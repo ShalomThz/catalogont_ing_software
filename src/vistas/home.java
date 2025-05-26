@@ -54,7 +54,7 @@ panelOverlay.setVisible(false); // que inicie oculto
         boton.addActionListener(e -> {
              dispose();
             // Aquí abres el panel o haces lo que necesites
-            ClientePanelProductos productos = new ClientePanelProductos(null, true, categoria.getNombre());
+            ClientePanelProductos productos = new ClientePanelProductos(null, true, categoria);
             productos.setVisible(true);
         });
 

@@ -68,37 +68,46 @@ public class RopaController {
         return lista;
     }
 
-    public ArrayList<Ropa> obtenerRopa() {
-        ArrayList<Ropa> lista = new ArrayList<>();
-        String sql = "SELECT r.id, r.modelo, r.nombre, r.precio, r.talla, r.color, r.imagen, " +
-                     "c.id AS cat_id, c.nombre AS cat_nombre " +
-                     "FROM ropa r JOIN categoria c ON r.categoria_id = c.id";
+public ArrayList<Ropa> obtenerRopa() {
+    ArrayList<Ropa> lista = new ArrayList<>();
+    String sql = "SELECT r.id, r.modelo, r.nombre, r.precio, r.talla, r.color, r.imagen, " +
+                 "c.id AS cat_id, c.nombre AS cat_nombre, c.descripcion AS cat_descripcion, c.foto AS cat_foto " +
+                 "FROM ropa r JOIN categoria c ON r.categoria_id = c.id";
 
-        try (Connection con = ConexionDB.getConexion();
-             Statement st = con.createStatement();
-             ResultSet rs = st.executeQuery(sql)) {
+    try (Connection con = ConexionDB.getConexion();
+         Statement st = con.createStatement();
+         ResultSet rs = st.executeQuery(sql)) {
 
-            while (rs.next()) {
-                Categoria cat = new Categoria(rs.getInt("cat_id"), rs.getString("cat_nombre"));
-                Ropa r = new Ropa(
-                    rs.getInt("id"),
-                    rs.getString("modelo"),
-                    rs.getString("nombre"),
-                    cat,
-                    rs.getString("talla"),
-                    rs.getString("color"),
-                    rs.getDouble("precio"),
-                    rs.getString("imagen")
-                );
-                lista.add(r);
-            }
+        while (rs.next()) {
+            Categoria categoria = new Categoria(
+                rs.getInt("cat_id"),
+                rs.getString("cat_nombre"),
+                rs.getString("cat_descripcion"),
+                rs.getString("cat_foto")
+            );
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+            Ropa ropa = new Ropa(
+                rs.getInt("id"),
+                rs.getString("modelo"),
+                rs.getString("nombre"),
+                categoria,
+                rs.getString("talla"),
+                rs.getString("color"),
+                rs.getDouble("precio"),
+                rs.getString("imagen")
+            );
+
+            lista.add(ropa);
         }
 
-        return lista;
+    } catch (SQLException e) {
+        System.err.println("Error al obtener la ropa: " + e.getMessage());
+        e.printStackTrace();
     }
+
+    return lista;
+}
+
     
 public void editarRopaPorId(Ropa ropa) {
     String sql = "UPDATE ropa SET nombre = ?, precio = ?, talla = ?, color = ?, categoria_id = ?, imagen = ? WHERE id = ?";
@@ -116,11 +125,11 @@ public void editarRopaPorId(Ropa ropa) {
         ps.executeUpdate();
 
     } catch (SQLException e) {
-        e.printStackTrace(); // Considera usar logger
+        e.printStackTrace(); 
     }
 }
 
-//cuidadoooooo eso borra toda la ropa que tenga ese modelo
+//cuidadoooooo esto borra toda la ropa que tenga ese modelo
     public void eliminarRopaPorModelo(String modelo) {
     String sql = "DELETE FROM ropa WHERE modelo = ?";
     try (Connection con = ConexionDB.getConexion();
@@ -130,7 +139,7 @@ public void editarRopaPorId(Ropa ropa) {
         ps.executeUpdate();
 
     } catch (SQLException e) {
-        e.printStackTrace(); // Considera usar logger
+        e.printStackTrace(); 
     }
 }
     
@@ -143,7 +152,7 @@ public void editarRopaPorId(Ropa ropa) {
         ps.executeUpdate();
 
     } catch (SQLException e) {
-        e.printStackTrace(); // Considera usar logger
+        e.printStackTrace(); 
     }
 }
 

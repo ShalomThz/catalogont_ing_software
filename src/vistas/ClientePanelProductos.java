@@ -37,7 +37,7 @@ public class ClientePanelProductos extends javax.swing.JDialog {
         cargarEtiquetas();
         
     }
-    public ClientePanelProductos(java.awt.Frame parent, boolean modal,String categoriaRequerida) {
+    public ClientePanelProductos(java.awt.Frame parent, boolean modal,Categoria categoriaRequerida) {
         super(parent, modal);
         initComponents();
         this.categoriaRequerida=categoriaRequerida;
@@ -50,12 +50,25 @@ public class ClientePanelProductos extends javax.swing.JDialog {
     }
     
     private void cargarEtiquetas(){
-        Font fuenteTitulo = new Font("Arial", Font.ITALIC, 22);
-        titulo.setText("Ropa para "+this.categoriaRequerida);
-        titulo.setFont(fuenteTitulo);
-        titulo.setForeground(Color.white);
-        titulo.setHorizontalAlignment(SwingConstants.CENTER); // Centrado horizontal
-       
+    Font fuenteTitulo = new Font("Arial", Font.ITALIC, 22);
+    titulo.setText("Ropa para " + this.categoriaRequerida.getNombre());
+    titulo.setFont(fuenteTitulo);
+    titulo.setForeground(Color.white);
+    titulo.setHorizontalAlignment(SwingConstants.CENTER); // Centrado horizontal
+
+    // Cargar imagen en el banner
+    try {
+        String rutaImagen = "imagenes/categoria/" + this.categoriaRequerida.getFoto();
+        System.out.println(rutaImagen);
+        ImageIcon icono = new ImageIcon(rutaImagen);
+        Image imagenRedimensionada = icono.getImage().getScaledInstance(banner.getWidth(), banner.getHeight(), Image.SCALE_SMOOTH);
+        banner.setIcon(new ImageIcon(imagenRedimensionada));
+        
+        
+    } catch (Exception e) {
+        System.out.println("No se pudo cargar la imagen del banner: " + e.getMessage());
+        banner.setText("Imagen no disponible");
+    }
     }
     
     
@@ -74,7 +87,7 @@ public class ClientePanelProductos extends javax.swing.JDialog {
         boton.addActionListener(e -> {
              dispose();
             // Aquí abres el panel o haces lo que necesites
-            ClientePanelProductos productos = new ClientePanelProductos(null, true, categoria.getNombre());
+            ClientePanelProductos productos = new ClientePanelProductos(null, true, categoria);
             productos.setVisible(true);
         });
 
@@ -93,7 +106,7 @@ public class ClientePanelProductos extends javax.swing.JDialog {
     
     private void cargarRopaCaballero() {
     RopaController controller = new RopaController();
-    for (Ropa ropa : controller.obtenerRopaPorCategoria(this.categoriaRequerida)) {
+    for (Ropa ropa : controller.obtenerRopaPorCategoria(this.categoriaRequerida.getNombre())) {
      //   if (ropa.getCategoria().getNombre().equalsIgnoreCase("Caballero")) {
             JPanel panel = new JPanel();
             panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -102,7 +115,7 @@ public class ClientePanelProductos extends javax.swing.JDialog {
             // Imagen
             try {
                 ImageIcon icon = new ImageIcon("imagenes/ropa/"+ropa.getImagen());
-                System.out.println(icon);
+
                 Image img = icon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
                 JLabel imgLabel = new JLabel(new ImageIcon(img));
                 panel.add(imgLabel);
@@ -140,6 +153,7 @@ public class ClientePanelProductos extends javax.swing.JDialog {
         productosPanel = new javax.swing.JPanel();
         titulo = new javax.swing.JLabel();
         jToolBar1 = new javax.swing.JToolBar();
+        banner = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -157,7 +171,7 @@ public class ClientePanelProductos extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(124, 124, 124)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(731, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,7 +187,7 @@ public class ClientePanelProductos extends javax.swing.JDialog {
         productosPanel.setLayout(productosPanelLayout);
         productosPanelLayout.setHorizontalGroup(
             productosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 466, Short.MAX_VALUE)
+            .addGap(0, 1041, Short.MAX_VALUE)
         );
         productosPanelLayout.setVerticalGroup(
             productosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,11 +208,15 @@ public class ClientePanelProductos extends javax.swing.JDialog {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(banner, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(123, 123, 123)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -206,12 +224,17 @@ public class ClientePanelProductos extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
                 .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(banner, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -261,9 +284,10 @@ public class ClientePanelProductos extends javax.swing.JDialog {
         });
     }
     private ArrayList<Categoria> categoriasLista;
-    private String categoriaRequerida=null;
+    private Categoria categoriaRequerida=null;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel banner;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

@@ -5,6 +5,12 @@
 package vistas;
 
 import controladores.CategoriaController;
+import java.awt.Image;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import modelos.Categoria;
 
 /**
@@ -40,6 +46,9 @@ public class AdminPanelCategorias extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jButtonGuardar = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jFileChooser1 = new javax.swing.JFileChooser();
+        vistaPrevia = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -79,6 +88,14 @@ public class AdminPanelCategorias extends javax.swing.JDialog {
             }
         });
 
+        jLabel3.setText("agrega la foto de categoria");
+
+        jFileChooser1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFileChooser1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -87,36 +104,60 @@ public class AdminPanelCategorias extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(58, 58, 58)
-                        .addComponent(jLabel1))
+                        .addComponent(jLabel1)
+                        .addGap(249, 249, 249)
+                        .addComponent(jLabel3))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(97, 97, 97)
-                        .addComponent(jButtonGuardar)))
-                .addContainerGap(239, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(45, 45, 45)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(60, 60, 60)
+                                .addComponent(jButtonGuardar)))
+                        .addGap(62, 62, 62)
+                        .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42)
+                        .addComponent(vistaPrevia, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(jLabel1)
-                .addGap(30, 30, 30)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61)
-                .addComponent(jButtonGuardar)
-                .addContainerGap(97, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(jLabel1)
+                        .addGap(30, 30, 30))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(15, 15, 15)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(77, 77, 77)
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(96, 96, 96)
+                                .addComponent(jButtonGuardar)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                                .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(74, 74, 74))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(vistaPrevia, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(175, 175, 175))))
         );
 
         pack();
@@ -131,8 +172,7 @@ public class AdminPanelCategorias extends javax.swing.JDialog {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        // TODO add your handling code here:
-            String nombre = jTextField1.getText().trim();
+ String nombre = jTextField1.getText().trim();
     String descripcion = jTextField2.getText().trim();
 
     if (nombre.isEmpty()) {
@@ -140,7 +180,17 @@ public class AdminPanelCategorias extends javax.swing.JDialog {
         return;
     }
 
-    Categoria nuevaCategoria = new Categoria(0, nombre, descripcion);
+    // Verifica si se seleccionó una imagen
+    if (imagenSeleccionada == null || imagenSeleccionada.isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Debes seleccionar una imagen para la categoría.");
+        return;
+    }
+
+    // Aquí depende de cómo esté definida tu clase Categoria.
+    // Supongamos que tiene un campo "imagen" que recibe el nombre del archivo (sin ruta completa)
+    String nombreImagen = new File(imagenSeleccionada).getName();
+
+    Categoria nuevaCategoria = new Categoria(0, nombre, descripcion, nombreImagen);
     CategoriaController controller = new CategoriaController();
     controller.agregarCategoria(nuevaCategoria);
 
@@ -149,7 +199,42 @@ public class AdminPanelCategorias extends javax.swing.JDialog {
     // Limpiar campos
     jTextField1.setText("");
     jTextField2.setText("");
+    vistaPrevia.setIcon(null);
+    imagenSeleccionada = null;
     }//GEN-LAST:event_jButtonGuardarActionPerformed
+
+    private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
+        // TODO add your handling code here:
+        if (evt.getActionCommand().equals(javax.swing.JFileChooser.APPROVE_SELECTION)) {
+        File archivoSeleccionado = jFileChooser1.getSelectedFile();
+        if (archivoSeleccionado != null && archivoSeleccionado.exists()) {
+            try {
+                // Ruta destino dentro del proyecto (por ejemplo, carpeta "imagenes")
+                File carpetaDestino = new File("imagenes/categoria");
+                if (!carpetaDestino.exists()) {
+                    carpetaDestino.mkdirs(); // Crea la carpeta si no existe
+                }
+
+                // Copiar archivo a la carpeta destino
+                File destino = new File(carpetaDestino, archivoSeleccionado.getName());
+                Files.copy(archivoSeleccionado.toPath(), destino.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+                // Guardar ruta relativa o absoluta de la imagen
+                imagenSeleccionada = destino.getPath();
+
+                // Mostrar la imagen en el JLabel vistaPrevia
+                ImageIcon icono = new ImageIcon(imagenSeleccionada);
+                Image imagenEscalada = icono.getImage().getScaledInstance(vistaPrevia.getWidth(), vistaPrevia.getHeight(), Image.SCALE_SMOOTH);
+                vistaPrevia.setIcon(new ImageIcon(imagenEscalada));
+
+            } catch (java.io.IOException ex) {
+                System.getLogger(AdminPanelCategorias.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            }
+        }
+    } else if (evt.getActionCommand().equals(javax.swing.JFileChooser.CANCEL_SELECTION)) {
+        System.out.println("Selección cancelada");
+    }
+    }//GEN-LAST:event_jFileChooser1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -192,13 +277,18 @@ public class AdminPanelCategorias extends javax.swing.JDialog {
             }
         });
     }
+    
+    private String imagenSeleccionada = null;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonGuardar;
+    private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JLabel vistaPrevia;
     // End of variables declaration//GEN-END:variables
 }
