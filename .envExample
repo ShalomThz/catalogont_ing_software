@@ -1,4 +1,3 @@
-DB_HOST=localhost
-DB_PORT=5432
-DB_USER=usuario
-DB_PASSWORD=secreta
+DB_URL=jdbc:postgresql://localhost:5432/catalogont
+DB_USER=vtu_user
+DB_PASSWORD=tu_contrasena
