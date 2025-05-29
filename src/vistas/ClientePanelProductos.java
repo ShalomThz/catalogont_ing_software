@@ -21,7 +21,7 @@ import modelos.Ropa;
 
 /**
  *
- * @author josha
+ * @author Villegas Velazquez Alejandro
  */
 public class ClientePanelProductos extends javax.swing.JDialog {
 

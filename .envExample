@@ -1,3 +1,0 @@
-DB_URL=jdbc:postgresql://localhost:5432/catalogont
-DB_USER=vtu_user
-DB_PASSWORD=tu_contrasena

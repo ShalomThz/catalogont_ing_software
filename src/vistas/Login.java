@@ -11,7 +11,7 @@ import seguridad.SeguridadUtil;
 
 /**
  *
- * @author josha
+ * @author Villegas Velazquez Alejandro
  */
 public class Login extends javax.swing.JDialog {
 
@@ -156,9 +156,9 @@ public class Login extends javax.swing.JDialog {
     if (usuario != null) {
         // Autenticación exitosa
         JOptionPane.showMessageDialog(this, "¡Inicio de sesión exitoso!", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
+        this.dispose();
         AdminPanel nuevoAdminPanel = new AdminPanel(null, true);
         nuevoAdminPanel.setVisible(true);
-        this.dispose();
     } else {
         // Falló la autenticación
         JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.", "Error de autenticación", JOptionPane.ERROR_MESSAGE);

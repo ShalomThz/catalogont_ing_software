@@ -6,7 +6,7 @@ package vistas;
 
 /**
  *
- * @author josha
+ * @author Villegas Velazquez Alejandro
  */
 public class Registro extends javax.swing.JDialog {
 

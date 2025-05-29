@@ -19,7 +19,7 @@ import modelos.Ropa;
 
 /**
  *
- * @author josha
+ * @author Villegas Velazquez Alejandro
  */
 public class AdminPanelProductos extends javax.swing.JDialog {
 

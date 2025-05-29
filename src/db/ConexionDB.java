@@ -3,6 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package db;
+/**
+ *
+ * @author Villegas Velazquez Alejandro
+ */
 
 import io.github.cdimascio.dotenv.Dotenv;
 import java.sql.Connection;

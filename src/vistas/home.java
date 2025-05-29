@@ -15,7 +15,7 @@ import modelos.Categoria;
 
 /**
  *
- * @author josha
+ * @author Villegas Velazquez Alejandro
  */
 public class home extends javax.swing.JDialog {
 
