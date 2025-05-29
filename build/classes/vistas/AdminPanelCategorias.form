@@ -60,6 +60,11 @@
               </Group>
               <EmptySpace pref="40" max="32767" attributes="0"/>
           </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <Component id="BotonRegresar" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -88,7 +93,9 @@
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="vistaPrevia" min="-2" pref="163" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="175" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
+                              <Component id="BotonRegresar" min="-2" pref="38" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -179,6 +186,14 @@
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="vistaPrevia">
+    </Component>
+    <Component class="javax.swing.JButton" name="BotonRegresar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Regresar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotonRegresarActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

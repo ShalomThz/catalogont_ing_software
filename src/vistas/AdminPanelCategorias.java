@@ -51,6 +51,7 @@ public class AdminPanelCategorias extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         jFileChooser1 = new javax.swing.JFileChooser();
         vistaPrevia = new javax.swing.JLabel();
+        BotonRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -107,6 +108,13 @@ public class AdminPanelCategorias extends javax.swing.JDialog {
             }
         });
 
+        BotonRegresar.setText("Regresar");
+        BotonRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonRegresarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -138,6 +146,10 @@ public class AdminPanelCategorias extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(vistaPrevia, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(40, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(BotonRegresar)
+                .addGap(94, 94, 94))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,7 +175,9 @@ public class AdminPanelCategorias extends javax.swing.JDialog {
                                 .addContainerGap(215, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(vistaPrevia, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(175, 175, 175))))
+                                .addGap(90, 90, 90)
+                                .addComponent(BotonRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(47, 47, 47))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))))
@@ -241,6 +255,12 @@ public class AdminPanelCategorias extends javax.swing.JDialog {
     }
     }//GEN-LAST:event_jFileChooser1ActionPerformed
 
+    private void BotonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonRegresarActionPerformed
+        this.dispose();
+        AdminPanel nuevoAPanel = new AdminPanel(null, true);
+        nuevoAPanel.setVisible(true);
+    }//GEN-LAST:event_BotonRegresarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -273,6 +293,7 @@ public class AdminPanelCategorias extends javax.swing.JDialog {
     private String imagenSeleccionada = null;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BotonRegresar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
