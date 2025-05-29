@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import modelos.Categoria;
 import modelos.Ropa;
+import com.formdev.flatlaf.FlatDarculaLaf; // O el tema que quieras
 
 /**
  *
@@ -245,44 +246,34 @@ public class ClientePanelProductos extends javax.swing.JDialog {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ClientePanelProductos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ClientePanelProductos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ClientePanelProductos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ClientePanelProductos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
+    /* --- CÓDIGO PARA INICIAR FLATLAF --- */
+    try {
+        // Aquí puedes elegir el tema que prefieras.
+        // Solo deja una de estas líneas sin comentar.
+        // com.formdev.flatlaf.FlatLightLaf.setup(); // Tema claro
+        FlatDarculaLaf.setup(); // Tema oscuro estilo Darcula
+        // com.formdev.flatlaf.FlatIntelliJLaf.setup(); // Tema de IntelliJ
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                ClientePanelProductos dialog = new ClientePanelProductos(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
+    } catch( Exception ex ) {
+        System.err.println( "No se pudo inicializar el Look and Feel FlatLaf." );
     }
+    /* --- FIN DEL CÓDIGO DE FLATLAF --- */
+
+
+    /* Create and display the dialog */
+    java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+            AdminPanel dialog = new AdminPanel(new javax.swing.JFrame(), true);
+            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    System.exit(0);
+                }
+            });
+            dialog.setVisible(true);
+        }
+    });
+}
     private ArrayList<Categoria> categoriasLista;
     private Categoria categoriaRequerida=null;
 

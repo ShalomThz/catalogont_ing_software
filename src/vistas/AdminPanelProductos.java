@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
-package vistas; 
+package vistas;
 
 import controladores.CategoriaController;
 import controladores.RopaController;
@@ -29,13 +29,13 @@ public class AdminPanelProductos extends javax.swing.JDialog {
     public AdminPanelProductos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-         cargarCategoriasEnComboBox();
+        cargarCategoriasEnComboBox();
+        this.getRootPane().setDefaultButton(jButton1);
     }
-    
-    
-   private void cargarCategoriasEnComboBox() {
+
+    private void cargarCategoriasEnComboBox() {
         CategoriaController categoriaController = new CategoriaController();
-         categoriasLista = categoriaController.obtenerCategorias();
+        categoriasLista = categoriaController.obtenerCategorias();
 
         jComboBox1.removeAllItems();
 
@@ -44,59 +44,58 @@ public class AdminPanelProductos extends javax.swing.JDialog {
         }
     }
 
-private void agregarPrenda() {
-    try {
-        String categoriaNombre = (String) jComboBox1.getSelectedItem();
-        if (categoriaNombre == null || categoriaNombre.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor selecciona una categoría.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            return;
+    private void agregarPrenda() {
+        try {
+            String categoriaNombre = (String) jComboBox1.getSelectedItem();
+            if (categoriaNombre == null || categoriaNombre.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Por favor selecciona una categoría.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            Categoria categoria = categoriasLista.stream()
+                    .filter(cat -> cat.getNombre().equals(categoriaNombre))
+                    .findFirst()
+                    .orElse(null);
+
+            if (categoria == null) {
+                JOptionPane.showMessageDialog(this, "Categoría no encontrada.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            String modelo = jTextFieldModelo.getText().trim(); // NUEVO CAMPO
+            String nombre = jTextField1.getText().trim();
+            String talla = jTextField2.getText().trim();
+            String color = jTextField3.getText().trim();
+            String precioTexto = jTextField4.getText().trim();
+
+            if (modelo.isEmpty() || nombre.isEmpty() || talla.isEmpty() || color.isEmpty() || precioTexto.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Por favor completa todos los campos.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            double precio = Double.parseDouble(precioTexto);
+            String imagen = imagenSeleccionada;
+
+            Ropa nuevaRopa = new Ropa(modelo, nombre, categoria, talla, color, precio, imagen);
+            RopaController controller = new RopaController();
+            controller.agregarRopa(nuevaRopa);
+
+            JOptionPane.showMessageDialog(this, "Prenda agregada con éxito.");
+
+            // Limpiar campos
+            jTextFieldModelo.setText(""); // NUEVO
+            jTextField1.setText("");
+            jTextField2.setText("");
+            jTextField3.setText("");
+            jTextField4.setText("");
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Precio inválido.", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al agregar prenda: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-
-        Categoria categoria = categoriasLista.stream()
-            .filter(cat -> cat.getNombre().equals(categoriaNombre))
-            .findFirst()
-            .orElse(null);
-
-        if (categoria == null) {
-            JOptionPane.showMessageDialog(this, "Categoría no encontrada.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        String modelo = jTextFieldModelo.getText().trim(); // NUEVO CAMPO
-        String nombre = jTextField1.getText().trim();
-        String talla = jTextField2.getText().trim();
-        String color = jTextField3.getText().trim();
-        String precioTexto = jTextField4.getText().trim();
-
-        if (modelo.isEmpty() || nombre.isEmpty() || talla.isEmpty() || color.isEmpty() || precioTexto.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor completa todos los campos.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        double precio = Double.parseDouble(precioTexto);
-        String imagen = imagenSeleccionada;
-
-        Ropa nuevaRopa = new Ropa(modelo, nombre, categoria, talla, color, precio, imagen);
-        RopaController controller = new RopaController();
-        controller.agregarRopa(nuevaRopa);
-
-        JOptionPane.showMessageDialog(this, "Prenda agregada con éxito.");
-
-        // Limpiar campos
-        jTextFieldModelo.setText(""); // NUEVO
-        jTextField1.setText("");
-        jTextField2.setText("");
-        jTextField3.setText("");
-        jTextField4.setText("");
-
-    } catch (NumberFormatException ex) {
-        JOptionPane.showMessageDialog(this, "Precio inválido.", "Error", JOptionPane.ERROR_MESSAGE);
-    } catch (Exception e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Error al agregar prenda: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
-}
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -108,6 +107,7 @@ private void agregarPrenda() {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -130,15 +130,24 @@ private void agregarPrenda() {
 
         jPanel1.setBackground(new java.awt.Color(102, 153, 255));
 
+        jLabel9.setFont(new java.awt.Font("Segoe UI Black", 0, 48)); // NOI18N
+        jLabel9.setText("AGREGADO DE PRODUCTO");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1222, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(121, 121, 121)
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 645, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 147, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addComponent(jLabel9)
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dama", "Cabllero" }));
@@ -148,7 +157,7 @@ private void agregarPrenda() {
             }
         });
 
-        jLabel1.setText("Escoge la categoria");
+        jLabel1.setText("Selecciona Categoría");
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,9 +165,9 @@ private void agregarPrenda() {
             }
         });
 
-        jLabel2.setText("nombre");
+        jLabel2.setText("Nombre");
 
-        jLabel3.setText("talla");
+        jLabel3.setText("Talla");
 
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -166,9 +175,9 @@ private void agregarPrenda() {
             }
         });
 
-        jLabel4.setText("color");
+        jLabel4.setText("Color");
 
-        jLabel5.setText("precio");
+        jLabel5.setText("Precio");
 
         jTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -176,7 +185,7 @@ private void agregarPrenda() {
             }
         });
 
-        jButton1.setText("agregar prenda");
+        jButton1.setText("Agregar Prenda");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -189,11 +198,11 @@ private void agregarPrenda() {
             }
         });
 
-        jLabel6.setText("Agrega una Imagen a tu Prenda");
+        jLabel6.setText("Seleccione imagen para prenda...");
 
-        jLabel7.setText("verifica que sea la imagen correcta");
+        jLabel7.setText("Verifica que sea la imagen correcta");
 
-        jLabel8.setText("modelo");
+        jLabel8.setText("Modelo");
 
         jTextFieldModelo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -206,45 +215,41 @@ private void agregarPrenda() {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(526, 526, 526))
             .addGroup(layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel5)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel3)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)))
-                                .addComponent(jTextField4))
-                            .addComponent(jLabel1))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldModelo)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(53, 53, 53)
                                 .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(58, 58, 58)
-                                        .addComponent(jLabel7))
-                                    .addGroup(layout.createSequentialGroup()
                                         .addGap(86, 86, 86)
-                                        .addComponent(vistaPrevia, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(vistaPrevia, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(33, 33, 33)
+                                        .addComponent(jLabel7))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(260, 260, 260)
-                                .addComponent(jLabel6))))
-                    .addComponent(jTextFieldModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jLabel6))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(300, 300, 300)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,43 +257,45 @@ private void agregarPrenda() {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
+                        .addGap(24, 24, 24)
+                        .addComponent(jLabel6))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(13, 13, 13)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
+                        .addGap(28, 28, 28)
                         .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37)
+                        .addGap(34, 34, 34)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
                         .addComponent(jLabel5)
-                        .addGap(20, 20, 20)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addGap(55, 55, 55)
-                                .addComponent(vistaPrevia, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(34, 34, 34)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(41, 41, 41)
+                            .addComponent(vistaPrevia, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(7, 7, 7)
                 .addComponent(jLabel8)
-                .addGap(18, 18, 18)
-                .addComponent(jTextFieldModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(94, 94, 94))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextFieldModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(184, Short.MAX_VALUE))
         );
 
         pack();
@@ -316,36 +323,36 @@ private void agregarPrenda() {
     }//GEN-LAST:event_jTextField3ActionPerformed
 
     private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
-  if (evt.getActionCommand().equals(javax.swing.JFileChooser.APPROVE_SELECTION)) {
-    java.io.File archivo = jFileChooser1.getSelectedFile();
+        if (evt.getActionCommand().equals(javax.swing.JFileChooser.APPROVE_SELECTION)) {
+            java.io.File archivo = jFileChooser1.getSelectedFile();
 
-    if (archivo != null && archivo.exists()) {
-        imagenSeleccionada = archivo.getName(); // Solo el nombre del archivo
+            if (archivo != null && archivo.exists()) {
+                imagenSeleccionada = archivo.getName(); // Solo el nombre del archivo
 
-        // Ruta destino dentro del proyecto
-        File carpetaDestino = new File("imagenes/ropa/");
-        if (!carpetaDestino.exists()) {
-            carpetaDestino.mkdirs(); // Crea la carpeta si no existe
+                // Ruta destino dentro del proyecto
+                File carpetaDestino = new File("imagenes/ropa/");
+                if (!carpetaDestino.exists()) {
+                    carpetaDestino.mkdirs(); // Crea la carpeta si no existe
+                }
+
+                // Ruta completa destino
+                File destino = new File(carpetaDestino, imagenSeleccionada);
+
+                try {
+                    // Copiar archivo a la carpeta del proyecto
+                    Files.copy(archivo.toPath(), destino.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+                    // Mostrar imagen en JLabel (redimensionada)
+                    ImageIcon icon = new ImageIcon(destino.getAbsolutePath());
+                    Image img = icon.getImage().getScaledInstance(vistaPrevia.getWidth(), vistaPrevia.getHeight(), Image.SCALE_SMOOTH);
+                    vistaPrevia.setIcon(new ImageIcon(img));
+
+                    JOptionPane.showMessageDialog(this, "Imagen cargada correctamente.");
+                } catch (IOException e) {
+                    JOptionPane.showMessageDialog(this, "Error al copiar la imagen: " + e.getMessage());
+                }
+            }
         }
-
-        // Ruta completa destino
-        File destino = new File(carpetaDestino, imagenSeleccionada);
-
-        try {
-            // Copiar archivo a la carpeta del proyecto
-            Files.copy(archivo.toPath(), destino.toPath(), StandardCopyOption.REPLACE_EXISTING);
-
-            // Mostrar imagen en JLabel (redimensionada)
-            ImageIcon icon = new ImageIcon(destino.getAbsolutePath());
-            Image img = icon.getImage().getScaledInstance(vistaPrevia.getWidth(), vistaPrevia.getHeight(), Image.SCALE_SMOOTH);
-            vistaPrevia.setIcon(new ImageIcon(img));
-
-            JOptionPane.showMessageDialog(this, "Imagen cargada correctamente.");
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, "Error al copiar la imagen: " + e.getMessage());
-        }
-    }
-}
 
     }//GEN-LAST:event_jFileChooser1ActionPerformed
 
@@ -394,8 +401,8 @@ private void agregarPrenda() {
             }
         });
     }
-private String imagenSeleccionada = "sin_imagen.jpg"; 
-private ArrayList<Categoria> categoriasLista;
+    private String imagenSeleccionada = "sin_imagen.jpg";
+    private ArrayList<Categoria> categoriasLista;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -409,6 +416,7 @@ private ArrayList<Categoria> categoriasLista;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;

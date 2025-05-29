@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import modelos.Categoria;
+import com.formdev.flatlaf.FlatDarculaLaf;
 
 /**
  *
@@ -26,48 +27,41 @@ public class home extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         cargarCategoriasEnToolBar();
-        
-panelOverlay.setVisible(false); // que inicie oculto
 
+        panelOverlay.setVisible(false); // que inicie oculto
 
-
-      
     }
-    
+
     private void cargarCategoriasEnToolBar() {
-    CategoriaController categoriaController = new CategoriaController();
-    categoriasLista = categoriaController.obtenerCategorias();
+        CategoriaController categoriaController = new CategoriaController();
+        categoriasLista = categoriaController.obtenerCategorias();
 
-    jToolBar1.removeAll(); // Limpia por si acaso se vuelve a llamar
+        jToolBar1.removeAll(); // Limpia por si acaso se vuelve a llamar
 
-    for (Categoria categoria : categoriasLista) {
+        for (Categoria categoria : categoriasLista) {
 //        if(categoria.getNombre()==null){
 //            JOptionPane.showMessageDialog(this, "selecciona una categoria");
 //        }
-        
-         String nombreCategoria=(String)categoria.getNombre();
-       
-        JButton boton = new JButton(nombreCategoria);
-        
-    
-        // Agrega acción al botón si deseas
-        boton.addActionListener(e -> {
-             dispose();
-            // Aquí abres el panel o haces lo que necesites
-            ClientePanelProductos productos = new ClientePanelProductos(null, true, categoria);
-            productos.setVisible(true);
-        });
 
-        jToolBar1.add(boton);
+            String nombreCategoria = (String) categoria.getNombre();
+
+            JButton boton = new JButton(nombreCategoria);
+
+            // Agrega acción al botón si deseas
+            boton.addActionListener(e -> {
+                dispose();
+                // Aquí abres el panel o haces lo que necesites
+                ClientePanelProductos productos = new ClientePanelProductos(null, true, categoria);
+                productos.setVisible(true);
+            });
+
+            jToolBar1.add(boton);
+        }
+
+        // Redibuja la barra
+        jToolBar1.revalidate();
+        jToolBar1.repaint();
     }
-
-    // Redibuja la barra
-    jToolBar1.revalidate();
-    jToolBar1.repaint();
-}
-    
-       
-       
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -144,8 +138,8 @@ panelOverlay.setVisible(false); // que inicie oculto
                 .addGap(110, 110, 110)
                 .addComponent(jLabel1)
                 .addGap(76, 76, 76)
-                .addComponent(jButton1)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,7 +147,7 @@ panelOverlay.setVisible(false); // que inicie oculto
                 .addGap(50, 50, 50)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(60, Short.MAX_VALUE))
         );
 
@@ -222,9 +216,9 @@ panelOverlay.setVisible(false); // que inicie oculto
         // TODO add your handling code here:
         Point p = evt.getPoint(); // Punto donde se hizo clic dentro del panelOverlay
 
-if (!panelModal.getBounds().contains(p)) {
-    panelOverlay.setVisible(false); // Oculta el modal si se hizo clic fuera
-}
+        if (!panelModal.getBounds().contains(p)) {
+            panelOverlay.setVisible(false); // Oculta el modal si se hizo clic fuera
+        }
 
     }//GEN-LAST:event_panelOverlayMousePressed
 
@@ -238,33 +232,21 @@ if (!panelModal.getBounds().contains(p)) {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+        /* --- CÓDIGO PARA INICIAR FLATLAF --- */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            // Usamos el tema Darcula que ya habías seleccionado
+            FlatDarculaLaf.setup();
+        } catch (Exception ex) {
+            System.err.println("No se pudo inicializar el Look and Feel FlatLaf.");
         }
-        //</editor-fold>
+        /* --- FIN DEL CÓDIGO DE FLATLAF --- */
 
-        /* Create and display the dialog */
+
+ /* Creamos y mostramos la ventana UNA SOLA VEZ */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                home dialog = new home(new javax.swing.JFrame(), true);
+                AdminPanel dialog = new AdminPanel(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
