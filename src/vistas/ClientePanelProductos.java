@@ -36,86 +36,83 @@ public class ClientePanelProductos extends javax.swing.JDialog {
         productosPanel.setLayout(new javax.swing.BoxLayout(productosPanel, javax.swing.BoxLayout.Y_AXIS));
         cargarRopaCaballero();
         cargarEtiquetas();
-        
+
     }
-    public ClientePanelProductos(java.awt.Frame parent, boolean modal,Categoria categoriaRequerida) {
+
+    public ClientePanelProductos(java.awt.Frame parent, boolean modal, Categoria categoriaRequerida) {
         super(parent, modal);
         initComponents();
-        this.categoriaRequerida=categoriaRequerida;
-         cargarCategoriasEnToolBar();
+        this.categoriaRequerida = categoriaRequerida;
+        cargarCategoriasEnToolBar();
         productosPanel.setLayout(new javax.swing.BoxLayout(productosPanel, javax.swing.BoxLayout.Y_AXIS));
         cargarRopaCaballero();
         cargarEtiquetas();
-        
-        
-    }
-    
-    private void cargarEtiquetas(){
-    Font fuenteTitulo = new Font("Arial", Font.ITALIC, 22);
-    titulo.setText("Ropa para " + this.categoriaRequerida.getNombre());
-    titulo.setFont(fuenteTitulo);
-    titulo.setForeground(Color.white);
-    titulo.setHorizontalAlignment(SwingConstants.CENTER); // Centrado horizontal
 
-    // Cargar imagen en el banner
-    try {
-        String rutaImagen = "imagenes/categoria/" + this.categoriaRequerida.getFoto();
-        System.out.println(rutaImagen);
-        ImageIcon icono = new ImageIcon(rutaImagen);
-        Image imagenRedimensionada = icono.getImage().getScaledInstance(banner.getWidth(), banner.getHeight(), Image.SCALE_SMOOTH);
-        banner.setIcon(new ImageIcon(imagenRedimensionada));
-        
-        
-    } catch (Exception e) {
-        System.out.println("No se pudo cargar la imagen del banner: " + e.getMessage());
-        banner.setText("Imagen no disponible");
     }
+
+    private void cargarEtiquetas() {
+        Font fuenteTitulo = new Font("Arial", Font.ITALIC, 22);
+        titulo.setText("Ropa para " + this.categoriaRequerida.getNombre());
+        titulo.setFont(fuenteTitulo);
+        titulo.setForeground(Color.white);
+        titulo.setHorizontalAlignment(SwingConstants.CENTER); // Centrado horizontal
+        if (this.categoriaRequerida == null) {
+            titulo.setText("Catálogo General"); // Poner un título por defecto
+            return;
+        }
+        // Cargar imagen en el banner
+        try {
+            String rutaImagen = "imagenes/categoria/" + this.categoriaRequerida.getFoto();
+            System.out.println(rutaImagen);
+            ImageIcon icono = new ImageIcon(rutaImagen);
+            Image imagenRedimensionada = icono.getImage().getScaledInstance(banner.getWidth(), banner.getHeight(), Image.SCALE_SMOOTH);
+            banner.setIcon(new ImageIcon(imagenRedimensionada));
+
+        } catch (Exception e) {
+            System.out.println("No se pudo cargar la imagen del banner: " + e.getMessage());
+            banner.setText("Imagen no disponible");
+        }
     }
-    
-    
-    
-    
+
     private void cargarCategoriasEnToolBar() {
-    CategoriaController categoriaController = new CategoriaController();
-    categoriasLista = categoriaController.obtenerCategorias();
+        CategoriaController categoriaController = new CategoriaController();
+        categoriasLista = categoriaController.obtenerCategorias();
 
-    jToolBar1.removeAll(); // Limpia por si acaso se vuelve a llamar
+        jToolBar1.removeAll(); // Limpia por si acaso se vuelve a llamar
 
-    for (Categoria categoria : categoriasLista) {
-        JButton boton = new JButton(categoria.getNombre());
+        for (Categoria categoria : categoriasLista) {
+            JButton boton = new JButton(categoria.getNombre());
 
-        // Agrega acción al botón si deseas
-        boton.addActionListener(e -> {
-             dispose();
-            // Aquí abres el panel o haces lo que necesites
-            ClientePanelProductos productos = new ClientePanelProductos(null, true, categoria);
-            productos.setVisible(true);
-        });
+            // Agrega acción al botón si deseas
+            boton.addActionListener(e -> {
+                dispose();
+                // Aquí abres el panel o haces lo que necesites
+                ClientePanelProductos productos = new ClientePanelProductos(null, true, categoria);
+                productos.setVisible(true);
+            });
 
-        jToolBar1.add(boton);
+            jToolBar1.add(boton);
+        }
+
+        // Redibuja la barra
+        jToolBar1.revalidate();
+        jToolBar1.repaint();
     }
 
-    // Redibuja la barra
-    jToolBar1.revalidate();
-    jToolBar1.repaint();
-}
-    
-    
-
-        
-        
-    
     private void cargarRopaCaballero() {
-    RopaController controller = new RopaController();
-    for (Ropa ropa : controller.obtenerRopaPorCategoria(this.categoriaRequerida.getNombre())) {
-     //   if (ropa.getCategoria().getNombre().equalsIgnoreCase("Caballero")) {
+        RopaController controller = new RopaController();
+        for (Ropa ropa : controller.obtenerRopaPorCategoria(this.categoriaRequerida.getNombre())) {
+            //   if (ropa.getCategoria().getNombre().equalsIgnoreCase("Caballero")) {
             JPanel panel = new JPanel();
             panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-            panel.setBorder(javax.swing.BorderFactory.createEmptyBorder(10,10,10,10));
-
+            panel.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+            if (this.categoriaRequerida == null) {
+                // Podría cargar todos los productos aquí o no hacer nada
+                return;
+            }
             // Imagen
             try {
-                ImageIcon icon = new ImageIcon("imagenes/ropa/"+ropa.getImagen());
+                ImageIcon icon = new ImageIcon("imagenes/ropa/" + ropa.getImagen());
 
                 Image img = icon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
                 JLabel imgLabel = new JLabel(new ImageIcon(img));
@@ -131,13 +128,12 @@ public class ClientePanelProductos extends javax.swing.JDialog {
             panel.add(new JLabel("Precio: $" + ropa.getPrecio()));
 
             productosPanel.add(panel);
-     //   }
+            //   }
+        }
+
+        productosPanel.revalidate();
+        productosPanel.repaint();
     }
-
-    productosPanel.revalidate();
-    productosPanel.repaint();
-}
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -246,36 +242,33 @@ public class ClientePanelProductos extends javax.swing.JDialog {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-    /* --- CÓDIGO PARA INICIAR FLATLAF --- */
-    try {
-        // Aquí puedes elegir el tema que prefieras.
-        // Solo deja una de estas líneas sin comentar.
-        // com.formdev.flatlaf.FlatLightLaf.setup(); // Tema claro
-        FlatDarculaLaf.setup(); // Tema oscuro estilo Darcula
-        // com.formdev.flatlaf.FlatIntelliJLaf.setup(); // Tema de IntelliJ
+        /* --- CÓDIGO PARA INICIAR FLATLAF --- */
+        try {
+            FlatDarculaLaf.setup(); // Tema oscuro estilo Darcula
+            // com.formdev.flatlaf.FlatIntelliJLaf.setup(); // Tema de IntelliJ
 
-    } catch( Exception ex ) {
-        System.err.println( "No se pudo inicializar el Look and Feel FlatLaf." );
-    }
-    /* --- FIN DEL CÓDIGO DE FLATLAF --- */
-
-
-    /* Create and display the dialog */
-    java.awt.EventQueue.invokeLater(new Runnable() {
-        public void run() {
-            ClientePanelProductos dialog = new ClientePanelProductos(new javax.swing.JFrame(), true);
-            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                @Override
-                public void windowClosing(java.awt.event.WindowEvent e) {
-                    System.exit(0);
-                }
-            });
-            dialog.setVisible(true);
+        } catch (Exception ex) {
+            System.err.println("No se pudo inicializar el Look and Feel FlatLaf.");
         }
-    });
-}
+        /* --- FIN DEL CÓDIGO DE FLATLAF --- */
+
+
+ /* Create and display the dialog */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                ClientePanelProductos dialog = new ClientePanelProductos(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
+            }
+        });
+    }
     private ArrayList<Categoria> categoriasLista;
-    private Categoria categoriaRequerida=null;
+    private Categoria categoriaRequerida = null;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel banner;

@@ -5,8 +5,6 @@
 package vistas;
 
 import controladores.CategoriaController;
-import java.awt.Color;
-import java.awt.Point;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import modelos.Categoria;

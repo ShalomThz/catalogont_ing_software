@@ -33,6 +33,13 @@ public class Registro extends javax.swing.JDialog {
             return;
         }
 
+        // --- VALIDACIÓN PARA EL CORREO ---
+        // Verifica si el campo de email contiene el símbolo "@"
+        if (!email.contains("@")) {
+            javax.swing.JOptionPane.showMessageDialog(this, "El formato del correo electrónico no es válido. Debe contener un '@'.", "Correo inválido", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return; // Detiene el proceso si el correo no es válido
+        }
+
         // Crear un nuevo objeto Usuario
         modelos.Usuario nuevoUsuario = new modelos.Usuario(username, email, contrasena);
 
