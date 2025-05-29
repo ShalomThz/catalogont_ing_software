@@ -51,26 +51,43 @@ public class ClientePanelProductos extends javax.swing.JDialog {
     }
 
     private void cargarEtiquetas() {
+        // --- NUEVA VERIFICACIÓN AL INICIO ---
+        if (this.categoriaRequerida == null) {
+            titulo.setText("Catálogo General");
+            Font fuenteTitulo = new Font("Arial", Font.ITALIC, 22); // Puedes definir una fuente general
+            titulo.setFont(fuenteTitulo);
+            titulo.setForeground(Color.white);
+            titulo.setHorizontalAlignment(SwingConstants.CENTER);
+            banner.setIcon(null); // No hay banner específico
+            banner.setText("Todos los productos"); // O un mensaje genérico
+            return; // Salimos del método si no hay categoría
+        }
+
+        // Si llegamos aquí, this.categoriaRequerida NO es null
         Font fuenteTitulo = new Font("Arial", Font.ITALIC, 22);
         titulo.setText("Ropa para " + this.categoriaRequerida.getNombre());
         titulo.setFont(fuenteTitulo);
         titulo.setForeground(Color.white);
-        titulo.setHorizontalAlignment(SwingConstants.CENTER); // Centrado horizontal
-        if (this.categoriaRequerida == null) {
-            titulo.setText("Catálogo General"); // Poner un título por defecto
-            return;
-        }
+        titulo.setHorizontalAlignment(SwingConstants.CENTER);
+
         // Cargar imagen en el banner
         try {
             String rutaImagen = "imagenes/categoria/" + this.categoriaRequerida.getFoto();
-            System.out.println(rutaImagen);
+            // System.out.println(rutaImagen); // Puedes dejarlo para depurar
             ImageIcon icono = new ImageIcon(rutaImagen);
-            Image imagenRedimensionada = icono.getImage().getScaledInstance(banner.getWidth(), banner.getHeight(), Image.SCALE_SMOOTH);
-            banner.setIcon(new ImageIcon(imagenRedimensionada));
-
+            // Asegúrate de que el banner tenga dimensiones antes de redimensionar
+            if (banner.getWidth() > 0 && banner.getHeight() > 0) {
+                Image imagenRedimensionada = icono.getImage().getScaledInstance(banner.getWidth(), banner.getHeight(), Image.SCALE_SMOOTH);
+                banner.setIcon(new ImageIcon(imagenRedimensionada));
+            } else {
+                // Si el banner aún no tiene dimensiones, considera cargarlo más tarde o con un tamaño fijo
+                // Por ahora, lo dejamos con el ícono original o un texto
+                banner.setIcon(icono);
+                // O banner.setText("Cargando imagen...");
+            }
         } catch (Exception e) {
             System.out.println("No se pudo cargar la imagen del banner: " + e.getMessage());
-            banner.setText("Imagen no disponible");
+            banner.setText("Imagen de categoría no disponible");
         }
     }
 
@@ -83,12 +100,16 @@ public class ClientePanelProductos extends javax.swing.JDialog {
         for (Categoria categoria : categoriasLista) {
             JButton boton = new JButton(categoria.getNombre());
 
-            // Agrega acción al botón si deseas
             boton.addActionListener(e -> {
-                dispose();
-                // Aquí abres el panel o haces lo que necesites
-                ClientePanelProductos productos = new ClientePanelProductos(null, true, categoria);
-                productos.setVisible(true);
+                // 1. Actualiza la 'categoriaRequerida' de ESTA MISMA INSTANCIA de la ventana
+                // Usamos ClientePanelProductos.this para ser explícitos de que es el campo de la clase externa
+                ClientePanelProductos.this.categoriaRequerida = categoria;
+
+                // 2. Vuelve a cargar las etiquetas y los productos con la nueva categoría
+                cargarEtiquetas();      // Este método actualizará el título y el banner
+                cargarRopaCaballero();  // Este método limpiará y cargará los nuevos productos
+
+                ClientePanelProductos.this.setTitle("Catálogo - " + categoria.getNombre());
             });
 
             jToolBar1.add(boton);
@@ -101,34 +122,47 @@ public class ClientePanelProductos extends javax.swing.JDialog {
 
     private void cargarRopaCaballero() {
         RopaController controller = new RopaController();
-        for (Ropa ropa : controller.obtenerRopaPorCategoria(this.categoriaRequerida.getNombre())) {
-            //   if (ropa.getCategoria().getNombre().equalsIgnoreCase("Caballero")) {
-            JPanel panel = new JPanel();
-            panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-            panel.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
-            if (this.categoriaRequerida == null) {
-                // Podría cargar todos los productos aquí o no hacer nada
-                return;
+        ArrayList<Ropa> listaDeRopa; // Declaramos la lista
+
+        // --- LÓGICA MODIFICADA PARA CARGAR ROPA ---
+        if (this.categoriaRequerida != null) {
+            // Si SÍ tenemos una categoría específica, filtramos por ella
+            listaDeRopa = controller.obtenerRopaPorCategoria(this.categoriaRequerida.getNombre());
+        } else {
+            // Si NO tenemos categoría (ej. al abrir desde el main), obtenemos toda la ropa
+            listaDeRopa = controller.obtenerRopa(); // ¡Usamos el método que ya tienes!
+        }
+
+        // Limpiar el panel antes de agregar nuevos productos
+        productosPanel.removeAll();
+
+        if (listaDeRopa.isEmpty()) {
+            productosPanel.add(new JLabel("No hay productos para mostrar en esta categoría o no hay productos en general."));
+        } else {
+            for (Ropa ropa : listaDeRopa) {
+                JPanel panel = new JPanel();
+                panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+                panel.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+                // Imagen
+                try {
+                    ImageIcon icon = new ImageIcon("imagenes/ropa/" + ropa.getImagen());
+                    Image img = icon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+                    JLabel imgLabel = new JLabel(new ImageIcon(img));
+                    panel.add(imgLabel);
+                } catch (Exception e) {
+                    panel.add(new JLabel("Imagen no disponible"));
+                    System.err.println("Error al cargar imagen de ropa: " + ropa.getImagen() + " - " + e.getMessage());
+                }
+
+                // Atributos
+                panel.add(new JLabel("Nombre: " + ropa.getNombre()));
+                panel.add(new JLabel("Talla: " + ropa.getTalla()));
+                panel.add(new JLabel("Color: " + ropa.getColor()));
+                panel.add(new JLabel("Precio: $" + String.format("%.2f", ropa.getPrecio()))); // Formatear precio
+
+                productosPanel.add(panel);
             }
-            // Imagen
-            try {
-                ImageIcon icon = new ImageIcon("imagenes/ropa/" + ropa.getImagen());
-
-                Image img = icon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
-                JLabel imgLabel = new JLabel(new ImageIcon(img));
-                panel.add(imgLabel);
-            } catch (Exception e) {
-                panel.add(new JLabel("Imagen no disponible"));
-            }
-
-            // Atributos
-            panel.add(new JLabel("Nombre: " + ropa.getNombre()));
-            panel.add(new JLabel("Talla: " + ropa.getTalla()));
-            panel.add(new JLabel("Color: " + ropa.getColor()));
-            panel.add(new JLabel("Precio: $" + ropa.getPrecio()));
-
-            productosPanel.add(panel);
-            //   }
         }
 
         productosPanel.revalidate();
@@ -165,10 +199,10 @@ public class ClientePanelProductos extends javax.swing.JDialog {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(446, 446, 446)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(568, 568, 568))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,18 +236,16 @@ public class ClientePanelProductos extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1093, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(banner, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(123, 123, 123)))
+                        .addGap(51, 51, 51))
+                    .addComponent(titulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -221,18 +253,19 @@ public class ClientePanelProductos extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(27, 27, 27)
-                        .addComponent(banner, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(banner, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(139, 139, 139))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
         pack();
