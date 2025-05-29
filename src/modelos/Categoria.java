@@ -6,22 +6,20 @@ public class Categoria {
     private String descripcion;
     private String foto;
 
-    // Constructor sin foto
+    
     public Categoria(int id, String nombre, String descripcion) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
     }
 
-    // Constructor con foto
     public Categoria(int id, String nombre, String descripcion, String foto) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.foto = foto;
     }
-
-    // Getters
+ 
     public int getId() {
         return id;
     }
@@ -38,7 +36,6 @@ public class Categoria {
         return foto;
     }
 
-    // Setters
     public void setId(int id) {
         this.id = id;
     }

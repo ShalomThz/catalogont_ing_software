@@ -8,7 +8,7 @@ import com.formdev.flatlaf.FlatDarculaLaf;
 
 /**
  *
- * @author Villegas Velazquez Alejandro
+ * @author josha
  */
 public class Registro extends javax.swing.JDialog {
 

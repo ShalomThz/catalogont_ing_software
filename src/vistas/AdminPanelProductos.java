@@ -20,7 +20,7 @@ import com.formdev.flatlaf.FlatDarculaLaf;
 
 /**
  *
- * @author Villegas Velazquez Alejandro
+ * @author josha
  */
 public class AdminPanelProductos extends javax.swing.JDialog {
 

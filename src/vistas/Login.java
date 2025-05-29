@@ -12,7 +12,7 @@ import com.formdev.flatlaf.FlatDarculaLaf;
 
 /**
  *
- * @author Villegas Velazquez Alejandro
+ * @author josha
  */
 public class Login extends javax.swing.JDialog {
 
