@@ -22,7 +22,7 @@ public class Login extends javax.swing.JDialog {
     public Login(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
+
         // Establece jButton1 como el botón por defecto para la tecla Enter
         this.getRootPane().setDefaultButton(jButton1);
     }
@@ -40,10 +40,10 @@ public class Login extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        jPasswordField1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -88,6 +88,8 @@ public class Login extends javax.swing.JDialog {
 
         jLabel4.setText("INICIA SESIÓN EN TU CUENTA");
 
+        jPasswordField1.setText("jPasswordField1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -104,9 +106,9 @@ public class Login extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(174, 174, 174)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
                             .addComponent(jLabel4)
-                            .addComponent(jTextField1)))
+                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+                            .addComponent(jPasswordField1)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(206, 206, 206)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -124,9 +126,9 @@ public class Login extends javax.swing.JDialog {
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(64, 64, 64)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(76, 76, 76)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(82, 82, 82)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(123, Short.MAX_VALUE))
         );
@@ -139,31 +141,29 @@ public class Login extends javax.swing.JDialog {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       String username = jTextField1.getText().trim();
-    String contrasena = jTextField2.getText().trim();
+        String username = jTextField1.getText().trim();
+        String contrasena = new String(jPasswordField1.getPassword());
 
-    if (username.isEmpty() || contrasena.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Por favor completa todos los campos.", "Campos vacíos", JOptionPane.WARNING_MESSAGE);
-        return;
-    }
+        if (username.isEmpty() || contrasena.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor completa todos los campos.", "Campos vacíos", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
 
-    // Hashear la contraseña
-   
+        // Hashear la contraseña
+        // Autenticación
+        UsuarioController controlador = new UsuarioController();
+        Usuario usuario = controlador.autenticarUsuario(username, contrasena);
 
-    // Autenticación
-    UsuarioController controlador = new UsuarioController();
-    Usuario usuario = controlador.autenticarUsuario(username, contrasena);
-
-    if (usuario != null) {
-        // Autenticación exitosa
-        JOptionPane.showMessageDialog(this, "¡Inicio de sesión exitoso!", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
-        this.dispose();
-        AdminPanel nuevoAdminPanel = new AdminPanel(null, true);
-        nuevoAdminPanel.setVisible(true);
-    } else {
-        // Falló la autenticación
-        JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.", "Error de autenticación", JOptionPane.ERROR_MESSAGE);
-    }
+        if (usuario != null) {
+            // Autenticación exitosa
+            JOptionPane.showMessageDialog(this, "¡Inicio de sesión exitoso!", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+            AdminPanel nuevoAdminPanel = new AdminPanel(null, true);
+            nuevoAdminPanel.setVisible(true);
+        } else {
+            // Falló la autenticación
+            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.", "Error de autenticación", JOptionPane.ERROR_MESSAGE);
+        }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -171,31 +171,31 @@ public class Login extends javax.swing.JDialog {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-    /* --- CÓDIGO PARA INICIAR FLATLAF --- */
-    try {
-        // Usamos el tema Darcula que ya habías seleccionado
-        FlatDarculaLaf.setup();
-    } catch (Exception ex) {
-        System.err.println("No se pudo inicializar el Look and Feel FlatLaf.");
-    }
-    /* --- FIN DEL CÓDIGO DE FLATLAF --- */
-
-
-    /* Creamos y mostramos la ventana UNA SOLA VEZ */
-    java.awt.EventQueue.invokeLater(new Runnable() {
-        @Override
-        public void run() {
-            Login dialog = new Login(new javax.swing.JFrame(), true);
-            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                @Override
-                public void windowClosing(java.awt.event.WindowEvent e) {
-                    System.exit(0);
-                }
-            });
-            dialog.setVisible(true);
+        /* --- CÓDIGO PARA INICIAR FLATLAF --- */
+        try {
+            // Usamos el tema Darcula que ya habías seleccionado
+            FlatDarculaLaf.setup();
+        } catch (Exception ex) {
+            System.err.println("No se pudo inicializar el Look and Feel FlatLaf.");
         }
-    });
-}
+        /* --- FIN DEL CÓDIGO DE FLATLAF --- */
+
+
+ /* Creamos y mostramos la ventana UNA SOLA VEZ */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                Login dialog = new Login(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -204,7 +204,7 @@ public class Login extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }
