@@ -88,8 +88,6 @@ public class Login extends javax.swing.JDialog {
 
         jLabel4.setText("INICIA SESIÓN EN TU CUENTA");
 
-        jPasswordField1.setText("jPasswordField1");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -107,7 +105,7 @@ public class Login extends javax.swing.JDialog {
                         .addGap(174, 174, 174)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel4)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+                            .addComponent(jTextField1)
                             .addComponent(jPasswordField1)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(206, 206, 206)

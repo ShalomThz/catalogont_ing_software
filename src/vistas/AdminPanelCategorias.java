@@ -203,7 +203,6 @@ public class AdminPanelCategorias extends javax.swing.JDialog {
 
     javax.swing.JOptionPane.showMessageDialog(this, "Categoría guardada exitosamente.");
 
-    // Limpiar campos
     jTextField1.setText("");
     jTextField2.setText("");
     vistaPrevia.setIcon(null);
@@ -216,7 +215,6 @@ public class AdminPanelCategorias extends javax.swing.JDialog {
         File archivoSeleccionado = jFileChooser1.getSelectedFile();
         if (archivoSeleccionado != null && archivoSeleccionado.exists()) {
             try {
-                // Ruta destino dentro del proyecto (por ejemplo, carpeta "imagenes")
                 File carpetaDestino = new File("imagenes/categoria");
                 if (!carpetaDestino.exists()) {
                     carpetaDestino.mkdirs(); 
@@ -249,7 +247,6 @@ public class AdminPanelCategorias extends javax.swing.JDialog {
     public static void main(String args[]) {
     /* --- CÓDIGO PARA INICIAR FLATLAF --- */
     try {
-        // Usamos el tema Darcula 
         FlatDarculaLaf.setup();
     } catch (Exception ex) {
         System.err.println("No se pudo inicializar el Look and Feel FlatLaf.");
