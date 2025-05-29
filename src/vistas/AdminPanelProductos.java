@@ -45,58 +45,62 @@ public class AdminPanelProductos extends javax.swing.JDialog {
         }
     }
 
-    private void agregarPrenda() {
-        try {
-            String categoriaNombre = (String) jComboBox1.getSelectedItem();
-            if (categoriaNombre == null || categoriaNombre.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Por favor selecciona una categoría.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-
-            Categoria categoria = categoriasLista.stream()
-                    .filter(cat -> cat.getNombre().equals(categoriaNombre))
-                    .findFirst()
-                    .orElse(null);
-
-            if (categoria == null) {
-                JOptionPane.showMessageDialog(this, "Categoría no encontrada.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            String modelo = jTextFieldModelo.getText().trim(); // NUEVO CAMPO
-            String nombre = jTextField1.getText().trim();
-            String talla = jTextField2.getText().trim();
-            String color = jTextField3.getText().trim();
-            String precioTexto = jTextField4.getText().trim();
-
-            if (modelo.isEmpty() || nombre.isEmpty() || talla.isEmpty() || color.isEmpty() || precioTexto.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Por favor completa todos los campos.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-
-            double precio = Double.parseDouble(precioTexto);
-            String imagen = imagenSeleccionada;
-
-            Ropa nuevaRopa = new Ropa(modelo, nombre, categoria, talla, color, precio, imagen);
-            RopaController controller = new RopaController();
-            controller.agregarRopa(nuevaRopa);
-
-            JOptionPane.showMessageDialog(this, "Prenda agregada con éxito.");
-
-            // Limpiar campos
-            jTextFieldModelo.setText(""); // NUEVO
-            jTextField1.setText("");
-            jTextField2.setText("");
-            jTextField3.setText("");
-            jTextField4.setText("");
-
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Precio inválido.", "Error", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al agregar prenda: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+   private void agregarPrenda() {
+    try {
+        String categoriaNombre = (String) jComboBox1.getSelectedItem();
+        if (categoriaNombre == null || categoriaNombre.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor selecciona una categoría.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
         }
+
+        Categoria categoria = categoriasLista.stream()
+                .filter(cat -> cat.getNombre().equals(categoriaNombre))
+                .findFirst()
+                .orElse(null);
+
+        if (categoria == null) {
+            JOptionPane.showMessageDialog(this, "Categoría no encontrada.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String modelo = jTextFieldModelo.getText().trim();
+        String nombre = jTextField1.getText().trim();
+        String talla = jTextField2.getText().trim();
+        String color = jTextField3.getText().trim();
+        String precioTexto = jTextField4.getText().trim();
+        String descripcion = jTextAreaDescripcion.getText().trim(); // NUEVO
+
+        if (modelo.isEmpty() || nombre.isEmpty() || talla.isEmpty() || color.isEmpty() || precioTexto.isEmpty() || descripcion.isEmpty() || imagenSeleccionada == null) {
+            JOptionPane.showMessageDialog(this, "Por favor completa todos los campos y selecciona una imagen.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        double precio = Double.parseDouble(precioTexto);
+        String imagen = imagenSeleccionada;
+
+        Ropa nuevaRopa = new Ropa(modelo, nombre, categoria, talla, color, precio, imagen, descripcion); // NUEVO
+        RopaController controller = new RopaController();
+        controller.agregarRopa(nuevaRopa);
+
+        JOptionPane.showMessageDialog(this, "Prenda agregada con éxito.");
+
+        // Limpiar campos
+        jTextFieldModelo.setText("");
+        jTextField1.setText("");
+        jTextField2.setText("");
+        jTextField3.setText("");
+        jTextField4.setText("");
+        jTextAreaDescripcion.setText(""); // NUEVO
+        vistaPrevia.setIcon(null);
+        imagenSeleccionada = null;
+
+    } catch (NumberFormatException ex) {
+        JOptionPane.showMessageDialog(this, "Precio inválido.", "Error", JOptionPane.ERROR_MESSAGE);
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error al agregar prenda: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -126,6 +130,9 @@ public class AdminPanelProductos extends javax.swing.JDialog {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jTextFieldModelo = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextAreaDescripcion = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -211,6 +218,12 @@ public class AdminPanelProductos extends javax.swing.JDialog {
             }
         });
 
+        jLabel10.setText("Descripcion");
+
+        jTextAreaDescripcion.setColumns(20);
+        jTextAreaDescripcion.setRows(5);
+        jScrollPane1.setViewportView(jTextAreaDescripcion);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -219,6 +232,8 @@ public class AdminPanelProductos extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10)
                     .addComponent(jLabel8)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -296,7 +311,11 @@ public class AdminPanelProductos extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextFieldModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(184, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
+                .addComponent(jLabel10)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -398,6 +417,7 @@ public class AdminPanelProductos extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -407,6 +427,8 @@ public class AdminPanelProductos extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextAreaDescripcion;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
