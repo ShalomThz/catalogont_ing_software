@@ -263,7 +263,7 @@ public class ClientePanelProductos extends javax.swing.JDialog {
     /* Create and display the dialog */
     java.awt.EventQueue.invokeLater(new Runnable() {
         public void run() {
-            AdminPanel dialog = new AdminPanel(new javax.swing.JFrame(), true);
+            ClientePanelProductos dialog = new ClientePanelProductos(new javax.swing.JFrame(), true);
             dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosing(java.awt.event.WindowEvent e) {

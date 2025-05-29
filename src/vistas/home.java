@@ -246,7 +246,7 @@ public class home extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                AdminPanel dialog = new AdminPanel(new javax.swing.JFrame(), true);
+                home dialog = new home(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

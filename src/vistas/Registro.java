@@ -4,6 +4,8 @@
  */
 package vistas;
 
+import com.formdev.flatlaf.FlatDarculaLaf;
+
 /**
  *
  * @author Villegas Velazquez Alejandro
@@ -16,35 +18,34 @@ public class Registro extends javax.swing.JDialog {
     public Registro(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.getRootPane().setDefaultButton(jButton1); 
+        this.getRootPane().setDefaultButton(jButton1);
     }
-    
+
     private void registrarUsuario() {
-    // Obtener los datos de los campos de texto
-    String username = jTextField1.getText().trim();
-    String email = jTextField2.getText().trim();
-    String contrasena = jTextField3.getText().trim();
+        // Obtener los datos de los campos de texto
+        String username = jTextField1.getText().trim();
+        String email = jTextField2.getText().trim();
+        String contrasena = jTextField3.getText().trim();
 
-    // Validar que no estén vacíos
-    if (username.isEmpty() || email.isEmpty() || contrasena.isEmpty()) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Campos vacíos", javax.swing.JOptionPane.WARNING_MESSAGE);
-        return;
+        // Validar que no estén vacíos
+        if (username.isEmpty() || email.isEmpty() || contrasena.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Campos vacíos", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Crear un nuevo objeto Usuario
+        modelos.Usuario nuevoUsuario = new modelos.Usuario(username, email, contrasena);
+
+        // Llamar al controlador para agregar el usuario
+        controladores.UsuarioController controller = new controladores.UsuarioController();
+        controller.agregarUsuario(nuevoUsuario);
+
+        // Mostrar mensaje de éxito
+        javax.swing.JOptionPane.showMessageDialog(this, "Usuario registrado correctamente.", "Registro exitoso", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+
+        // Cerrar el diálogo de registro
+        dispose();
     }
-
-    // Crear un nuevo objeto Usuario
-    modelos.Usuario nuevoUsuario = new modelos.Usuario(username, email, contrasena);
-
-    // Llamar al controlador para agregar el usuario
-    controladores.UsuarioController controller = new controladores.UsuarioController();
-    controller.agregarUsuario(nuevoUsuario);
-
-    // Mostrar mensaje de éxito
-    javax.swing.JOptionPane.showMessageDialog(this, "Usuario registrado correctamente.", "Registro exitoso", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-
-    // Cerrar el diálogo de registro
-    dispose();
-}
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -189,7 +190,7 @@ public class Registro extends javax.swing.JDialog {
     }//GEN-LAST:event_jTextField3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-             registrarUsuario();
+        registrarUsuario();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
@@ -200,31 +201,19 @@ public class Registro extends javax.swing.JDialog {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+        /* --- CÓDIGO PARA INICIAR FLATLAF --- */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Registro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Registro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Registro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Registro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            // Usamos el tema Darcula que ya habías seleccionado
+            FlatDarculaLaf.setup();
+        } catch (Exception ex) {
+            System.err.println("No se pudo inicializar el Look and Feel FlatLaf.");
         }
-        //</editor-fold>
+        /* --- FIN DEL CÓDIGO DE FLATLAF --- */
 
-        /* Create and display the dialog */
+
+ /* Creamos y mostramos la ventana UNA SOLA VEZ */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 Registro dialog = new Registro(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -237,7 +226,6 @@ public class Registro extends javax.swing.JDialog {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
