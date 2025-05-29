@@ -4,6 +4,8 @@
  */
 package vistas;
 
+import modelos.Ropa;
+
 /**
  *
  * @author josha
@@ -29,7 +31,7 @@ public class ClientePanelProducto extends javax.swing.JDialog {
     descripcionProducto.setText("<html><body style='width: 200px'>" + ropa.getDescripcion() + "</body></html>");
 
     if (ropa.getImagen() != null) {
-        imagenProducto.setIcon(ropa.getImagen()); // o usar new ImageIcon(ropa.getImagen())
+        //imagenProducto.setIcon(ropa.getImagen()); // o usar new ImageIcon(ropa.getImagen())
         imagenProducto.setText(""); // Limpiar texto si tiene ícono
     } else {
         imagenProducto.setText("Sin imagen");

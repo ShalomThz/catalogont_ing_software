@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import modelos.Categoria;
 import com.formdev.flatlaf.FlatDarculaLaf;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -22,31 +26,57 @@ public class Home extends javax.swing.JDialog {
     public Home(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        jPanel2.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20)); // Centra los botones, con 20px de espacio horizontal y vertical
         cargarCategoriasEnToolBar();
-
     }
 
     private void cargarCategoriasEnToolBar() {
         CategoriaController categoriaController = new CategoriaController();
         categoriasLista = categoriaController.obtenerCategorias();
-        
+
+        jPanel2.removeAll(); // Limpia el panel antes de añadir nuevos botones
+
         for (Categoria categoria : categoriasLista) {
-//        if(categoria.getNombre()==null){
-//            JOptionPane.showMessageDialog(this, "selecciona una categoria");
-//        }
+            String nombreCategoria = categoria.getNombre();
+            String rutaImagen = "imagenes/categoria/" + categoria.getFoto();
 
-            String nombreCategoria = (String) categoria.getNombre();
+            JButton boton = new JButton(); // Creamos el botón sin texto inicial
 
-            JButton boton = new JButton(nombreCategoria);
+            // --- Cargar y redimensionar la imagen para el botón ---
+            try {
+                ImageIcon originalIcon = new ImageIcon(rutaImagen);
+                // Define un tamaño para la imagen del botón (ej. 100x100)
+                Image scaledImage = originalIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+                ImageIcon scaledIcon = new ImageIcon(scaledImage);
 
-            // Agrega acción al botón si deseas
+                boton.setIcon(scaledIcon); // Establece la imagen del botón
+                boton.setText(nombreCategoria); // Establece el texto
+                boton.setVerticalTextPosition(JButton.BOTTOM); // Posiciona el texto debajo de la imagen
+                boton.setHorizontalTextPosition(JButton.CENTER); // Centra el texto horizontalmente
+                boton.setPreferredSize(new Dimension(150, 150)); // Tamaño preferido del botón
+                boton.setMinimumSize(new Dimension(150, 150));
+                boton.setMaximumSize(new Dimension(150, 150));
+                
+            } catch (Exception e) {
+                System.err.println("Error al cargar imagen para categoría " + nombreCategoria + ": " + e.getMessage());
+                boton.setText(nombreCategoria + " (Imagen no encontrada)"); // Mostrar texto si la imagen falla
+                boton.setPreferredSize(new Dimension(150, 50)); // Tamaño más pequeño si no hay imagen
+            }
+
+            // Agrega acción al botón (esta lógica ya la tenías y es correcta)
             boton.addActionListener(e -> {
-                dispose();
-                // Aquí abres el panel o haces lo que necesites
+                dispose(); // Cierra la ventana Home
                 ClientePanelProductos productos = new ClientePanelProductos(null, true, categoria);
                 productos.setVisible(true);
             });
+
+            // Añade el botón al panel
+            jPanel2.add(boton);
         }
+
+        // Después de añadir todos los botones, revalida y repinta el panel para actualizar la UI
+        jPanel2.revalidate();
+        jPanel2.repaint();
     }
 
     /**
@@ -62,6 +92,7 @@ public class Home extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        textField1 = new java.awt.TextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel2 = new javax.swing.JPanel();
 
@@ -81,43 +112,42 @@ public class Home extends javax.swing.JDialog {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("CatalogoNT");
 
+        textField1.setText("textField1");
+        textField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textField1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(151, 151, 151)
+                .addGap(189, 189, 189)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(63, 63, 63)
                 .addComponent(jButton1)
-                .addGap(142, 142, 142))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(75, 75, 75)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(93, 93, 93)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(82, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                            .addComponent(textField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(74, 74, 74)
+                        .addComponent(jLabel1)))
+                .addContainerGap(97, Short.MAX_VALUE))
         );
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 966, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1069, Short.MAX_VALUE)
-        );
-
         jScrollPane1.setViewportView(jPanel2);
 
         javax.swing.GroupLayout panelPrincipalLayout = new javax.swing.GroupLayout(panelPrincipal);
@@ -126,9 +156,11 @@ public class Home extends javax.swing.JDialog {
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 942, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelPrincipalLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 942, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelPrincipalLayout.setVerticalGroup(
@@ -163,6 +195,10 @@ public class Home extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void textField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textField1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -202,5 +238,6 @@ public class Home extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelPrincipal;
+    private java.awt.TextField textField1;
     // End of variables declaration//GEN-END:variables
 }
