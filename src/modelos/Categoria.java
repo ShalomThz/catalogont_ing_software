@@ -1,5 +1,8 @@
 package modelos;
-
+/**
+ *
+ * @author josha
+ */
 public class Categoria {
     private int id;
     private String nombre;

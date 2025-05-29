@@ -5,6 +5,10 @@ import modelos.Categoria;
 
 import java.sql.*;
 import java.util.ArrayList;
+/**
+ *
+ * @author josha
+ */
 
 public class CategoriaController {
 public Categoria buscarPorNombre(String nombre) {

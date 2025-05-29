@@ -34,7 +34,7 @@ public class ClientePanelProductos extends javax.swing.JDialog {
         initComponents();
         cargarCategoriasEnToolBar();
         productosPanel.setLayout(new javax.swing.BoxLayout(productosPanel, javax.swing.BoxLayout.Y_AXIS));
-        cargarRopaCaballero();
+        cargarRopa();
         cargarEtiquetas();
 
     }
@@ -45,7 +45,7 @@ public class ClientePanelProductos extends javax.swing.JDialog {
         this.categoriaRequerida = categoriaRequerida;
         cargarCategoriasEnToolBar();
         productosPanel.setLayout(new javax.swing.BoxLayout(productosPanel, javax.swing.BoxLayout.Y_AXIS));
-        cargarRopaCaballero();
+        cargarRopa();
         cargarEtiquetas();
 
     }
@@ -107,7 +107,7 @@ public class ClientePanelProductos extends javax.swing.JDialog {
 
                 // 2. Vuelve a cargar las etiquetas y los productos con la nueva categoría
                 cargarEtiquetas();      // Este método actualizará el título y el banner
-                cargarRopaCaballero();  // Este método limpiará y cargará los nuevos productos
+                cargarRopa();  // Este método limpiará y cargará los nuevos productos
 
                 ClientePanelProductos.this.setTitle("Catálogo - " + categoria.getNombre());
             });
@@ -120,7 +120,7 @@ public class ClientePanelProductos extends javax.swing.JDialog {
         jToolBar1.repaint();
     }
 
-    private void cargarRopaCaballero() {
+    private void cargarRopa() {
         RopaController controller = new RopaController();
         ArrayList<Ropa> listaDeRopa; // Declaramos la lista
 

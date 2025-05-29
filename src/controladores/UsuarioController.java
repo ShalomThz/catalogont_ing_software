@@ -5,7 +5,10 @@ import modelos.Usuario;
 import seguridad.SeguridadUtil;
 
 import java.sql.*;
-
+/**
+ *
+ * @author josha
+ */
 public class UsuarioController {
 
     public void agregarUsuario(Usuario usuario) {

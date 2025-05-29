@@ -1,8 +1,8 @@
 package modelos;
 
 /**
- * Modelo de la entidad Usuario.
- * Utilizado para autenticación y gestión de roles.
+ *
+ * @author josha
  */
 public class Usuario {
     private int id;
@@ -11,7 +11,6 @@ public class Usuario {
     private String contrasena;
   
 
-    // Constructor completo
     public Usuario(int id, String username, String email, String contrasena) {
         this.id = id;
         this.username = username;
@@ -20,7 +19,6 @@ public class Usuario {
       
     }
 
-    // Constructor sin ID (para creación)
     public Usuario(String username, String email, String contrasena) {
         this.username = username;
         this.email = email;
@@ -28,7 +26,7 @@ public class Usuario {
       
     }
 
-    // Getters
+
     public int getId() {
         return id;
     }
@@ -46,8 +44,6 @@ public class Usuario {
     }
 
 
-
-    // Setters
     public void setId(int id) {
         this.id = id;
     }
