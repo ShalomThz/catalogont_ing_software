@@ -26,7 +26,7 @@ public class Home extends javax.swing.JDialog {
     public Home(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        jPanel2.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20)); // Centra los botones, con 20px de espacio horizontal y vertical
+        jPanel2.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20)); 
         cargarCategoriasEnToolBar();
     }
 
@@ -34,18 +34,17 @@ public class Home extends javax.swing.JDialog {
         CategoriaController categoriaController = new CategoriaController();
         categoriasLista = categoriaController.obtenerCategorias();
 
-        jPanel2.removeAll(); // Limpia el panel antes de añadir nuevos botones
+        jPanel2.removeAll(); 
 
         for (Categoria categoria : categoriasLista) {
             String nombreCategoria = categoria.getNombre();
             String rutaImagen = "imagenes/categoria/" + categoria.getFoto();
 
-            JButton boton = new JButton(); // Creamos el botón sin texto inicial
+            JButton boton = new JButton(); 
 
             // --- Cargar y redimensionar la imagen para el botón ---
             try {
                 ImageIcon originalIcon = new ImageIcon(rutaImagen);
-                // Define un tamaño para la imagen del botón (ej. 100x100)
                 Image scaledImage = originalIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
                 ImageIcon scaledIcon = new ImageIcon(scaledImage);
 
@@ -59,22 +58,18 @@ public class Home extends javax.swing.JDialog {
                 
             } catch (Exception e) {
                 System.err.println("Error al cargar imagen para categoría " + nombreCategoria + ": " + e.getMessage());
-                boton.setText(nombreCategoria + " (Imagen no encontrada)"); // Mostrar texto si la imagen falla
-                boton.setPreferredSize(new Dimension(150, 50)); // Tamaño más pequeño si no hay imagen
+                boton.setText(nombreCategoria + " (Imagen no encontrada)"); 
+                boton.setPreferredSize(new Dimension(150, 50)); 
             }
 
-            // Agrega acción al botón (esta lógica ya la tenías y es correcta)
             boton.addActionListener(e -> {
-                dispose(); // Cierra la ventana Home
+                dispose(); 
                 ClientePanelProductos productos = new ClientePanelProductos(null, true, categoria);
                 productos.setVisible(true);
             });
 
-            // Añade el botón al panel
             jPanel2.add(boton);
         }
-
-        // Después de añadir todos los botones, revalida y repinta el panel para actualizar la UI
         jPanel2.revalidate();
         jPanel2.repaint();
     }

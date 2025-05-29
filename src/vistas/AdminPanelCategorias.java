@@ -16,7 +16,7 @@ import com.formdev.flatlaf.FlatDarculaLaf;
 
 /**
  *
- * @author josha
+ * @author Villegas Velazquez Alejandro
  */
 public class AdminPanelCategorias extends javax.swing.JDialog {
 
@@ -195,8 +195,6 @@ public class AdminPanelCategorias extends javax.swing.JDialog {
         return;
     }
 
-    // Aquí depende de cómo esté definida tu clase Categoria.
-    // Supongamos que tiene un campo "imagen" que recibe el nombre del archivo (sin ruta completa)
     String nombreImagen = new File(imagenSeleccionada).getName();
 
     Categoria nuevaCategoria = new Categoria(0, nombre, descripcion, nombreImagen);
@@ -221,7 +219,7 @@ public class AdminPanelCategorias extends javax.swing.JDialog {
                 // Ruta destino dentro del proyecto (por ejemplo, carpeta "imagenes")
                 File carpetaDestino = new File("imagenes/categoria");
                 if (!carpetaDestino.exists()) {
-                    carpetaDestino.mkdirs(); // Crea la carpeta si no existe
+                    carpetaDestino.mkdirs(); 
                 }
 
                 // Copiar archivo a la carpeta destino
