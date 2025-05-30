@@ -70,7 +70,7 @@ public class AdminPanelProductos extends javax.swing.JDialog {
         String color = jTextField3.getText().trim();
         String precioTexto = jTextField4.getText().trim();
         String descripcion = jTextAreaDescripcion.getText().trim();
-        String marca = "Marca Default"; // Nuevo campo requerido
+        String marca = jTextFieldMarca.getText().trim(); // Nuevo campo requerido
         boolean disponible = checkbox1.getState();
 
         if (modelo.isEmpty() || nombre.isEmpty() || talla.isEmpty() || color.isEmpty() || 
