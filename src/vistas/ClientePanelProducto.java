@@ -173,6 +173,7 @@ public class ClientePanelProducto extends javax.swing.JDialog {
     if (ropaActual == null) return;
 
     Usuario usuarioActual = SesionUtil.getUsuarioActual();
+    System.out.println(usuarioActual);
     if (usuarioActual == null) {
         JOptionPane.showMessageDialog(this, "Debe iniciar sesión para agregar al carrito.", "Error", JOptionPane.ERROR_MESSAGE);
         return;

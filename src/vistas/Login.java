@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import modelos.Usuario;
 import seguridad.SeguridadUtil;
 import com.formdev.flatlaf.FlatDarculaLaf;
+import sesion.SesionUtil;
 
 /**
  *
@@ -167,9 +168,12 @@ public class Login extends javax.swing.JDialog {
                 AdminPanel adminPanel = new AdminPanel(null, true);
                 adminPanel.setVisible(true);
             } else {
+                System.out.println(usuario);
+                SesionUtil.iniciarSesion(usuario);
                 this.dispose();
                 Home home = new Home(null, true);
                 home.setVisible(true);
+                
             }
         } else {
             // Falló la autenticación
@@ -178,6 +182,8 @@ public class Login extends javax.swing.JDialog {
                     "Error de autenticación",
                     JOptionPane.ERROR_MESSAGE);
         }
+        
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
