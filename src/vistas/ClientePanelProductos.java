@@ -208,6 +208,7 @@ public class ClientePanelProductos extends javax.swing.JDialog {
         jToolBar1 = new javax.swing.JToolBar();
         banner = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        Carrito = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -276,6 +277,13 @@ public class ClientePanelProductos extends javax.swing.JDialog {
             }
         });
 
+        Carrito.setText("Ir al Carrito");
+        Carrito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CarritoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -293,6 +301,8 @@ public class ClientePanelProductos extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(47, 47, 47)
+                                .addComponent(Carrito, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
@@ -318,7 +328,9 @@ public class ClientePanelProductos extends javax.swing.JDialog {
                         .addGap(27, 27, 27)
                         .addComponent(banner, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Carrito, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(16, 16, 16))))
         );
 
@@ -331,6 +343,7 @@ public class ClientePanelProductos extends javax.swing.JDialog {
         nuevoHome.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+<<<<<<< HEAD
     private void jButtonVerCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerCarritoActionPerformed
             // Crear e inicializar la vista del carrito
     CarritoVista carritoVista = new CarritoVista(new javax.swing.JFrame(), true);
@@ -342,20 +355,24 @@ public class ClientePanelProductos extends javax.swing.JDialog {
     carritoVista.setLocationRelativeTo(null); // Centrar en pantalla
     carritoVista.setVisible(true);
     }//GEN-LAST:event_jButtonVerCarritoActionPerformed
+=======
+    private void CarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CarritoActionPerformed
+        this.dispose();
+        CarritoVista nuevoCarrito = new CarritoVista(null, true);
+        nuevoCarrito.setVisible(true);
+    }//GEN-LAST:event_CarritoActionPerformed
+>>>>>>> 48db05f6506db492c176107dc28df25cf1dc16e8
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* --- CÓDIGO PARA INICIAR FLATLAF --- */
         try {
-            FlatDarculaLaf.setup(); // Tema oscuro estilo Darcula
-            // com.formdev.flatlaf.FlatIntelliJLaf.setup(); // Tema de IntelliJ
+            FlatDarculaLaf.setup(); 
 
         } catch (Exception ex) {
             System.err.println("No se pudo inicializar el Look and Feel FlatLaf.");
         }
-        /* --- FIN DEL CÓDIGO DE FLATLAF --- */
 
 
  /* Create and display the dialog */
@@ -376,6 +393,7 @@ public class ClientePanelProductos extends javax.swing.JDialog {
     private Categoria categoriaRequerida = null;
     private Usuario usuarioActual=null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Carrito;
     private javax.swing.JLabel banner;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonVerCarrito;
