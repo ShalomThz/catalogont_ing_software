@@ -6,33 +6,36 @@ package modelos;
  */
 public class Usuario {
     private int id;
-    private String username;
+    private String nombre;
     private String email;
     private String contrasena;
-  
+    private String rol;
 
-    public Usuario(int id, String username, String email, String contrasena) {
+    public Usuario(int id, String nombre, String email, String contrasena, String rol) {
         this.id = id;
-        this.username = username;
+        this.nombre = nombre;
         this.email = email;
         this.contrasena = contrasena;
-      
+        this.rol = rol;
     }
 
-    public Usuario(String username, String email, String contrasena) {
-        this.username = username;
+    public Usuario(String nombre, String email, String contrasena, String rol) {
+        this.nombre = nombre;
         this.email = email;
         this.contrasena = contrasena;
-      
+        this.rol = rol;
     }
 
+    public Usuario() {
+        // Constructor vacío
+    }
 
     public int getId() {
         return id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getNombre() {
+        return nombre;
     }
 
     public String getEmail() {
@@ -43,13 +46,16 @@ public class Usuario {
         return contrasena;
     }
 
+    public String getRol() {
+        return rol;
+    }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public void setEmail(String email) {
@@ -60,4 +66,7 @@ public class Usuario {
         this.contrasena = contrasena;
     }
 
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
 }

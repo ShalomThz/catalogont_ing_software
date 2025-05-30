@@ -17,8 +17,8 @@ public class RopaController {
             ps.setString(1, ropa.getModelo());
             ps.setString(2, ropa.getNombre());
             ps.setString(3, ropa.getMarca());
-            ps.setDouble(4, ropa.getPrecio());
-            ps.setDouble(5, ropa.getDescuento());
+            ps.setBigDecimal(4, ropa.getPrecio());
+            ps.setBigDecimal(5, ropa.getDescuento());
             ps.setString(6, ropa.getTalla());
             ps.setString(7, ropa.getColor());
             ps.setBoolean(8, ropa.isDisponible());
@@ -58,8 +58,8 @@ public class RopaController {
                     rs.getString("marca"),
                     rs.getString("color"),
                     rs.getString("talla"),
-                    rs.getDouble("precio"),
-                    rs.getDouble("descuento"),
+                    rs.getBigDecimal("precio"),
+                    rs.getBigDecimal("descuento"),
                     rs.getBoolean("disponible"),
                     rs.getString("descripcion"),
                     rs.getString("imagen"),
@@ -84,8 +84,8 @@ public class RopaController {
 
             ps.setString(1, ropa.getNombre());
             ps.setString(2, ropa.getMarca());
-            ps.setDouble(3, ropa.getPrecio());
-            ps.setDouble(4, ropa.getDescuento());
+            ps.setBigDecimal(3, ropa.getPrecio());
+            ps.setBigDecimal(4, ropa.getDescuento()); 
             ps.setString(5, ropa.getTalla());
             ps.setString(6, ropa.getColor());
             ps.setBoolean(7, ropa.isDisponible());
@@ -177,8 +177,8 @@ public class RopaController {
                         rs.getString("marca"),
                         rs.getString("color"),
                         rs.getString("talla"),
-                        rs.getDouble("precio"),
-                        rs.getDouble("descuento"),
+                        rs.getBigDecimal("precio"),
+                        rs.getBigDecimal("descuento"),
                         rs.getBoolean("disponible"),
                         rs.getString("descripcion"),
                         rs.getString("imagen"),
@@ -191,6 +191,53 @@ public class RopaController {
 
         } catch (SQLException e) {
             System.err.println("Error al buscar ropa: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+    
+    public ArrayList<Ropa> buscarRopaPorNombreCategoria(String nombreCategoria) {
+        ArrayList<Ropa> lista = new ArrayList<>();
+        String sql = "SELECT r.id, r.modelo, r.nombre, r.marca, r.precio, r.descuento, r.talla, r.color, r.disponible, r.imagen, r.descripcion, " +
+                     "c.id AS cat_id, c.nombre AS cat_nombre, c.descripcion AS cat_descripcion, c.foto AS cat_foto " +
+                     "FROM ropa r JOIN categoria c ON r.categoria_id = c.id WHERE LOWER(c.nombre) = ?";
+
+        try (Connection con = ConexionDB.getConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, nombreCategoria.toLowerCase());
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Categoria categoria = new Categoria(
+                        rs.getInt("cat_id"),
+                        rs.getString("cat_nombre"),
+                        rs.getString("cat_descripcion"),
+                        rs.getString("cat_foto")
+                    );
+
+                    Ropa ropa = new Ropa(
+                        rs.getInt("id"),
+                        rs.getString("modelo"),
+                        rs.getString("nombre"),
+                        rs.getString("marca"),
+                        rs.getString("color"),
+                        rs.getString("talla"),
+                        rs.getBigDecimal("precio"),
+                        rs.getBigDecimal("descuento"),
+                        rs.getBoolean("disponible"),
+                        rs.getString("descripcion"),
+                        rs.getString("imagen"),
+                        categoria
+                    );
+
+                    lista.add(ropa);
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al buscar ropa por categoria: " + e.getMessage());
             e.printStackTrace();
         }
 

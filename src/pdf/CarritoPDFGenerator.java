@@ -16,6 +16,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.math.BigDecimal;
 import java.util.List;
+import modelos.CarritoItem;
+import modelos.Ropa;
 
 public class CarritoPDFGenerator {
 
@@ -73,9 +75,9 @@ public class CarritoPDFGenerator {
                 tabla.addCell("$" + totalLinea);
 
                 // Imagen
-                if (ropa.getRutaFoto() != null && !ropa.getRutaFoto().isEmpty()) {
+                if (ropa.getImagen() != null && !ropa.getImagen().isEmpty()) {
                     try {
-                        Image imagen = Image.getInstance(ropa.getRutaFoto());
+                        Image imagen = Image.getInstance(ropa.getImagen());
                         imagen.scaleAbsolute(60f, 60f);
                         PdfPCell celdaImagen = new PdfPCell(imagen, true);
                         celdaImagen.setPadding(5);

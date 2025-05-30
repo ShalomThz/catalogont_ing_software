@@ -127,7 +127,7 @@ public class ClientePanelProductos extends javax.swing.JDialog {
         // --- LÓGICA MODIFICADA PARA CARGAR ROPA ---
         if (this.categoriaRequerida != null) {
             // Si SÍ tenemos una categoría específica, filtramos por ella
-            listaDeRopa = controller.obtenerRopaPorCategoria(this.categoriaRequerida.getNombre());
+            listaDeRopa = controller.buscarRopaPorNombreCategoria(this.categoriaRequerida.getNombre());
         } else {
             // Si NO tenemos categoría (ej. al abrir desde el main), obtenemos toda la ropa
             listaDeRopa = controller.obtenerRopa(); // ¡Usamos el método que ya tienes!
