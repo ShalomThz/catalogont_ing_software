@@ -39,6 +39,7 @@ public class ClientePanelProductos extends javax.swing.JDialog {
         productosPanel.setLayout(new javax.swing.BoxLayout(productosPanel, javax.swing.BoxLayout.Y_AXIS));
         cargarRopa();
         cargarEtiquetas();
+        usuarioActual=SesionUtil.getUsuarioActual();
 
     }
 
@@ -50,6 +51,7 @@ public class ClientePanelProductos extends javax.swing.JDialog {
         productosPanel.setLayout(new javax.swing.BoxLayout(productosPanel, javax.swing.BoxLayout.Y_AXIS));
         cargarRopa();
         cargarEtiquetas();
+        usuarioActual=SesionUtil.getUsuarioActual();
 
     }
 
@@ -67,6 +69,7 @@ public class ClientePanelProductos extends javax.swing.JDialog {
         }
 
         // Si llegamos aquí, this.categoriaRequerida NO es null
+        nombreUsuario.setText("Bienvenido ");
         Font fuenteTitulo = new Font("Arial", Font.BOLD, 24);
         titulo.setText("Ropa para " + this.categoriaRequerida.getNombre());
         titulo.setFont(fuenteTitulo);
@@ -193,14 +196,14 @@ public class ClientePanelProductos extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButtonVerCarrito = new javax.swing.JButton();
+        nombreUsuario = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         productosPanel = new javax.swing.JPanel();
         titulo = new javax.swing.JLabel();
         jToolBar1 = new javax.swing.JToolBar();
         banner = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        Carrito = new javax.swing.JButton();
+        jButtonVerCarrito = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -211,12 +214,8 @@ public class ClientePanelProductos extends javax.swing.JDialog {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("CatalogoNT");
 
-        jButtonVerCarrito.setText("ver mi carrito");
-        jButtonVerCarrito.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonVerCarritoActionPerformed(evt);
-            }
-        });
+        nombreUsuario.setForeground(new java.awt.Color(0, 0, 0));
+        nombreUsuario.setText("jLabel2");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -225,19 +224,20 @@ public class ClientePanelProductos extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(479, 479, 479)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonVerCarrito)
-                .addGap(244, 244, 244))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(nombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(94, 94, 94))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButtonVerCarrito)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(nombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
@@ -269,10 +269,10 @@ public class ClientePanelProductos extends javax.swing.JDialog {
             }
         });
 
-        Carrito.setText("Ir al Carrito");
-        Carrito.addActionListener(new java.awt.event.ActionListener() {
+        jButtonVerCarrito.setText("ver mi carrito");
+        jButtonVerCarrito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CarritoActionPerformed(evt);
+                jButtonVerCarritoActionPerformed(evt);
             }
         });
 
@@ -293,8 +293,8 @@ public class ClientePanelProductos extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(47, 47, 47)
-                                .addComponent(Carrito, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(54, 54, 54)
+                                .addComponent(jButtonVerCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
@@ -307,9 +307,9 @@ public class ClientePanelProductos extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -320,9 +320,9 @@ public class ClientePanelProductos extends javax.swing.JDialog {
                         .addGap(27, 27, 27)
                         .addComponent(banner, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Carrito, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                            .addComponent(jButtonVerCarrito, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(16, 16, 16))))
         );
 
@@ -339,7 +339,7 @@ public class ClientePanelProductos extends javax.swing.JDialog {
     private void jButtonVerCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerCarritoActionPerformed
             // Crear e inicializar la vista del carrito
     CarritoVista carritoVista = new CarritoVista(new javax.swing.JFrame(), true);
-    usuarioActual=SesionUtil.getUsuarioActual();
+    
     // Asegúrate de tener el usuario actual disponible
     carritoVista.cargarCarrito(usuarioActual);
     
@@ -347,10 +347,6 @@ public class ClientePanelProductos extends javax.swing.JDialog {
     carritoVista.setLocationRelativeTo(null); // Centrar en pantalla
     carritoVista.setVisible(true);
     }//GEN-LAST:event_jButtonVerCarritoActionPerformed
-
-    private void CarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CarritoActionPerformed
-
-    }//GEN-LAST:event_CarritoActionPerformed
 
 
     /**
@@ -382,7 +378,6 @@ public class ClientePanelProductos extends javax.swing.JDialog {
     private Categoria categoriaRequerida = null;
     private Usuario usuarioActual=null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Carrito;
     private javax.swing.JLabel banner;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonVerCarrito;
@@ -390,6 +385,7 @@ public class ClientePanelProductos extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JLabel nombreUsuario;
     private javax.swing.JPanel productosPanel;
     private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
