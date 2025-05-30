@@ -30,7 +30,7 @@ public class ClientePanelProducto extends javax.swing.JDialog {
     tallaProducto.setText("Talla: " + ropa.getTalla());
     descripcionProducto.setText("<html><body style='width: 200px'>" + ropa.getDescripcion() + "</body></html>");
 
-    if (ropa.getImagen() != null) {
+    if (ropa.getFoto() != null) {
         //imagenProducto.setIcon(ropa.getImagen()); // o usar new ImageIcon(ropa.getImagen())
         imagenProducto.setText(""); // Limpiar texto si tiene ícono
     } else {

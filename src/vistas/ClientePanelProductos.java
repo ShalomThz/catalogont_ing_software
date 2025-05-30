@@ -19,6 +19,7 @@ import javax.swing.SwingConstants;
 import modelos.Categoria;
 import modelos.Ropa;
 import com.formdev.flatlaf.FlatDarculaLaf; // O el tema que quieras
+import java.awt.Cursor;
 
 /**
  *
@@ -160,20 +161,26 @@ public class ClientePanelProductos extends javax.swing.JDialog {
                 panel.add(new JLabel("Talla: " + ropa.getTalla()));
                 panel.add(new JLabel("Color: " + ropa.getColor()));
                 panel.add(new JLabel("Precio: $" + String.format("%.2f", ropa.getPrecio()))); // Formatear precio
-               // Botón para ver más detalles
-JButton verDetalleBtn = new JButton("Ver Detalles");
+            // Botón para ver más detalles
+            JButton verDetalleBtn = new JButton("Ver Detalles");
+            verDetalleBtn.setBackground(new Color(52, 152, 219));
+            verDetalleBtn.setForeground(Color.WHITE);
+            verDetalleBtn.setFocusPainted(false);
+            verDetalleBtn.setBorderPainted(false);
+            verDetalleBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            verDetalleBtn.setFont(new Font("Segoe UI", Font.BOLD, 14));
 
-// Evento del botón
-verDetalleBtn.addActionListener(e -> {
-    // Crear una nueva ventana (JFrame) para mostrar detalles
- ClientePanelProducto vistaDetalle = new ClientePanelProducto(null,true);
- vistaDetalle.mostrarProducto(ropa);
-});
-// Añadir el botón al panel principal
-panel.add(verDetalleBtn);
+            // Evento del botón
+            verDetalleBtn.addActionListener(e -> {
+                ClientePanelProducto vistaDetalle = new ClientePanelProducto(null, true);
+                vistaDetalle.mostrarProducto(ropa);
+                vistaDetalle.setLocationRelativeTo(null);
+                vistaDetalle.setVisible(true);
+            });
 
-
-                productosPanel.add(panel);
+            panel.add(verDetalleBtn);
+            productosPanel.add(panel);
+        
             }
         }
 

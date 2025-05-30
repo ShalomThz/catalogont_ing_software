@@ -75,9 +75,9 @@ public class CarritoPDFGenerator {
                 tabla.addCell("$" + totalLinea);
 
                 // Imagen
-                if (ropa.getImagen() != null && !ropa.getImagen().isEmpty()) {
+                if (ropa.getFoto() != null && !ropa.getFoto().isEmpty()) {
                     try {
-                        Image imagen = Image.getInstance(ropa.getImagen());
+                        Image imagen = Image.getInstance(ropa.getFoto());
                         imagen.scaleAbsolute(60f, 60f);
                         PdfPCell celdaImagen = new PdfPCell(imagen, true);
                         celdaImagen.setPadding(5);
