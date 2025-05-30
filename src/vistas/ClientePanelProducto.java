@@ -4,7 +4,11 @@
  */
 package vistas;
 
+import controladores.CarritoController;
+import javax.swing.JOptionPane;
 import modelos.Ropa;
+import modelos.Usuario;
+import sesion.SesionUtil;
 
 /**
  *
@@ -23,6 +27,7 @@ public class ClientePanelProducto extends javax.swing.JDialog {
     }
     
     public void mostrarProducto(Ropa ropa) {
+    ropaActual = ropa;
     nombreProducto.setText(ropa.getNombre());
     modeloProducto.setText(ropa.getModelo());
     precioProducto.setText("Precio: " + ropa.getPrecio());
@@ -80,7 +85,12 @@ public class ClientePanelProducto extends javax.swing.JDialog {
             }
         });
 
-        agregarAlCarrito.setText("jButton2");
+        agregarAlCarrito.setText("agregar a carrito");
+        agregarAlCarrito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregarAlCarritoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -159,6 +169,27 @@ public class ClientePanelProducto extends javax.swing.JDialog {
         nuevoPProductos.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void agregarAlCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarAlCarritoActionPerformed
+    if (ropaActual == null) return;
+
+    Usuario usuarioActual = SesionUtil.getUsuarioActual();
+    if (usuarioActual == null) {
+        JOptionPane.showMessageDialog(this, "Debe iniciar sesión para agregar al carrito.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    CarritoController carritoController = new CarritoController();
+
+    // Intentamos agregar al carrito directamente, el controlador se encarga de manejar si la orden existe o no
+    try {
+        carritoController.agregarAlCarrito(usuarioActual.getNombre(), ropaActual, 1);
+        JOptionPane.showMessageDialog(this, "Producto agregado al carrito.");
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error al agregar el producto al carrito.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_agregarAlCarritoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -195,7 +226,7 @@ public class ClientePanelProducto extends javax.swing.JDialog {
             }
         });
     }
-
+private Ropa ropaActual;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregarAlCarrito;
     private javax.swing.JLabel colorProducto;

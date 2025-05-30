@@ -153,8 +153,11 @@
     </Component>
     <Component class="javax.swing.JButton" name="agregarAlCarrito">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jButton2"/>
+        <Property name="text" type="java.lang.String" value="agregar a carrito"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="agregarAlCarritoActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
