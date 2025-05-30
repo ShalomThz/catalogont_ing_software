@@ -20,6 +20,8 @@ import modelos.Categoria;
 import modelos.Ropa;
 import com.formdev.flatlaf.FlatDarculaLaf; // O el tema que quieras
 import java.awt.Cursor;
+import modelos.Usuario;
+import sesion.SesionUtil;
 
 /**
  *
@@ -199,6 +201,7 @@ public class ClientePanelProductos extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jButtonVerCarrito = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         productosPanel = new javax.swing.JPanel();
         titulo = new javax.swing.JLabel();
@@ -215,21 +218,34 @@ public class ClientePanelProductos extends javax.swing.JDialog {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("CatalogoNT");
 
+        jButtonVerCarrito.setText("ver mi carrito");
+        jButtonVerCarrito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonVerCarritoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(557, 557, 557)
+                .addGap(479, 479, 479)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonVerCarrito)
+                .addGap(244, 244, 244))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addContainerGap()
+                .addComponent(jButtonVerCarrito)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -291,7 +307,7 @@ public class ClientePanelProductos extends javax.swing.JDialog {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -314,6 +330,18 @@ public class ClientePanelProductos extends javax.swing.JDialog {
         Home nuevoHome = new Home(null, true);
         nuevoHome.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButtonVerCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerCarritoActionPerformed
+            // Crear e inicializar la vista del carrito
+    CarritoVista carritoVista = new CarritoVista(new javax.swing.JFrame(), true);
+    usuarioActual=SesionUtil.getUsuarioActual();
+    // Asegúrate de tener el usuario actual disponible
+    carritoVista.cargarCarrito(usuarioActual);
+    
+    // Mostrar el diálogo
+    carritoVista.setLocationRelativeTo(null); // Centrar en pantalla
+    carritoVista.setVisible(true);
+    }//GEN-LAST:event_jButtonVerCarritoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -346,10 +374,11 @@ public class ClientePanelProductos extends javax.swing.JDialog {
     }
     private ArrayList<Categoria> categoriasLista;
     private Categoria categoriaRequerida = null;
-
+    private Usuario usuarioActual=null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel banner;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonVerCarrito;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

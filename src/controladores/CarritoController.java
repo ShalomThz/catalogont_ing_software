@@ -24,15 +24,16 @@ public class CarritoController {
             carrito.setUsuario(obtenerUsuarioPorNombre(conn, nombreUsuario));
             carrito.setFecha(obtenerFechaOrden(conn, ordenId));
 
-            String query = """
-                SELECT r.id, r.modelo, r.nombre, r.marca, r.precio, r.descuento, r.talla, r.color, 
-                       r.disponible, r.descripcion, r.imagen, r.categoria_id, orp.cantidad,
-                       c.nombre AS cat_nombre, c.descripcion AS cat_descripcion, c.foto AS cat_foto
-                FROM orden_ropa orp
-                JOIN ropa r ON r.id = orp.ropa_id
-                JOIN categoria c ON r.categoria_id = c.id
-                WHERE orp.orden_id = ?
-            """;
+       String query = """
+    SELECT r.id, r.modelo, r.nombre, r.marca, r.precio, r.descuento, r.talla, r.color, 
+           r.disponible, r.descripcion, r.foto, r.categoria_id, orp.cantidad,
+           c.nombre AS cat_nombre, c.descripcion AS cat_descripcion, c.foto AS cat_foto
+    FROM orden_ropa orp
+    JOIN ropa r ON r.id = orp.ropa_id
+    JOIN categoria c ON r.categoria_id = c.id
+    WHERE orp.orden_id = ?
+""";
+
 
             try (PreparedStatement stmt = conn.prepareStatement(query)) {
                 stmt.setInt(1, ordenId);
@@ -46,21 +47,20 @@ public class CarritoController {
                         rs.getString("cat_descripcion"),
                         rs.getString("cat_foto")
                     );
-
-                    Ropa ropa = new Ropa(
-                        rs.getInt("id"),
-                        rs.getString("modelo"),
-                        rs.getString("nombre"),
-                        rs.getString("marca"),
-                        rs.getString("color"),
-                        rs.getString("talla"),
-                        rs.getBigDecimal("precio"),
-                        rs.getBigDecimal("descuento"),
-                        rs.getBoolean("disponible"),
-                        rs.getString("descripcion"),
-                        rs.getString("imagen"),
-                        categoria
-                    );
+Ropa ropa = new Ropa(
+    rs.getInt("id"),
+    rs.getString("modelo"),
+    rs.getString("nombre"),
+    rs.getString("marca"),
+    rs.getString("color"),
+    rs.getString("talla"),
+    rs.getBigDecimal("precio"),
+    rs.getBigDecimal("descuento"),
+    rs.getBoolean("disponible"),
+    rs.getString("descripcion"),
+    rs.getString("foto"), 
+    categoria
+);
 
                     int cantidad = rs.getInt("cantidad");
                     items.add(new CarritoItem(ropa, cantidad));
