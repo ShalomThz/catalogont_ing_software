@@ -43,7 +43,7 @@ public class AdminPanelCategorias extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        BotonRegresar = new javax.swing.JButton();
+        BotonEliminarCategoria = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -61,10 +61,10 @@ public class AdminPanelCategorias extends javax.swing.JDialog {
         jLabel4.setFont(new java.awt.Font("Segoe UI Black", 0, 48)); // NOI18N
         jLabel4.setText("CREACÍON DE CATEGORÍA");
 
-        BotonRegresar.setText("Eliminacion de Categoria");
-        BotonRegresar.addActionListener(new java.awt.event.ActionListener() {
+        BotonEliminarCategoria.setText("Eliminacion de Categoria");
+        BotonEliminarCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotonRegresarActionPerformed(evt);
+                BotonEliminarCategoriaActionPerformed(evt);
             }
         });
 
@@ -76,7 +76,7 @@ public class AdminPanelCategorias extends javax.swing.JDialog {
                 .addGap(114, 114, 114)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 657, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(136, 136, 136)
-                .addComponent(BotonRegresar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(BotonEliminarCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(104, 104, 104))
         );
         jPanel1Layout.setVerticalGroup(
@@ -88,7 +88,7 @@ public class AdminPanelCategorias extends javax.swing.JDialog {
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(21, 21, 21))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(BotonRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(BotonEliminarCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30))))
         );
 
@@ -272,15 +272,15 @@ public class AdminPanelCategorias extends javax.swing.JDialog {
     }
     }//GEN-LAST:event_jFileChooser1ActionPerformed
 
-    private void BotonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonRegresarActionPerformed
+    private void BotonEliminarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEliminarCategoriaActionPerformed
+        AdminEliminarCategoria dialog = new AdminEliminarCategoria(null, true);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_BotonEliminarCategoriaActionPerformed
+
+    private void BotonRegresar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonRegresar1ActionPerformed
         this.dispose();
         AdminPanel nuevoAPanel = new AdminPanel(null, true);
         nuevoAPanel.setVisible(true);
-    }//GEN-LAST:event_BotonRegresarActionPerformed
-
-    private void BotonRegresar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonRegresar1ActionPerformed
-        AdminEliminarCategoria dialog = new AdminEliminarCategoria(null, true);
-        dialog.setVisible(true);
     }//GEN-LAST:event_BotonRegresar1ActionPerformed
 
     /**
@@ -315,7 +315,7 @@ public class AdminPanelCategorias extends javax.swing.JDialog {
     private String imagenSeleccionada = null;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BotonRegresar;
+    private javax.swing.JButton BotonEliminarCategoria;
     private javax.swing.JButton BotonRegresar1;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JFileChooser jFileChooser1;
