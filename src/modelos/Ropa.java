@@ -18,9 +18,9 @@ public class Ropa {
     private boolean disponible;
     private String marca;
     private String descripcion;
-    private String foto; // Cambiado de 'imagen' a 'foto' para coincidir con la tabla
+    private String foto; 
     private BigDecimal descuento;
-    private Categoria categoria; // Se usará para categoria_id
+    private Categoria categoria;
 
     public Ropa(int id, String modelo, String nombre, String marca, String color, String talla, BigDecimal precio, BigDecimal descuento, boolean disponible, String descripcion, String foto, Categoria categoria) {
         this.id = id;
