@@ -146,13 +146,13 @@ public class ClientePanelProductos extends javax.swing.JDialog {
 
                 // Imagen
                 try {
-                    ImageIcon icon = new ImageIcon("imagenes/ropa/" + ropa.getImagen());
+                    ImageIcon icon = new ImageIcon("imagenes/ropa/" + ropa.getFoto());
                     Image img = icon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
                     JLabel imgLabel = new JLabel(new ImageIcon(img));
                     panel.add(imgLabel);
                 } catch (Exception e) {
                     panel.add(new JLabel("Imagen no disponible"));
-                    System.err.println("Error al cargar imagen de ropa: " + ropa.getImagen() + " - " + e.getMessage());
+                    System.err.println("Error al cargar imagen de ropa: " + ropa.getFoto() + " - " + e.getMessage());
                 }
 
                 // Atributos

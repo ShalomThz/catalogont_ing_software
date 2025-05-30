@@ -12,19 +12,17 @@ public class Ropa {
     private int id;
     private String modelo;
     private String nombre;
-    private String marca;
     private String color;
     private String talla;
     private BigDecimal precio;
-    private BigDecimal descuento;
     private boolean disponible;
+    private String marca;
     private String descripcion;
-    private String imagen;
-    private Categoria categoria;
+    private String foto; // Cambiado de 'imagen' a 'foto' para coincidir con la tabla
+    private BigDecimal descuento;
+    private Categoria categoria; // Se usará para categoria_id
 
-    public Ropa(int id, String modelo, String nombre, String marca, String color, String talla,
-                BigDecimal precio, BigDecimal descuento, boolean disponible, String descripcion,
-                String imagen, Categoria categoria) {
+    public Ropa(int id, String modelo, String nombre, String marca, String color, String talla, BigDecimal precio, BigDecimal descuento, boolean disponible, String descripcion, String foto, Categoria categoria) {
         this.id = id;
         this.modelo = modelo;
         this.nombre = nombre;
@@ -35,13 +33,11 @@ public class Ropa {
         this.descuento = descuento;
         this.disponible = disponible;
         this.descripcion = descripcion;
-        this.imagen = imagen;
+        this.foto = foto;
         this.categoria = categoria;
     }
 
-    public Ropa(String modelo, String nombre, String marca, String color, String talla,
-                BigDecimal precio, BigDecimal descuento, boolean disponible, String descripcion,
-                String imagen, Categoria categoria) {
+    public Ropa(String modelo, String nombre, String marca, String color, String talla, BigDecimal precio, BigDecimal descuento, boolean disponible, String descripcion, String foto, Categoria categoria) {
         this.modelo = modelo;
         this.nombre = nombre;
         this.marca = marca;
@@ -51,7 +47,7 @@ public class Ropa {
         this.descuento = descuento;
         this.disponible = disponible;
         this.descripcion = descripcion;
-        this.imagen = imagen;
+        this.foto = foto;
         this.categoria = categoria;
     }
 
@@ -65,7 +61,7 @@ public class Ropa {
     public BigDecimal getDescuento() { return descuento; }
     public boolean isDisponible() { return disponible; }
     public String getDescripcion() { return descripcion; }
-    public String getImagen() { return imagen; }
+    public String getFoto() {return foto;}
     public Categoria getCategoria() { return categoria; }
 
     public void setId(int id) { this.id = id; }
@@ -77,7 +73,7 @@ public class Ropa {
     public void setPrecio(BigDecimal precio) { this.precio = precio; }
     public void setDescuento(BigDecimal descuento) { this.descuento = descuento; }
     public void setDisponible(boolean disponible) { this.disponible = disponible; }
+    public void setFoto(String foto) {this.foto = foto;}
     public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
-    public void setImagen(String imagen) { this.imagen = imagen; }
     public void setCategoria(Categoria categoria) { this.categoria = categoria; }
 }

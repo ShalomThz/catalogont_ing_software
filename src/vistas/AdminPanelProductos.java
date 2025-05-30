@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import modelos.Categoria;
 import modelos.Ropa;
 import com.formdev.flatlaf.FlatDarculaLaf;
+import java.math.BigDecimal;
 
 /**
  *
@@ -68,31 +69,39 @@ public class AdminPanelProductos extends javax.swing.JDialog {
         String talla = jTextField2.getText().trim();
         String color = jTextField3.getText().trim();
         String precioTexto = jTextField4.getText().trim();
-        String descripcion = jTextAreaDescripcion.getText().trim(); // NUEVO
+        String descripcion = jTextAreaDescripcion.getText().trim();
+        String marca = "Marca Default"; // Nuevo campo requerido
 
-        if (modelo.isEmpty() || nombre.isEmpty() || talla.isEmpty() || color.isEmpty() || precioTexto.isEmpty() || descripcion.isEmpty() || imagenSeleccionada == null) {
+        if (modelo.isEmpty() || nombre.isEmpty() || talla.isEmpty() || color.isEmpty() || 
+            precioTexto.isEmpty() || descripcion.isEmpty() || imagenSeleccionada == null) {
             JOptionPane.showMessageDialog(this, "Por favor completa todos los campos y selecciona una imagen.", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        double precio = Double.parseDouble(precioTexto);
+        BigDecimal precio = new BigDecimal(precioTexto);
+        BigDecimal descuento = BigDecimal.ZERO; // Valor por defecto
+        boolean disponible = true; // Valor por defecto
         String imagen = imagenSeleccionada;
 
-        Ropa nuevaRopa = new Ropa(modelo, nombre, categoria, talla, color, precio, imagen, descripcion); // NUEVO
+        Ropa nuevaRopa = new Ropa(
+            modelo, 
+            nombre, 
+            marca, 
+            color, 
+            talla, 
+            precio, 
+            descuento, 
+            disponible, 
+            descripcion, 
+            imagen, 
+            categoria
+        );
+
         RopaController controller = new RopaController();
         controller.agregarRopa(nuevaRopa);
 
         JOptionPane.showMessageDialog(this, "Prenda agregada con éxito.");
-
-        // Limpiar campos
-        jTextFieldModelo.setText("");
-        jTextField1.setText("");
-        jTextField2.setText("");
-        jTextField3.setText("");
-        jTextField4.setText("");
-        jTextAreaDescripcion.setText(""); // NUEVO
-        vistaPrevia.setIcon(null);
-        imagenSeleccionada = null;
+        limpiarCampos();
 
     } catch (NumberFormatException ex) {
         JOptionPane.showMessageDialog(this, "Precio inválido.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -100,6 +109,17 @@ public class AdminPanelProductos extends javax.swing.JDialog {
         e.printStackTrace();
         JOptionPane.showMessageDialog(this, "Error al agregar prenda: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
+}
+
+private void limpiarCampos() {
+    jTextFieldModelo.setText("");
+    jTextField1.setText("");
+    jTextField2.setText("");
+    jTextField3.setText("");
+    jTextField4.setText("");
+    jTextAreaDescripcion.setText("");
+    vistaPrevia.setIcon(null);
+    imagenSeleccionada = null;
 }
 
     /**
@@ -145,6 +165,11 @@ public class AdminPanelProductos extends javax.swing.JDialog {
         jLabel9.setText("AGREGADO DE PRODUCTO");
 
         jButton3.setText("Eliminacion de Producto");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Editar Producto Existente");
 
@@ -416,6 +441,10 @@ public class AdminPanelProductos extends javax.swing.JDialog {
         AdminPanel nuevoAPanel = new AdminPanel(null, true);
         nuevoAPanel.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
