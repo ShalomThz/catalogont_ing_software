@@ -12,7 +12,7 @@ import com.formdev.flatlaf.FlatDarculaLaf;
 
 /**
  *
- * @author josha
+ * @author Alejandor y josha
  */
 public class Login extends javax.swing.JDialog {
 
@@ -23,7 +23,6 @@ public class Login extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
 
-        // Establece jButton1 como el botón por defecto para la tecla Enter
         this.getRootPane().setDefaultButton(jButton1);
     }
 
@@ -143,26 +142,42 @@ public class Login extends javax.swing.JDialog {
         String contrasena = new String(jPasswordField1.getPassword());
 
         if (username.isEmpty() || contrasena.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor completa todos los campos.", "Campos vacíos", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this,
+                    "Por favor completa todos los campos.",
+                    "Campos vacíos",
+                    JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        // Hashear la contraseña
-        // Autenticación
         UsuarioController controlador = new UsuarioController();
         Usuario usuario = controlador.autenticarUsuario(username, contrasena);
 
         if (usuario != null) {
             // Autenticación exitosa
-            JOptionPane.showMessageDialog(this, "¡Inicio de sesión exitoso!", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
-            this.dispose();
-            AdminPanel nuevoAdminPanel = new AdminPanel(null, true);
-            nuevoAdminPanel.setVisible(true);
+            JOptionPane.showMessageDialog(this,
+                    "¡Bienvenido " + usuario.getNombre() + "!",
+                    "Inicio exitoso",
+                    JOptionPane.INFORMATION_MESSAGE);
+
+            this.dispose(); // Cerrar la ventana de login
+
+            // Redirigir según el rol
+            if (usuario.getRol().equalsIgnoreCase("administrador")) {
+                this.dispose();
+                AdminPanel adminPanel = new AdminPanel(null, true);
+                adminPanel.setVisible(true);
+            } else {
+                this.dispose();
+                Home home = new Home(null, true);
+                home.setVisible(true);
+            }
         } else {
             // Falló la autenticación
-            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.", "Error de autenticación", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this,
+                    "Usuario o contraseña incorrectos.",
+                    "Error de autenticación",
+                    JOptionPane.ERROR_MESSAGE);
         }
-
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -171,12 +186,10 @@ public class Login extends javax.swing.JDialog {
     public static void main(String args[]) {
         /* --- CÓDIGO PARA INICIAR FLATLAF --- */
         try {
-            // Usamos el tema Darcula que ya habías seleccionado
             FlatDarculaLaf.setup();
         } catch (Exception ex) {
             System.err.println("No se pudo inicializar el Look and Feel FlatLaf.");
         }
-        /* --- FIN DEL CÓDIGO DE FLATLAF --- */
 
 
  /* Creamos y mostramos la ventana UNA SOLA VEZ */
