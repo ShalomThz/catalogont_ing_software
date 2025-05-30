@@ -54,4 +54,31 @@ public class Categoria {
     public void setFoto(String foto) {
         this.foto = foto;
     }
+    @Override
+    public String toString() {
+        return nombre;
+    }
+
+    /**
+     * Método equals() para comparar categorías por ID
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Categoria other = (Categoria) obj;
+        return id == other.id;
+    }
+
+    /**
+     * Método hashCode() consistente con equals()
+     */
+    @Override
+    public int hashCode() {
+        return id;
+    }
 }
