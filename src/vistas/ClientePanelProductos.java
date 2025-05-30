@@ -57,17 +57,17 @@ public class ClientePanelProductos extends javax.swing.JDialog {
         // --- NUEVA VERIFICACIÓN AL INICIO ---
         if (this.categoriaRequerida == null) {
             titulo.setText("Catálogo General");
-            Font fuenteTitulo = new Font("Arial", Font.ITALIC, 22); // Puedes definir una fuente general
+            Font fuenteTitulo = new Font("Arial", Font.BOLD, 24); // Puedes definir una fuente general
             titulo.setFont(fuenteTitulo);
             titulo.setForeground(Color.white);
             titulo.setHorizontalAlignment(SwingConstants.CENTER);
-            banner.setIcon(null); // No hay banner específico
-            banner.setText("Todos los productos"); // O un mensaje genérico
-            return; // Salimos del método si no hay categoría
+            banner.setIcon(null); 
+            banner.setText("Todos los productos"); 
+            return; 
         }
 
         // Si llegamos aquí, this.categoriaRequerida NO es null
-        Font fuenteTitulo = new Font("Arial", Font.ITALIC, 22);
+        Font fuenteTitulo = new Font("Arial", Font.BOLD, 24);
         titulo.setText("Ropa para " + this.categoriaRequerida.getNombre());
         titulo.setFont(fuenteTitulo);
         titulo.setForeground(Color.white);
@@ -76,17 +76,13 @@ public class ClientePanelProductos extends javax.swing.JDialog {
         // Cargar imagen en el banner
         try {
             String rutaImagen = "imagenes/categoria/" + this.categoriaRequerida.getFoto();
-            // System.out.println(rutaImagen); // Puedes dejarlo para depurar
+            // System.out.println(rutaImagen); 
             ImageIcon icono = new ImageIcon(rutaImagen);
-            // Asegúrate de que el banner tenga dimensiones antes de redimensionar
             if (banner.getWidth() > 0 && banner.getHeight() > 0) {
                 Image imagenRedimensionada = icono.getImage().getScaledInstance(banner.getWidth(), banner.getHeight(), Image.SCALE_SMOOTH);
                 banner.setIcon(new ImageIcon(imagenRedimensionada));
             } else {
-                // Si el banner aún no tiene dimensiones, considera cargarlo más tarde o con un tamaño fijo
-                // Por ahora, lo dejamos con el ícono original o un texto
                 banner.setIcon(icono);
-                // O banner.setText("Cargando imagen...");
             }
         } catch (Exception e) {
             System.out.println("No se pudo cargar la imagen del banner: " + e.getMessage());
@@ -104,13 +100,10 @@ public class ClientePanelProductos extends javax.swing.JDialog {
             JButton boton = new JButton(categoria.getNombre());
 
             boton.addActionListener(e -> {
-                // 1. Actualiza la 'categoriaRequerida' de ESTA MISMA INSTANCIA de la ventana
-                // Usamos ClientePanelProductos.this para ser explícitos de que es el campo de la clase externa
                 ClientePanelProductos.this.categoriaRequerida = categoria;
 
-                // 2. Vuelve a cargar las etiquetas y los productos con la nueva categoría
-                cargarEtiquetas();      // Este método actualizará el título y el banner
-                cargarRopa();  // Este método limpiará y cargará los nuevos productos
+                cargarEtiquetas();     
+                cargarRopa(); 
 
                 ClientePanelProductos.this.setTitle("Catálogo - " + categoria.getNombre());
             });
@@ -118,7 +111,6 @@ public class ClientePanelProductos extends javax.swing.JDialog {
             jToolBar1.add(boton);
         }
 
-        // Redibuja la barra
         jToolBar1.revalidate();
         jToolBar1.repaint();
     }

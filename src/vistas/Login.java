@@ -163,7 +163,7 @@ public class Login extends javax.swing.JDialog {
             this.dispose(); // Cerrar la ventana de login
 
             // Redirigir según el rol
-            if (usuario.getRol().equalsIgnoreCase("administrador")) {
+            if (usuario.getRol().equalsIgnoreCase("admin")) {
                 this.dispose();
                 AdminPanel adminPanel = new AdminPanel(null, true);
                 adminPanel.setVisible(true);

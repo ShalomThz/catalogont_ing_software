@@ -152,7 +152,7 @@ public class Registro extends javax.swing.JDialog {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "cliente", "administrador" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "cliente", "admin" }));
 
         jLabel6.setText("Rol:");
 
