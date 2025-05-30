@@ -1,2 +1,6 @@
+#Archivos de compilación de Java
+build/
 
+#Archivos de entorno local
 .env
+*.class
