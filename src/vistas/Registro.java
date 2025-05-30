@@ -62,6 +62,8 @@ public class Registro extends javax.swing.JDialog {
                     "Usuario registrado correctamente como: " + rol,
                     "Registro exitoso",
                     javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            Login nuevoLogin = new Login(null, true);
+            nuevoLogin.setVisible(true);
 
             dispose(); // Cerrar el diálogo
         } catch (Exception e) {
