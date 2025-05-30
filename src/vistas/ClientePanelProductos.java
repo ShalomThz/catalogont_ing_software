@@ -39,7 +39,7 @@ public class ClientePanelProductos extends javax.swing.JDialog {
         productosPanel.setLayout(new javax.swing.BoxLayout(productosPanel, javax.swing.BoxLayout.Y_AXIS));
         cargarRopa();
         cargarEtiquetas();
-        usuarioActual=SesionUtil.getUsuarioActual();
+        usuarioActual = SesionUtil.getUsuarioActual();
 
     }
 
@@ -51,7 +51,7 @@ public class ClientePanelProductos extends javax.swing.JDialog {
         productosPanel.setLayout(new javax.swing.BoxLayout(productosPanel, javax.swing.BoxLayout.Y_AXIS));
         cargarRopa();
         cargarEtiquetas();
-        usuarioActual=SesionUtil.getUsuarioActual();
+        usuarioActual = SesionUtil.getUsuarioActual();
 
     }
 
@@ -63,9 +63,9 @@ public class ClientePanelProductos extends javax.swing.JDialog {
             titulo.setFont(fuenteTitulo);
             titulo.setForeground(Color.white);
             titulo.setHorizontalAlignment(SwingConstants.CENTER);
-            banner.setIcon(null); 
-            banner.setText("Todos los productos"); 
-            return; 
+            banner.setIcon(null);
+            banner.setText("Todos los productos");
+            return;
         }
 
         // Si llegamos aquí, this.categoriaRequerida NO es null
@@ -105,8 +105,8 @@ public class ClientePanelProductos extends javax.swing.JDialog {
             boton.addActionListener(e -> {
                 ClientePanelProductos.this.categoriaRequerida = categoria;
 
-                cargarEtiquetas();     
-                cargarRopa(); 
+                cargarEtiquetas();
+                cargarRopa();
 
                 ClientePanelProductos.this.setTitle("Catálogo - " + categoria.getNombre());
             });
@@ -158,26 +158,26 @@ public class ClientePanelProductos extends javax.swing.JDialog {
                 panel.add(new JLabel("Talla: " + ropa.getTalla()));
                 panel.add(new JLabel("Color: " + ropa.getColor()));
                 panel.add(new JLabel("Precio: $" + String.format("%.2f", ropa.getPrecio()))); // Formatear precio
-            // Botón para ver más detalles
-            JButton verDetalleBtn = new JButton("Ver Detalles");
-            verDetalleBtn.setBackground(new Color(52, 152, 219));
-            verDetalleBtn.setForeground(Color.WHITE);
-            verDetalleBtn.setFocusPainted(false);
-            verDetalleBtn.setBorderPainted(false);
-            verDetalleBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            verDetalleBtn.setFont(new Font("Segoe UI", Font.BOLD, 14));
+                // Botón para ver más detalles
+                JButton verDetalleBtn = new JButton("Ver Detalles");
+                verDetalleBtn.setBackground(new Color(52, 152, 219));
+                verDetalleBtn.setForeground(Color.WHITE);
+                verDetalleBtn.setFocusPainted(false);
+                verDetalleBtn.setBorderPainted(false);
+                verDetalleBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                verDetalleBtn.setFont(new Font("Segoe UI", Font.BOLD, 14));
 
-            // Evento del botón
-            verDetalleBtn.addActionListener(e -> {
-                ClientePanelProducto vistaDetalle = new ClientePanelProducto(null, true);
-                vistaDetalle.mostrarProducto(ropa);
-                vistaDetalle.setLocationRelativeTo(null);
-                vistaDetalle.setVisible(true);
-            });
+                // Evento del botón
+                verDetalleBtn.addActionListener(e -> {
+                    ClientePanelProducto vistaDetalle = new ClientePanelProducto(null, true);
+                    vistaDetalle.mostrarProducto(ropa);
+                    vistaDetalle.setLocationRelativeTo(null);
+                    vistaDetalle.setVisible(true);
+                });
 
-            panel.add(verDetalleBtn);
-            productosPanel.add(panel);
-        
+                panel.add(verDetalleBtn);
+                productosPanel.add(panel);
+
             }
         }
 
@@ -337,33 +337,36 @@ public class ClientePanelProductos extends javax.swing.JDialog {
 
 
     private void jButtonVerCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerCarritoActionPerformed
-            // Crear e inicializar la vista del carrito
-    CarritoVista carritoVista = new CarritoVista(new javax.swing.JFrame(), true);
-    
-    // Asegúrate de tener el usuario actual disponible
-    carritoVista.cargarCarrito(usuarioActual);
-    
-    // Mostrar el diálogo
-    carritoVista.setLocationRelativeTo(null); // Centrar en pantalla
-    carritoVista.setVisible(true);
-    }//GEN-LAST:event_jButtonVerCarritoActionPerformed
+        // Crear e inicializar la vista del carrito
+        CarritoVista carritoVista = new CarritoVista(new javax.swing.JFrame(), true);
 
+        // Asegúrate de tener el usuario actual disponible
+        carritoVista.cargarCarrito(usuarioActual);
+
+        // Mostrar el diálogo
+        carritoVista.setLocationRelativeTo(null); // Centrar en pantalla
+        carritoVista.setVisible(true);
+    }//GEN-LAST:event_jButtonVerCarritoActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        /* --- CÓDIGO PARA INICIAR FLATLAF --- */
         try {
-          
+            // Usamos el tema Darcula que ya habías seleccionado
+            FlatDarculaLaf.setup();
         } catch (Exception ex) {
             System.err.println("No se pudo inicializar el Look and Feel FlatLaf.");
         }
+        /* --- FIN DEL CÓDIGO DE FLATLAF --- */
 
 
- /* Create and display the dialog */
+ /* Creamos y mostramos la ventana UNA SOLA VEZ */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                ClientePanelProductos dialog = new ClientePanelProductos(new javax.swing.JFrame(), true);
+                AdminPanel dialog = new AdminPanel(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -376,7 +379,7 @@ public class ClientePanelProductos extends javax.swing.JDialog {
     }
     private ArrayList<Categoria> categoriasLista;
     private Categoria categoriaRequerida = null;
-    private Usuario usuarioActual=null;
+    private Usuario usuarioActual = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel banner;
     private javax.swing.JButton jButton1;
