@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import modelos.CarritoItem;
 import modelos.Usuario;
+import pdf.CarritoPDFGenerator;
 import sesion.Carrito;
 
 /**
@@ -34,12 +35,13 @@ public class CarritoVista extends javax.swing.JDialog {
     }
     
    public void cargarCarrito(Usuario usuario) {
-        jLabelCliente.setText(usuario.getNombre());
+        this.usuario=usuario;
+        jLabelCliente.setText(this.usuario.getNombre());
         jLabelFecha.setText(java.time.LocalDate.now().toString());
 
         CarritoController controller = new CarritoController();
-        Carrito carritoUsuario = controller.obtenerCarritoUsuario(usuario.getNombre());
-        List<CarritoItem> productosCarrito = carritoUsuario.getItems();
+        Carrito carritoUsuario = controller.obtenerCarritoUsuario(this.usuario.getNombre());
+        productosCarrito = carritoUsuario.getItems();
 
         productosPanel.removeAll();
 
@@ -171,8 +173,15 @@ public class CarritoVista extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        
+        if (productosCarrito == null || productosCarrito.isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(this, "El carrito está vacío, no se puede generar el PDF.");
+        return;
+    }
+
+    String nombreCliente = usuario.getNombre();
+    String rutaArchivo = "CarritoDeCompras_" + nombreCliente + ".pdf";
+
+    CarritoPDFGenerator.generarPDF(rutaArchivo, nombreCliente, productosCarrito);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -211,7 +220,8 @@ public class CarritoVista extends javax.swing.JDialog {
             }
         });
     }
-
+    private List<CarritoItem> productosCarrito= null;
+    private Usuario usuario=null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
