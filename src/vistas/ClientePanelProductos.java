@@ -160,6 +160,18 @@ public class ClientePanelProductos extends javax.swing.JDialog {
                 panel.add(new JLabel("Talla: " + ropa.getTalla()));
                 panel.add(new JLabel("Color: " + ropa.getColor()));
                 panel.add(new JLabel("Precio: $" + String.format("%.2f", ropa.getPrecio()))); // Formatear precio
+               // Botón para ver más detalles
+JButton verDetalleBtn = new JButton("Ver Detalles");
+
+// Evento del botón
+verDetalleBtn.addActionListener(e -> {
+    // Crear una nueva ventana (JFrame) para mostrar detalles
+ ClientePanelProducto vistaDetalle = new ClientePanelProducto(null,true);
+ vistaDetalle.mostrarProducto(ropa);
+});
+// Añadir el botón al panel principal
+panel.add(verDetalleBtn);
+
 
                 productosPanel.add(panel);
             }
