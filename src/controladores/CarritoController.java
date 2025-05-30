@@ -18,9 +18,7 @@ public class CarritoController {
         Carrito carrito = new Carrito();
 
         try (Connection conn = ConexionDB.getConexion()) {
-
-            int ordenId = obtenerOrdenActiva(conn, nombreUsuario);
-            if (ordenId == -1) return null;
+            int ordenId = obtenerOcrearOrdenActiva(conn, nombreUsuario);
 
             carrito.setId(ordenId);
             carrito.setUsuario(obtenerUsuarioPorNombre(conn, nombreUsuario));
@@ -78,44 +76,48 @@ public class CarritoController {
         return carrito;
     }
 
-    public void agregarAlCarrito(int ordenId, int ropaId, int cantidad) {
-        String query = """
-            INSERT INTO orden_ropa (orden_id, ropa_id, cantidad)
-            VALUES (?, ?, ?)
-            ON CONFLICT (orden_id, ropa_id)
-            DO UPDATE SET cantidad = orden_ropa.cantidad + EXCLUDED.cantidad
-        """;
+    public void agregarAlCarrito(String nombreUsuario, Ropa ropa, int cantidad) {
+        try (Connection conn = ConexionDB.getConexion()) {
+            int ordenId = obtenerOcrearOrdenActiva(conn, nombreUsuario);
 
-        try (Connection conn = ConexionDB.getConexion();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+            String query = """
+                INSERT INTO orden_ropa (orden_id, ropa_id, cantidad)
+                VALUES (?, ?, ?)
+                ON CONFLICT (orden_id, ropa_id)
+                DO UPDATE SET cantidad = orden_ropa.cantidad + EXCLUDED.cantidad
+            """;
 
-            stmt.setInt(1, ordenId);
-            stmt.setInt(2, ropaId);
-            stmt.setInt(3, cantidad);
-            stmt.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void quitarDelCarrito(int ordenId, int ropaId) {
-        String query = "DELETE FROM orden_ropa WHERE orden_id = ? AND ropa_id = ?";
-
-        try (Connection conn = ConexionDB.getConexion();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
-
-            stmt.setInt(1, ordenId);
-            stmt.setInt(2, ropaId);
-            stmt.executeUpdate();
+            try (PreparedStatement stmt = conn.prepareStatement(query)) {
+                stmt.setInt(1, ordenId);
+                stmt.setInt(2, ropa.getId());
+                stmt.setInt(3, cantidad);
+                stmt.executeUpdate();
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    private int obtenerOrdenActiva(Connection conn, String nombreUsuario) throws SQLException {
-        String query = """
+    public void quitarDelCarrito(String nombreUsuario, Ropa ropa) {
+        try (Connection conn = ConexionDB.getConexion()) {
+            int ordenId = obtenerOcrearOrdenActiva(conn, nombreUsuario);
+
+            String query = "DELETE FROM orden_ropa WHERE orden_id = ? AND ropa_id = ?";
+
+            try (PreparedStatement stmt = conn.prepareStatement(query)) {
+                stmt.setInt(1, ordenId);
+                stmt.setInt(2, ropa.getId());
+                stmt.executeUpdate();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private int obtenerOcrearOrdenActiva(Connection conn, String nombreUsuario) throws SQLException {
+        String selectQuery = """
             SELECT o.id
             FROM orden o
             JOIN usuario u ON o.usuario_id = u.id
@@ -124,14 +126,28 @@ public class CarritoController {
             LIMIT 1
         """;
 
-        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (PreparedStatement stmt = conn.prepareStatement(selectQuery)) {
             stmt.setString(1, nombreUsuario);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 return rs.getInt("id");
             }
         }
-        return -1;
+
+        // Si no existe, se crea una nueva orden para el usuario
+        Usuario usuario = obtenerUsuarioPorNombre(conn, nombreUsuario);
+        if (usuario == null) throw new SQLException("Usuario no encontrado: " + nombreUsuario);
+
+        String insertQuery = "INSERT INTO orden (usuario_id, fecha) VALUES (?, CURRENT_TIMESTAMP) RETURNING id";
+        try (PreparedStatement stmt = conn.prepareStatement(insertQuery)) {
+            stmt.setInt(1, usuario.getId());
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("id");
+            }
+        }
+
+        throw new SQLException("No se pudo crear una orden nueva para el usuario.");
     }
 
     private Usuario obtenerUsuarioPorNombre(Connection conn, String nombreUsuario) throws SQLException {
