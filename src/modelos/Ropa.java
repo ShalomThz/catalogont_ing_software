@@ -1,7 +1,7 @@
 package modelos;
 
 import java.math.BigDecimal;
-
+import modelos.Categoria;
 /**
  *
  * @author josha

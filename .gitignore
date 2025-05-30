@@ -4,3 +4,4 @@ build/
 #Archivos de entorno local
 .env
 *.class
+/dist/

@@ -343,7 +343,7 @@ public class ClientePanelProductos extends javax.swing.JDialog {
         nuevoHome.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-<<<<<<< HEAD
+
     private void jButtonVerCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerCarritoActionPerformed
             // Crear e inicializar la vista del carrito
     CarritoVista carritoVista = new CarritoVista(new javax.swing.JFrame(), true);
@@ -355,21 +355,18 @@ public class ClientePanelProductos extends javax.swing.JDialog {
     carritoVista.setLocationRelativeTo(null); // Centrar en pantalla
     carritoVista.setVisible(true);
     }//GEN-LAST:event_jButtonVerCarritoActionPerformed
-=======
+
     private void CarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CarritoActionPerformed
-        this.dispose();
-        CarritoVista nuevoCarrito = new CarritoVista(null, true);
-        nuevoCarrito.setVisible(true);
+
     }//GEN-LAST:event_CarritoActionPerformed
->>>>>>> 48db05f6506db492c176107dc28df25cf1dc16e8
+
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
         try {
-            FlatDarculaLaf.setup(); 
-
+          
         } catch (Exception ex) {
             System.err.println("No se pudo inicializar el Look and Feel FlatLaf.");
         }
