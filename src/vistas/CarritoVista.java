@@ -34,40 +34,53 @@ public class CarritoVista extends javax.swing.JDialog {
         jScrollPane1.setViewportView(productosPanel);
     }
     
-   public void cargarCarrito(Usuario usuario) {
-        this.usuario=usuario;
-        jLabelCliente.setText(this.usuario.getNombre());
-        jLabelFecha.setText(java.time.LocalDate.now().toString());
+public void cargarCarrito(Usuario usuario) {
+    this.usuario = usuario;
+    jLabelCliente.setText(this.usuario.getNombre());
+    jLabelFecha.setText(java.time.LocalDate.now().toString());
 
-        CarritoController controller = new CarritoController();
-        Carrito carritoUsuario = controller.obtenerCarritoUsuario(this.usuario.getNombre());
-        productosCarrito = carritoUsuario.getItems();
+    CarritoController controller = new CarritoController();
+    Carrito carritoUsuario = controller.obtenerCarritoUsuario(this.usuario.getNombre());
+    productosCarrito = carritoUsuario.getItems();
 
-        productosPanel.removeAll();
+    productosPanel.removeAll();
 
-        if (productosCarrito.isEmpty()) {
-            productosPanel.add(new JLabel("El carrito está vacío."));
-        } else {
-            for (CarritoItem item : productosCarrito) {
-                JPanel itemPanel = new JPanel();
-                itemPanel.setLayout(new GridLayout(1, 3));
-                itemPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+    if (productosCarrito.isEmpty()) {
+        productosPanel.add(new JLabel("El carrito está vacío."));
+    } else {
+for (CarritoItem item : productosCarrito) {
+    JPanel itemPanel = new JPanel();
+    itemPanel.setLayout(new GridLayout(1, 4)); // Cambiado de 3 a 4 para agregar el botón
+    itemPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-                JLabel nombreLabel = new JLabel("Producto: " + item.getRopa().getNombre());
-                JLabel cantidadLabel = new JLabel("Cantidad: " + item.getCantidad());
-                JLabel precioLabel = new JLabel("Precio: $" + item.getRopa().getPrecio());
+    JLabel nombreLabel = new JLabel("Producto: " + item.getRopa().getNombre());
+    JLabel cantidadLabel = new JLabel("Cantidad: " + item.getCantidad());
+    JLabel precioLabel = new JLabel("Precio: $" + item.getRopa().getPrecio());
 
-                itemPanel.add(nombreLabel);
-                itemPanel.add(cantidadLabel);
-                itemPanel.add(precioLabel);
+    // Crear botón de eliminar
+    javax.swing.JButton eliminarBtn = new javax.swing.JButton("Eliminar");
+    eliminarBtn.addActionListener(e -> {
+       
+        controller.quitarDelCarrito(usuario.getNombre(), item.getRopa());
 
-                productosPanel.add(itemPanel);
-            }
-        }
+        // Recargar la vista del carrito
+        cargarCarrito(usuario);
+    });
 
-        productosPanel.revalidate();
-        productosPanel.repaint();
+    itemPanel.add(nombreLabel);
+    itemPanel.add(cantidadLabel);
+    itemPanel.add(precioLabel);
+    itemPanel.add(eliminarBtn); // Agregar botón al panel
+
+    productosPanel.add(itemPanel);
+}
+
     }
+
+    productosPanel.revalidate();
+    productosPanel.repaint();
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
