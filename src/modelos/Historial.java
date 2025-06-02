@@ -13,7 +13,7 @@ import java.sql.Time;
 
 public class Historial {
     private int id;
-    private int idUsuario;
+    private Usuario usuario;
     private Date fecha;
     private Time hora;
     private String accion;
@@ -23,8 +23,8 @@ public class Historial {
     public Historial() {}
 
     // Constructor con parámetros
-    public Historial(int idUsuario, Date fecha, Time hora, String accion, String descripcion) {
-        this.idUsuario = idUsuario;
+    public Historial(Usuario usuario, Date fecha, Time hora, String accion, String descripcion) {
+        this.usuario = usuario;
         this.fecha = fecha;
         this.hora = hora;
         this.accion = accion;
@@ -41,12 +41,12 @@ public class Historial {
         this.id = id;
     }
 
-    public int getIdUsuario() {
-        return idUsuario;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public Date getFecha() {
