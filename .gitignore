@@ -5,3 +5,5 @@ build/
 .env
 *.class
 /dist/
+/netbeansUtiles/componenteListas/dist/
+/netbeansUtiles/componenteListas/nbproject/private/
