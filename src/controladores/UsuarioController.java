@@ -2,7 +2,7 @@ package controladores;
 
 import db.ConexionDB;
 import modelos.Usuario;
-import seguridad.SeguridadUtil;
+import utiles.SeguridadUtil;
 
 import java.sql.*;
 

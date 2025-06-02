@@ -2,8 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
-package vistas;
+package vistas.cliente;
 
+import vistas.cliente.ClientePanelProducto;
+import vistas.cliente.Home;
 import controladores.CategoriaController;
 import controladores.RopaController;
 import java.awt.Color;
@@ -21,7 +23,8 @@ import modelos.Ropa;
 import com.formdev.flatlaf.FlatDarculaLaf; // O el tema que quieras
 import java.awt.Cursor;
 import modelos.Usuario;
-import sesion.SesionUtil;
+import utiles.SesionUtil;
+import vistas.admin.AdminPanel;
 
 /**
  *

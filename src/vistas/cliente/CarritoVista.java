@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
-package vistas;
+package vistas.cliente;
 
 import controladores.CarritoController;
 import java.awt.GridLayout;
@@ -13,8 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import modelos.CarritoItem;
 import modelos.Usuario;
-import pdf.CarritoPDFGenerator;
-import sesion.Carrito;
+import utiles.CarritoPDFGenerator;
+import modelos.Carrito;
 
 /**
  *

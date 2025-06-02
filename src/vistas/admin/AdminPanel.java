@@ -2,9 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
-package vistas;
+package vistas.admin;
 
+import vistas.admin.AdminPanelCategorias;
+import vistas.admin.AdminPanelProductos;
 import com.formdev.flatlaf.FlatDarculaLaf;
+import vistas.Login;
+import vistas.Registro;
 
 /**
  *

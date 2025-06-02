@@ -1,7 +1,7 @@
 package controladores;
 
 import db.ConexionDB;
-import sesion.Carrito;
+import modelos.Carrito;
 import modelos.CarritoItem;
 import modelos.Categoria;
 import modelos.Ropa;
