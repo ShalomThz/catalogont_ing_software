@@ -3,14 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Alejandro/OneDrive/Escritorio/Nueva%20carpeta/catalogont_ing_software/src/vistas/AdminPanelProductos.java</file>
-            <file>file:/C:/Users/Alejandro/OneDrive/Escritorio/Nueva%20carpeta/catalogont_ing_software/src/vistas/AdminPanelCategorias.java</file>
-            <file>file:/C:/Users/Alejandro/OneDrive/Escritorio/Nueva%20carpeta/catalogont_ing_software/src/vistas/AdminEliminarCategoria.java</file>
-            <file>file:/C:/Users/Alejandro/OneDrive/Escritorio/Nueva%20carpeta/catalogont_ing_software/src/vistas/AdminPanel.java</file>
-            <file>file:/C:/Users/Alejandro/OneDrive/Escritorio/Nueva%20carpeta/catalogont_ing_software/src/modelos/Ropa.java</file>
-            <file>file:/C:/Users/Alejandro/OneDrive/Escritorio/Nueva%20carpeta/catalogont_ing_software/src/controladores/CategoriaController.java</file>
-            <file>file:/C:/Users/Alejandro/OneDrive/Escritorio/Nueva%20carpeta/catalogont_ing_software/src/controladores/RopaController.java</file>
-            <file>file:/C:/Users/Alejandro/OneDrive/Escritorio/Nueva%20carpeta/catalogont_ing_software/src/modelos/Categoria.java</file>
+            <file>file:/C:/Users/Alejandro/OneDrive/Escritorio/Nueva%20carpeta/catalogont_ing_software/src/vistas/cliente/CarritoVista.java</file>
+            <file>file:/C:/Users/Alejandro/OneDrive/Escritorio/Nueva%20carpeta/catalogont_ing_software/.gitignore</file>
         </group>
     </open-files>
 </project-private>

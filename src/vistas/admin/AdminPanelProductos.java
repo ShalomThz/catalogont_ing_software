@@ -173,7 +173,7 @@ private void limpiarCampos() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(102, 153, 255));
+        jPanel1.setBackground(new java.awt.Color(51, 0, 102));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI Black", 0, 48)); // NOI18N
         jLabel9.setText("AGREGADO DE PRODUCTO");
