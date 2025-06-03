@@ -175,6 +175,9 @@ public class AdminPanel extends javax.swing.JDialog {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        AdminPanelHistorial panelHistorial= new AdminPanelHistorial(null,true);
+        panelHistorial.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
