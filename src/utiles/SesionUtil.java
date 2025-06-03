@@ -24,4 +24,8 @@ public class SesionUtil {
     public static void cerrarSesion() {
         usuarioActual = null;
     }
+    
+    public static boolean isLoggedIn() {
+        return usuarioActual != null;
+    }
 }
