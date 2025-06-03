@@ -17,7 +17,11 @@ import javax.swing.JOptionPane;
 import modelos.Categoria;
 import modelos.Ropa;
 import com.formdev.flatlaf.FlatDarculaLaf;
+import controladores.CarritoController;
+import controladores.HistorialController;
 import java.math.BigDecimal;
+import modelos.Usuario;
+import utiles.SesionUtil;
 
 /**
  *
@@ -44,6 +48,13 @@ public class AdminPanelProductos extends javax.swing.JDialog {
         for (Categoria categoria : categoriasLista) {
             jComboBox1.addItem(categoria.getNombre());
         }
+    }
+    
+    private void registrarAccion(Ropa ropa){
+        HistorialController historial=new HistorialController();
+        SesionUtil sesion=new SesionUtil();
+        Usuario usuario=sesion.getUsuarioActual();
+        historial.registrarAccion(usuario,"agregar","el usuario "+usuario.getNombre()+" agrego la prenda"+ropa.getModelo());
     }
 
    private void agregarPrenda() {
@@ -101,6 +112,7 @@ public class AdminPanelProductos extends javax.swing.JDialog {
         controller.agregarRopa(nuevaRopa);
 
         JOptionPane.showMessageDialog(this, "Prenda agregada con éxito.");
+        registrarAccion(nuevaRopa);
         limpiarCampos();
 
     } catch (NumberFormatException ex) {

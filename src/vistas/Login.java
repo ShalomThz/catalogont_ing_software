@@ -168,6 +168,7 @@ public class Login extends javax.swing.JDialog {
             if (usuario.getRol().equalsIgnoreCase("admin")) {
                 this.dispose();
                 AdminPanel adminPanel = new AdminPanel(null, true);
+                SesionUtil.iniciarSesion(usuario);
                 adminPanel.setVisible(true);
             } else {
                 System.out.println(usuario);
