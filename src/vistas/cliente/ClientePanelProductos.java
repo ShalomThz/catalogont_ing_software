@@ -108,7 +108,6 @@ public class ClientePanelProductos extends javax.swing.JDialog {
 
         nombreCategoriasToolBar.removeAll();
 
-        // 1. Botón "Todos los productos"
         JButton botonTodos = new JButton("Todos los productos");
         botonTodos.setFont(new Font("Segoe UI Black", Font.BOLD, 18));
         botonTodos.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
@@ -120,7 +119,6 @@ public class ClientePanelProductos extends javax.swing.JDialog {
         });
         nombreCategoriasToolBar.add(botonTodos);
 
-        // 2. Botones de categorías existentes
         for (Categoria categoria : categoriasLista) {
             JButton boton = new JButton(categoria.getNombre());
             boton.setFont(new Font("Segoe UI Black", Font.BOLD, 18));

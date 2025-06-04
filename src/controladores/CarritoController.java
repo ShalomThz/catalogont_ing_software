@@ -24,16 +24,16 @@ public class CarritoController {
             carrito.setUsuario(obtenerUsuarioPorNombre(conn, nombreUsuario));
             carrito.setFecha(obtenerFechaOrden(conn, ordenId));
 
-       String query = """
-    SELECT r.id, r.modelo, r.nombre, r.marca, r.precio, r.descuento, r.talla, r.color, 
-           r.disponible, r.descripcion, r.foto, r.categoria_id, orp.cantidad,
-           c.nombre AS cat_nombre, c.descripcion AS cat_descripcion, c.foto AS cat_foto
-    FROM orden_ropa orp
-    JOIN ropa r ON r.id = orp.ropa_id
-    JOIN categoria c ON r.categoria_id = c.id
-    WHERE orp.orden_id = ?
-""";
-
+            // MODIFIED: Added 'r.stock' to the SELECT statement
+            String query = """
+                SELECT r.id, r.modelo, r.nombre, r.marca, r.precio, r.descuento, r.talla, r.color, 
+                r.disponible, r.descripcion, r.foto, r.categoria_id, r.stock, orp.cantidad,
+                c.nombre AS cat_nombre, c.descripcion AS cat_descripcion, c.foto AS cat_foto
+                FROM orden_ropa orp
+                JOIN ropa r ON r.id = orp.ropa_id
+                JOIN categoria c ON r.categoria_id = c.id
+                WHERE orp.orden_id = ?
+            """;
 
             try (PreparedStatement stmt = conn.prepareStatement(query)) {
                 stmt.setInt(1, ordenId);
@@ -47,20 +47,22 @@ public class CarritoController {
                         rs.getString("cat_descripcion"),
                         rs.getString("cat_foto")
                     );
-Ropa ropa = new Ropa(
-    rs.getInt("id"),
-    rs.getString("modelo"),
-    rs.getString("nombre"),
-    rs.getString("marca"),
-    rs.getString("color"),
-    rs.getString("talla"),
-    rs.getBigDecimal("precio"),
-    rs.getBigDecimal("descuento"),
-    rs.getBoolean("disponible"),
-    rs.getString("descripcion"),
-    rs.getString("foto"), 
-    categoria
-);
+
+                    Ropa ropa = new Ropa(
+                        rs.getInt("id"),
+                        rs.getString("modelo"),
+                        rs.getString("nombre"),
+                        rs.getString("marca"),
+                        rs.getString("color"),
+                        rs.getString("talla"),
+                        rs.getBigDecimal("precio"),
+                        rs.getBigDecimal("descuento"),
+                        rs.getBoolean("disponible"),
+                        rs.getString("descripcion"),
+                        rs.getString("foto"), 
+                        categoria,
+                        rs.getInt("stock") // <--- NEW: Get stock value
+                    );
 
                     int cantidad = rs.getInt("cantidad");
                     items.add(new CarritoItem(ropa, cantidad));
@@ -70,6 +72,7 @@ Ropa ropa = new Ropa(
             }
 
         } catch (SQLException e) {
+            System.err.println("Error al obtener carrito para el usuario: " + e.getMessage());
             e.printStackTrace();
         }
 
@@ -79,6 +82,10 @@ Ropa ropa = new Ropa(
     public void agregarAlCarrito(String nombreUsuario, Ropa ropa, int cantidad) {
         try (Connection conn = ConexionDB.getConexion()) {
             int ordenId = obtenerOcrearOrdenActiva(conn, nombreUsuario);
+
+            // You might want to add a check here against `ropa.getStock()` before
+            // adding to the cart, especially if this is the only entry point for adding items.
+            // However, `CarritoVista` already does client-side validation using the JSpinner.
 
             String query = """
                 INSERT INTO orden_ropa (orden_id, ropa_id, cantidad)
@@ -95,6 +102,7 @@ Ropa ropa = new Ropa(
             }
 
         } catch (SQLException e) {
+            System.err.println("Error al agregar al carrito: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -112,9 +120,36 @@ Ropa ropa = new Ropa(
             }
 
         } catch (SQLException e) {
+            System.err.println("Error al quitar del carrito: " + e.getMessage());
             e.printStackTrace();
         }
     }
+    
+    public boolean actualizarCantidadEnCarrito(String nombreUsuario, Ropa ropa, int nuevaCantidad) {
+        try (Connection conn = ConexionDB.getConexion()) {
+            int ordenId = obtenerOcrearOrdenActiva(conn, nombreUsuario);
+            if (nuevaCantidad > ropa.getStock()) {
+                System.err.println("Intento de establecer cantidad mayor al stock disponible para: " + ropa.getNombre());
+                return false;
+            }
+
+            String query = "UPDATE orden_ropa SET cantidad = ? WHERE orden_id = ? AND ropa_id = ?";
+
+            try (PreparedStatement stmt = conn.prepareStatement(query)) {
+                stmt.setInt(1, nuevaCantidad);
+                stmt.setInt(2, ordenId);
+                stmt.setInt(3, ropa.getId());
+                int rowsAffected = stmt.executeUpdate();
+                return rowsAffected > 0;
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al actualizar cantidad en el carrito: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
     private int obtenerOcrearOrdenActiva(Connection conn, String nombreUsuario) throws SQLException {
         String selectQuery = """
@@ -134,7 +169,6 @@ Ropa ropa = new Ropa(
             }
         }
 
-        // Si no existe, se crea una nueva orden para el usuario
         Usuario usuario = obtenerUsuarioPorNombre(conn, nombreUsuario);
         if (usuario == null) throw new SQLException("Usuario no encontrado: " + nombreUsuario);
 

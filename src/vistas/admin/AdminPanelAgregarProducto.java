@@ -49,90 +49,99 @@ public class AdminPanelAgregarProducto extends javax.swing.JDialog {
             seleccionaCategoriaComboBox.addItem(categoria.getNombre());
         }
     }
-    
-    private void registrarAccion(Ropa ropa){
-        HistorialController historial=new HistorialController();
-        SesionUtil sesion=new SesionUtil();
-        Usuario usuario=sesion.getUsuarioActual();
-        historial.registrarAccion(usuario,"agregar","el usuario "+usuario.getNombre()+" agrego la prenda"+ropa.getModelo());
+
+    private void registrarAccion(Ropa ropa) {
+        HistorialController historial = new HistorialController();
+        SesionUtil sesion = new SesionUtil();
+        Usuario usuario = sesion.getUsuarioActual();
+        historial.registrarAccion(usuario, "agregar", "el usuario " + usuario.getNombre() + " agrego la prenda" + ropa.getModelo());
     }
 
-   private void agregarPrenda() {
-    try {
-        String categoriaNombre = (String) seleccionaCategoriaComboBox.getSelectedItem();
-        if (categoriaNombre == null || categoriaNombre.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor selecciona una categoría.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            return;
+    private void agregarPrenda() {
+        try {
+            String categoriaNombre = (String) seleccionaCategoriaComboBox.getSelectedItem();
+            if (categoriaNombre == null || categoriaNombre.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Por favor selecciona una categoría.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            Categoria categoria = categoriasLista.stream()
+                    .filter(cat -> cat.getNombre().equals(categoriaNombre))
+                    .findFirst()
+                    .orElse(null);
+
+            if (categoria == null) {
+                JOptionPane.showMessageDialog(this, "Categoría no encontrada.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            String modelo = modeloTextField.getText().trim();
+            String nombre = nombreTextField.getText().trim();
+            String talla = tallaTextField.getText().trim();
+            String color = colorTextField.getText().trim();
+            String precioTexto = precioTextField.getText().trim();
+            String descripcion = descripcionTextArea.getText().trim();
+            String marca = marcaTextField.getText().trim(); // Nuevo campo requerido
+            boolean disponible = disponibilidadCheckBox.getState();
+            int stock = (int) stockSpinner.getValue();
+
+            if (modelo.isEmpty() || nombre.isEmpty() || talla.isEmpty() || color.isEmpty()
+                    || precioTexto.isEmpty() || descripcion.isEmpty() || marca.isEmpty()
+                    || imagenSeleccionada == null || stock <= 0) { // Validar también que el stock sea mayor a 0
+                JOptionPane.showMessageDialog(this, "Por favor completa todos los campos (incluyendo el stock mayor a 0) y selecciona una imagen.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (modelo.isEmpty() || nombre.isEmpty() || talla.isEmpty() || color.isEmpty()
+                    || precioTexto.isEmpty() || descripcion.isEmpty() || imagenSeleccionada == null) {
+                JOptionPane.showMessageDialog(this, "Por favor completa todos los campos y selecciona una imagen.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            BigDecimal precio = new BigDecimal(precioTexto);
+            BigDecimal descuento = BigDecimal.ZERO; // Valor por defecto
+            String imagen = imagenSeleccionada;
+
+            Ropa nuevaRopa = new Ropa(
+                    modelo,
+                    nombre,
+                    marca,
+                    color,
+                    talla,
+                    precio,
+                    descuento,
+                    disponible,
+                    descripcion,
+                    imagen,
+                    categoria,
+                    stock
+            );
+
+            RopaController controller = new RopaController();
+            controller.agregarRopa(nuevaRopa);
+
+            JOptionPane.showMessageDialog(this, "Prenda agregada con éxito.");
+            registrarAccion(nuevaRopa);
+            limpiarCampos();
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Precio inválido.", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al agregar prenda: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-
-        Categoria categoria = categoriasLista.stream()
-                .filter(cat -> cat.getNombre().equals(categoriaNombre))
-                .findFirst()
-                .orElse(null);
-
-        if (categoria == null) {
-            JOptionPane.showMessageDialog(this, "Categoría no encontrada.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        String modelo = modeloTextField.getText().trim();
-        String nombre = nombreTextField.getText().trim();
-        String talla = tallaTextField.getText().trim();
-        String color = colorTextField.getText().trim();
-        String precioTexto = precioTextField.getText().trim();
-        String descripcion = descripcionTextArea.getText().trim();
-        String marca = marcaTextField.getText().trim(); // Nuevo campo requerido
-        boolean disponible = disponibilidadCheckBox.getState();
-
-        if (modelo.isEmpty() || nombre.isEmpty() || talla.isEmpty() || color.isEmpty() || 
-            precioTexto.isEmpty() || descripcion.isEmpty() || imagenSeleccionada == null) {
-            JOptionPane.showMessageDialog(this, "Por favor completa todos los campos y selecciona una imagen.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        BigDecimal precio = new BigDecimal(precioTexto);
-        BigDecimal descuento = BigDecimal.ZERO; // Valor por defecto
-        String imagen = imagenSeleccionada;
-
-        Ropa nuevaRopa = new Ropa(
-            modelo, 
-            nombre, 
-            marca, 
-            color, 
-            talla, 
-            precio, 
-            descuento, 
-            disponible, 
-            descripcion, 
-            imagen, 
-            categoria
-        );
-
-        RopaController controller = new RopaController();
-        controller.agregarRopa(nuevaRopa);
-
-        JOptionPane.showMessageDialog(this, "Prenda agregada con éxito.");
-        registrarAccion(nuevaRopa);
-        limpiarCampos();
-
-    } catch (NumberFormatException ex) {
-        JOptionPane.showMessageDialog(this, "Precio inválido.", "Error", JOptionPane.ERROR_MESSAGE);
-    } catch (Exception e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Error al agregar prenda: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
-}
 
-private void limpiarCampos() {
-    modeloTextField.setText("");
-    nombreTextField.setText("");
-    tallaTextField.setText("");
-    colorTextField.setText("");
-    precioTextField.setText("");
-    descripcionTextArea.setText("");
-    vistaPrevia.setIcon(null);
-    imagenSeleccionada = null;
-}
+    private void limpiarCampos() {
+        modeloTextField.setText("");
+        nombreTextField.setText("");
+        tallaTextField.setText("");
+        colorTextField.setText("");
+        precioTextField.setText("");
+        descripcionTextArea.setText("");
+        vistaPrevia.setIcon(null);
+        imagenSeleccionada = null;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -170,6 +179,8 @@ private void limpiarCampos() {
         disponibilidadCheckBox = new java.awt.Checkbox();
         marcaLabel = new javax.swing.JLabel();
         marcaTextField = new javax.swing.JTextField();
+        stockSpinner = new javax.swing.JSpinner();
+        stockLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -321,6 +332,11 @@ private void limpiarCampos() {
             }
         });
 
+        stockSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, 150, 1));
+
+        stockLabel.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        stockLabel.setText("Stock:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -348,22 +364,25 @@ private void limpiarCampos() {
                             .addComponent(descripcionLabel)
                             .addComponent(seleccionaCategoriaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(marcaLabel)
+                            .addComponent(disponibilidadCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(stockLabel)
                                 .addGap(34, 34, 34)
-                                .addComponent(disponibilidadCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(stockSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(101, 101, 101)
+                                .addGap(71, 71, 71)
                                 .addComponent(imagenPrendaFileChoseer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(83, 83, 83)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(vistaPrevia, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(regresarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(348, 348, 348)
+                                .addGap(318, 318, 318)
                                 .addComponent(agregarPrendaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(269, 269, 269)
+                                .addGap(239, 239, 239)
                                 .addComponent(seleccioneImagenLabel))))))
         );
         layout.setVerticalGroup(
@@ -377,9 +396,9 @@ private void limpiarCampos() {
                         .addGap(18, 18, 18)
                         .addComponent(imagenPrendaFileChoseer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(agregarPrendaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(agregarPrendaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(47, 47, 47))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
@@ -410,18 +429,24 @@ private void limpiarCampos() {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(marcaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(vistaPrevia, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(disponibilidadCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(descripcionLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(stockSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(1, 1, 1)
+                                        .addComponent(stockLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(descripcionLabel))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(55, 55, 55)
-                                .addComponent(regresarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(47, 47, 47))
+                                .addComponent(regresarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))))
         );
 
         pack();
@@ -514,31 +539,31 @@ private void limpiarCampos() {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-    /* --- CÓDIGO PARA INICIAR FLATLAF --- */
-    try {
-        // Usamos el tema Darcula que ya habías seleccionado
-        FlatDarculaLaf.setup();
-    } catch (Exception ex) {
-        System.err.println("No se pudo inicializar el Look and Feel FlatLaf.");
-    }
-    /* --- FIN DEL CÓDIGO DE FLATLAF --- */
-
-
-    /* Creamos y mostramos la ventana UNA SOLA VEZ */
-    java.awt.EventQueue.invokeLater(new Runnable() {
-        @Override
-        public void run() {
-            AdminPanelAgregarProducto dialog = new AdminPanelAgregarProducto(new javax.swing.JFrame(), true);
-            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                @Override
-                public void windowClosing(java.awt.event.WindowEvent e) {
-                    System.exit(0);
-                }
-            });
-            dialog.setVisible(true);
+        /* --- CÓDIGO PARA INICIAR FLATLAF --- */
+        try {
+            // Usamos el tema Darcula que ya habías seleccionado
+            FlatDarculaLaf.setup();
+        } catch (Exception ex) {
+            System.err.println("No se pudo inicializar el Look and Feel FlatLaf.");
         }
-    });
-}
+        /* --- FIN DEL CÓDIGO DE FLATLAF --- */
+
+
+ /* Creamos y mostramos la ventana UNA SOLA VEZ */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                AdminPanelAgregarProducto dialog = new AdminPanelAgregarProducto(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
+            }
+        });
+    }
     private String imagenSeleccionada = "sin_imagen.jpg";
     private ArrayList<Categoria> categoriasLista;
 
@@ -565,6 +590,8 @@ private void limpiarCampos() {
     private javax.swing.JButton regresarButton;
     private javax.swing.JComboBox<String> seleccionaCategoriaComboBox;
     private javax.swing.JLabel seleccioneImagenLabel;
+    private javax.swing.JLabel stockLabel;
+    private javax.swing.JSpinner stockSpinner;
     private javax.swing.JLabel tallaLabel;
     private javax.swing.JTextField tallaTextField;
     private javax.swing.JPanel tituloBanerPanel;

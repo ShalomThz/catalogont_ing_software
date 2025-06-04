@@ -1,4 +1,4 @@
-package controladores;
+package controladores; // This should only be declared once
 
 import db.ConexionDB;
 import java.math.BigDecimal;
@@ -8,10 +8,11 @@ import modelos.Categoria;
 import java.sql.*;
 import java.util.ArrayList;
 
+
 public class RopaController {
 
     public void agregarRopa(Ropa ropa) {
-        String sql = "INSERT INTO ropa (modelo, nombre, marca, precio, descuento, talla, color, disponible, categoria_id, foto, descripcion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO ropa (modelo, nombre, marca, precio, descuento, talla, color, disponible, categoria_id, foto, descripcion, stock) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection con = ConexionDB.getConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setString(1, ropa.getModelo());
@@ -25,6 +26,7 @@ public class RopaController {
             ps.setInt(9, ropa.getCategoria().getId());
             ps.setString(10, ropa.getFoto());
             ps.setString(11, ropa.getDescripcion());
+            ps.setInt(12, ropa.getStock()); 
 
             ps.executeUpdate();
 
@@ -35,8 +37,8 @@ public class RopaController {
 
     public ArrayList<Ropa> obtenerRopa() {
         ArrayList<Ropa> lista = new ArrayList<>();
-        // Cambiado 'imagen' por 'foto' en la consulta SQL
-        String sql = "SELECT r.id, r.modelo, r.nombre, r.marca, r.precio, r.descuento, r.talla, r.color, r.disponible, r.foto, r.descripcion, "
+        // <--- MODIFIED: Added 'r.stock' to the SELECT statement
+        String sql = "SELECT r.id, r.modelo, r.nombre, r.marca, r.precio, r.descuento, r.talla, r.color, r.disponible, r.foto, r.descripcion, r.stock, "
                 + "c.id AS cat_id, c.nombre AS cat_nombre, c.descripcion AS cat_descripcion, c.foto AS cat_foto "
                 + "FROM ropa r JOIN categoria c ON r.categoria_id = c.id";
 
@@ -54,15 +56,16 @@ public class RopaController {
                         rs.getInt("id"),
                         rs.getString("modelo"),
                         rs.getString("nombre"),
-                        rs.getString("marca"), // Asegúrate de que este orden coincida con tu constructor Ropa(int, String, String, String, ...)
+                        rs.getString("marca"),
                         rs.getString("color"),
                         rs.getString("talla"),
                         rs.getBigDecimal("precio"),
                         rs.getBigDecimal("descuento"),
                         rs.getBoolean("disponible"),
                         rs.getString("descripcion"),
-                        rs.getString("foto"), // Usar "foto"
-                        categoria
+                        rs.getString("foto"),
+                        categoria,
+                        rs.getInt("stock") // <--- NEW: Get stock value and pass to constructor
                 );
 
                 lista.add(ropa);
@@ -77,7 +80,7 @@ public class RopaController {
     }
 
     public void editarRopaPorId(Ropa ropa) {
-        String sql = "UPDATE ropa SET nombre = ?, marca = ?, precio = ?, descuento = ?, talla = ?, color = ?, disponible = ?, categoria_id = ?, foto = ?, descripcion = ? WHERE id = ?";
+        String sql = "UPDATE ropa SET nombre = ?, marca = ?, precio = ?, descuento = ?, talla = ?, color = ?, disponible = ?, categoria_id = ?, foto = ?, descripcion = ?, stock = ? WHERE id = ?";
         try (Connection con = ConexionDB.getConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setString(1, ropa.getNombre());
@@ -88,9 +91,10 @@ public class RopaController {
             ps.setString(6, ropa.getColor());
             ps.setBoolean(7, ropa.isDisponible());
             ps.setInt(8, ropa.getCategoria().getId());
-            ps.setString(9, ropa.getFoto()); // Usar getFoto()
+            ps.setString(9, ropa.getFoto());
             ps.setString(10, ropa.getDescripcion());
-            ps.setInt(11, ropa.getId());
+            ps.setInt(11, ropa.getStock());
+            ps.setInt(12, ropa.getId());
 
             ps.executeUpdate();
 
@@ -123,11 +127,11 @@ public class RopaController {
         }
     }
 
-    public ArrayList<Ropa> buscarRopa(String nombre, String modelo, BigDecimal precio, String color) { // Cambiado Double a BigDecimal para precio
+    public ArrayList<Ropa> buscarRopa(String nombre, String modelo, BigDecimal precio, String color) {
         ArrayList<Ropa> lista = new ArrayList<>();
         StringBuilder sql = new StringBuilder(
-                // Cambiado 'imagen' por 'foto' en la consulta SQL
-                "SELECT r.id, r.modelo, r.nombre, r.marca, r.precio, r.descuento, r.talla, r.color, r.disponible, r.foto, r.descripcion, "
+                // <--- MODIFIED: Added 'r.stock' to the SELECT statement
+                "SELECT r.id, r.modelo, r.nombre, r.marca, r.precio, r.descuento, r.talla, r.color, r.disponible, r.foto, r.descripcion, r.stock, "
                 + "c.id AS cat_id, c.nombre AS cat_nombre, c.descripcion AS cat_descripcion, c.foto AS cat_foto "
                 + "FROM ropa r JOIN categoria c ON r.categoria_id = c.id WHERE 1=1"
         );
@@ -170,15 +174,16 @@ public class RopaController {
                             rs.getInt("id"),
                             rs.getString("modelo"),
                             rs.getString("nombre"),
-                            rs.getString("marca"), // Asegúrate de que este orden coincida con tu constructor Ropa(int, String, String, String, ...)
+                            rs.getString("marca"),
                             rs.getString("color"),
                             rs.getString("talla"),
                             rs.getBigDecimal("precio"),
                             rs.getBigDecimal("descuento"),
                             rs.getBoolean("disponible"),
                             rs.getString("descripcion"),
-                            rs.getString("foto"), // Usar "foto"
-                            categoria
+                            rs.getString("foto"),
+                            categoria,
+                            rs.getInt("stock") // <--- NEW: Get stock value and pass to constructor
                     );
 
                     lista.add(ropa);
@@ -195,7 +200,8 @@ public class RopaController {
 
     public ArrayList<Ropa> buscarRopaPorNombreCategoria(String nombreCategoria) {
         ArrayList<Ropa> lista = new ArrayList<>();
-        String sql = "SELECT r.id, r.modelo, r.nombre, r.marca, r.precio, r.descuento, r.talla, r.color, r.disponible, r.foto, r.descripcion, " +
+        // <--- MODIFIED: Added 'r.stock' to the SELECT statement
+        String sql = "SELECT r.id, r.modelo, r.nombre, r.marca, r.precio, r.descuento, r.talla, r.color, r.disponible, r.foto, r.descripcion, r.stock, " +
                      "c.id AS cat_id, c.nombre AS cat_nombre, c.descripcion AS cat_descripcion, c.foto AS cat_foto " +
                      "FROM ropa r JOIN categoria c ON r.categoria_id = c.id WHERE LOWER(c.nombre) = ?";
 
@@ -225,7 +231,8 @@ public class RopaController {
                         rs.getBoolean("disponible"),
                         rs.getString("descripcion"),
                         rs.getString("foto"),
-                        categoria
+                        categoria,
+                        rs.getInt("stock") // <--- NEW: Get stock value and pass to constructor
                     );
 
                     lista.add(ropa);
@@ -238,5 +245,20 @@ public class RopaController {
         }
 
         return lista;
+    }
+
+    public boolean actualizarStockRopa(int ropaId, int nuevaCantidadStock) {
+        String sql = "UPDATE ropa SET stock = ? WHERE id = ?";
+        try (Connection con = ConexionDB.getConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, nuevaCantidadStock);
+            ps.setInt(2, ropaId);
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            System.err.println("Error al actualizar stock de ropa: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
     }
 }

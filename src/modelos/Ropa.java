@@ -21,8 +21,9 @@ public class Ropa {
     private String foto; 
     private BigDecimal descuento;
     private Categoria categoria;
+    private int stock;
 
-    public Ropa(int id, String modelo, String nombre, String marca, String color, String talla, BigDecimal precio, BigDecimal descuento, boolean disponible, String descripcion, String foto, Categoria categoria) {
+    public Ropa(int id, String modelo, String nombre, String marca, String color, String talla, BigDecimal precio, BigDecimal descuento, boolean disponible, String descripcion, String foto, Categoria categoria, int stock) {
         this.id = id;
         this.modelo = modelo;
         this.nombre = nombre;
@@ -35,9 +36,10 @@ public class Ropa {
         this.descripcion = descripcion;
         this.foto = foto;
         this.categoria = categoria;
+        this.stock = stock;
     }
 
-    public Ropa(String modelo, String nombre, String marca, String color, String talla, BigDecimal precio, BigDecimal descuento, boolean disponible, String descripcion, String foto, Categoria categoria) {
+    public Ropa(String modelo, String nombre, String marca, String color, String talla, BigDecimal precio, BigDecimal descuento, boolean disponible, String descripcion, String foto, Categoria categoria, int stock) {
         this.modelo = modelo;
         this.nombre = nombre;
         this.marca = marca;
@@ -49,6 +51,7 @@ public class Ropa {
         this.descripcion = descripcion;
         this.foto = foto;
         this.categoria = categoria;
+        this.stock = stock;
     }
 
     public int getId() { return id; }
@@ -63,6 +66,8 @@ public class Ropa {
     public String getDescripcion() { return descripcion; }
     public String getFoto() {return foto;}
     public Categoria getCategoria() { return categoria; }
+    public int getStock() { return stock; }
+
 
     public void setId(int id) { this.id = id; }
     public void setModelo(String modelo) { this.modelo = modelo; }
@@ -76,4 +81,6 @@ public class Ropa {
     public void setFoto(String foto) {this.foto = foto;}
     public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
     public void setCategoria(Categoria categoria) { this.categoria = categoria; }
+    public void setStock(int stock) { this.stock = stock; }
+
 }

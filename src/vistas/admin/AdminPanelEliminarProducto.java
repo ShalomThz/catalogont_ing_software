@@ -144,7 +144,7 @@ public class AdminPanelEliminarProducto extends javax.swing.JDialog {
             }
             eliminarButton.setEnabled(true); 
         } else {
-            modelo.addElement(new Ropa(0, "No hay productos para eliminar", "", "", "", "", BigDecimal.ZERO, BigDecimal.ZERO, false, "", "", null)); // Un producto "fantasma" o mensaje
+            modelo.addElement(new Ropa(0, "No hay productos para eliminar", "", "", "", "", BigDecimal.ZERO, BigDecimal.ZERO, false, "", "", null, 0)); // Un producto "fantasma" o mensaje
             eliminarButton.setEnabled(false); 
             JOptionPane.showMessageDialog(this,
                 "No hay productos disponibles para eliminar.",

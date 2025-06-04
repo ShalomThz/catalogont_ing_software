@@ -7,12 +7,15 @@ package vistas.cliente;
 import controladores.CarritoController;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 import modelos.CarritoItem;
 import modelos.Usuario;
 import utiles.CarritoPDFGenerator;
@@ -20,10 +23,10 @@ import modelos.Carrito;
 
 /**
  *
- * @author josha
+ * @author Villegas Velázquez Alejandro
  */
 public class CarritoVista extends javax.swing.JDialog {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CarritoVista.class.getName());
 
     /**
@@ -35,27 +38,29 @@ public class CarritoVista extends javax.swing.JDialog {
         productosPanel.setLayout(new BoxLayout(productosPanel, BoxLayout.Y_AXIS));
         jScrollPane1.setViewportView(productosPanel);
     }
-    
-public void cargarCarrito(Usuario usuario) {
-    this.usuario = usuario;
-    clienteActualLabel.setText(this.usuario.getNombre());
-    fechaActualLabel.setText(java.time.LocalDate.now().toString());
+    //HACER LA CANTIDAD DE PRODUCTO MODIFICABLE QUE SE MUUESTRE EL IMPORTE TOTAL Y AGREGAR STOCK
 
-    CarritoController controller = new CarritoController();
-    Carrito carritoUsuario = controller.obtenerCarritoUsuario(this.usuario.getNombre());
-    productosCarrito = carritoUsuario.getItems();
+    public void cargarCarrito(Usuario usuario) {
+        this.usuario = usuario;
+        clienteActualLabel.setText(this.usuario.getNombre());
+        fechaActualLabel.setText(java.time.LocalDate.now().toString());
 
-    productosPanel.removeAll();
+        CarritoController controller = new CarritoController();
+        Carrito carritoUsuario = controller.obtenerCarritoUsuario(this.usuario.getNombre());
+        productosCarrito = carritoUsuario.getItems();
 
-    if (productosCarrito.isEmpty()) {
-        productosPanel.add(new JLabel("El carrito está vacío."));
-    } else {
-for (CarritoItem item : productosCarrito) {
-    JPanel itemPanel = new JPanel();
-    itemPanel.setLayout(new GridLayout(1, 5)); // Cambiado de 3 a 4 para agregar el botón
-    itemPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        productosPanel.removeAll();
 
-    try {
+        if (productosCarrito.isEmpty()) {
+            productosPanel.add(new JLabel("El carrito está vacío."));
+            totalLabel.setText("Total: $0.00");
+        } else {
+            for (CarritoItem item : productosCarrito) {
+                JPanel itemPanel = new JPanel();
+                itemPanel.setLayout(new GridLayout(1, 6));
+                itemPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+                try {
                     ImageIcon icon = new ImageIcon("imagenes/ropa/" + item.getRopa().getFoto());
                     Image img = icon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
                     JLabel imgLabel = new JLabel(new ImageIcon(img));
@@ -64,37 +69,78 @@ for (CarritoItem item : productosCarrito) {
                     itemPanel.add(new JLabel("Imagen no disponible"));
                     System.err.println("Error al cargar imagen de ropa: " + item.getRopa().getFoto() + " - " + e.getMessage());
                 }
-    
-    JLabel nombreLabel = new JLabel("Producto: " + item.getRopa().getNombre());
-    JLabel cantidadLabel = new JLabel("Cantidad: " + item.getCantidad());
-    JLabel precioLabel = new JLabel("Precio: $" + item.getRopa().getPrecio());
-    
-    
 
-    // Crear botón de eliminar
-    javax.swing.JButton eliminarBtn = new javax.swing.JButton("Eliminar");
-    eliminarBtn.addActionListener(e -> {
-       
-        controller.quitarDelCarrito(usuario.getNombre(), item.getRopa());
+                JLabel nombreLabel = new JLabel("Producto: " + item.getRopa().getNombre());
+                JLabel precioUnitarioLabel = new JLabel("Precio Unitario: $" + String.format("%.2f", item.getRopa().getPrecio()));
+                JLabel subtotalLabel = new JLabel("  Subtotal: $" + String.format("%.2f", item.getRopa().getPrecio().multiply(new BigDecimal(item.getCantidad()))));
 
-        // Recargar la vista del carrito
-        cargarCarrito(usuario);
-    });
+                SpinnerNumberModel spinnerModel = new SpinnerNumberModel(item.getCantidad(), 0, item.getRopa().getStock(), 1);
+                JSpinner cantidadSpinner = new JSpinner(spinnerModel);
 
-    itemPanel.add(nombreLabel);
-    itemPanel.add(cantidadLabel);
-    itemPanel.add(precioLabel);
-    itemPanel.add(eliminarBtn); // Agregar botón al panel
+                cantidadSpinner.addChangeListener(e -> {
+                    int newQuantity = (int) cantidadSpinner.getValue();
+                    if (newQuantity < 0) {
+                        cantidadSpinner.setValue(0);
+                        newQuantity = 0;
+                    }
 
-    productosPanel.add(itemPanel);
-}
+                    if (newQuantity > item.getRopa().getStock()) {
+                        javax.swing.JOptionPane.showMessageDialog(this, "No hay suficiente stock para " + item.getRopa().getNombre() + ". Stock disponible: " + item.getRopa().getStock(), "Stock Insuficiente", javax.swing.JOptionPane.WARNING_MESSAGE);
+                        cantidadSpinner.setValue(item.getCantidad());
+                    } else if (newQuantity == 0) { 
+                        int dialogResult = javax.swing.JOptionPane.showConfirmDialog(this, "¿Quieres eliminar " + item.getRopa().getNombre() + " del carrito?", "Eliminar Producto", javax.swing.JOptionPane.YES_NO_OPTION);
+                        if (dialogResult == javax.swing.JOptionPane.YES_OPTION) {
+                            for (java.awt.Component comp : itemPanel.getComponents()) {
+                                if (comp instanceof javax.swing.JButton && ((javax.swing.JButton) comp).getText().equals("Eliminar")) {
+                                    ((javax.swing.JButton) comp).doClick();
+                                    break;
+                                }
+                            }
+                        } else {
+                            cantidadSpinner.setValue(item.getCantidad());
+                        }
+                    } else {
+                        item.setCantidad(newQuantity);
+                        subtotalLabel.setText("Subtotal: $" + String.format("%.2f", item.getRopa().getPrecio().multiply(new BigDecimal(newQuantity))));
+                        actualizarTotalCarrito();
+                    }
+                });
 
+                javax.swing.JButton eliminarBtn = new javax.swing.JButton("Eliminar");
+                eliminarBtn.addActionListener(e -> {
+                    controller.quitarDelCarrito(usuario.getNombre(), item.getRopa());
+                    cargarCarrito(usuario);
+                });
+
+                itemPanel.add(nombreLabel);
+                itemPanel.add(precioUnitarioLabel);
+                itemPanel.add(cantidadSpinner);
+                itemPanel.add(subtotalLabel);
+                itemPanel.add(eliminarBtn);
+
+                productosPanel.add(itemPanel);
+            }
+        }
+
+        productosPanel.revalidate();
+        productosPanel.repaint();
+        actualizarTotalCarrito();
     }
 
-    productosPanel.revalidate();
-    productosPanel.repaint();
-}
+    private void actualizarTotalCarrito() {
+        BigDecimal total = BigDecimal.ZERO;
 
+        for (CarritoItem item : productosCarrito) {
+            int cantidad = item.getCantidad();
+            BigDecimal precio = item.getRopa().getPrecio();
+
+            BigDecimal cantidadBigDecimal = new BigDecimal(cantidad);
+            BigDecimal subtotal = precio.multiply(cantidadBigDecimal);
+
+            total = total.add(subtotal);
+        }
+        totalLabel.setText("Total: $" + String.format("%.2f", total));
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -116,6 +162,7 @@ for (CarritoItem item : productosCarrito) {
         clienteLabel = new javax.swing.JLabel();
         clienteActualLabel = new javax.swing.JLabel();
         tituloLabel = new javax.swing.JLabel();
+        totalLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -170,13 +217,14 @@ for (CarritoItem item : productosCarrito) {
         tituloLabel.setForeground(new java.awt.Color(102, 102, 102));
         tituloLabel.setText("TU CARRRITO");
 
+        totalLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        totalLabel.setForeground(new java.awt.Color(51, 51, 51));
+        totalLabel.setText("jLabel1");
+
         javax.swing.GroupLayout globalPanelLayout = new javax.swing.GroupLayout(globalPanel);
         globalPanel.setLayout(globalPanelLayout);
         globalPanelLayout.setHorizontalGroup(
             globalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(globalPanelLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, globalPanelLayout.createSequentialGroup()
                 .addGap(116, 116, 116)
                 .addGroup(globalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,8 +234,8 @@ for (CarritoItem item : productosCarrito) {
                 .addGroup(globalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(fechaActualLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(clienteActualLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 249, Short.MAX_VALUE)
-                .addComponent(generarPDFButton, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(generarPDFButton, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
                 .addComponent(regresarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29))
@@ -195,6 +243,11 @@ for (CarritoItem item : productosCarrito) {
                 .addGap(282, 282, 282)
                 .addComponent(tituloLabel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 936, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, globalPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(totalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(63, 63, 63))
         );
         globalPanelLayout.setVerticalGroup(
             globalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,6 +256,12 @@ for (CarritoItem item : productosCarrito) {
                 .addComponent(tituloLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(globalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(globalPanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                        .addGroup(globalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(generarPDFButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(regresarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26))
+                    .addGroup(globalPanelLayout.createSequentialGroup()
                         .addGap(42, 42, 42)
                         .addGroup(globalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(clienteLabel)
@@ -210,15 +269,10 @@ for (CarritoItem item : productosCarrito) {
                         .addGap(18, 18, 18)
                         .addGroup(globalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(fechaLabel)
-                            .addComponent(fechaActualLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, Short.MAX_VALUE))
-                    .addGroup(globalPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(globalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(generarPDFButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(regresarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(32, 32, 32)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
+                            .addComponent(fechaActualLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(totalLabel)
                 .addContainerGap())
         );
 
@@ -238,21 +292,21 @@ for (CarritoItem item : productosCarrito) {
 
     private void generarPDFButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generarPDFButtonActionPerformed
         if (productosCarrito == null || productosCarrito.isEmpty()) {
-        javax.swing.JOptionPane.showMessageDialog(this, "El carrito está vacío, no se puede generar el PDF.");
-        return;
-    }
+            javax.swing.JOptionPane.showMessageDialog(this, "El carrito está vacío, no se puede generar el PDF.");
+            return;
+        }
 
-    String nombreCliente = usuario.getNombre();
-    String rutaArchivo = "CarritoDeCompras_" + nombreCliente + ".pdf";
+        String nombreCliente = usuario.getNombre();
+        String rutaArchivo = "CarritoDeCompras_" + nombreCliente + ".pdf";
 
-    CarritoPDFGenerator.generarPDF(rutaArchivo, nombreCliente, productosCarrito);
+        CarritoPDFGenerator.generarPDF(rutaArchivo, nombreCliente, productosCarrito);
     }//GEN-LAST:event_generarPDFButtonActionPerformed
 
     private void regresarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarButtonActionPerformed
         this.dispose();
         ClientePanelProductos nuevoPProducto = new ClientePanelProductos(null, true);
         nuevoPProducto.setVisible(true);
-        
+
     }//GEN-LAST:event_regresarButtonActionPerformed
 
     /**
@@ -291,8 +345,8 @@ for (CarritoItem item : productosCarrito) {
             }
         });
     }
-    private List<CarritoItem> productosCarrito= null;
-    private Usuario usuario=null;
+    private List<CarritoItem> productosCarrito = null;
+    private Usuario usuario = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel clienteActualLabel;
     private javax.swing.JLabel clienteLabel;
@@ -305,5 +359,6 @@ for (CarritoItem item : productosCarrito) {
     private javax.swing.JPanel productosPanel;
     private javax.swing.JButton regresarButton;
     private javax.swing.JLabel tituloLabel;
+    private javax.swing.JLabel totalLabel;
     // End of variables declaration//GEN-END:variables
 }
