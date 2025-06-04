@@ -14,6 +14,8 @@ import modelos.Ropa;
  *
  * @author Alejandro
  */
+import controladores.HistorialController;
+import utiles.SesionUtil;
 public class AdminPanelEliminarProducto extends javax.swing.JDialog {
     private final RopaController ropaController;
     private ArrayList<Ropa> listaProductos;
@@ -138,7 +140,7 @@ public class AdminPanelEliminarProducto extends javax.swing.JDialog {
 
         if (listaProductos != null && !listaProductos.isEmpty()) {
             for (Ropa producto : listaProductos) {
-                modelo.addElement(producto.getNombre()); 
+                modelo.addElement(producto.getModelo()); 
             }
             eliminarButton.setEnabled(true); 
         } else {
@@ -151,34 +153,41 @@ public class AdminPanelEliminarProducto extends javax.swing.JDialog {
         }
         seleccionaProductoComboBox.setModel(modelo);
     }
-    
+    private void registrarAccion(String  modeloRopa){
+        HistorialController historial= new HistorialController();
+        SesionUtil sesion = new SesionUtil();
+        
+        historial.registrarAccion(sesion.getUsuarioActual(),"eliminar", "se elimino un producto");
+        
+    }
     private void eliminarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarButtonActionPerformed
-        Ropa productoSeleccionado = (Ropa) seleccionaProductoComboBox.getSelectedItem();
+    String modeloSeleccionado = (String) seleccionaProductoComboBox.getSelectedItem();
 
-        if (productoSeleccionado != null && productoSeleccionado.getId() != 0) {
-            int confirmacion = JOptionPane.showConfirmDialog(
-                this,
-                "¿Está seguro que desea eliminar el producto: " + productoSeleccionado.getNombre() + " (Modelo: " + productoSeleccionado.getModelo() + ")?",
-                "Confirmar Eliminación",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.WARNING_MESSAGE
-            );
+    if (modeloSeleccionado != null && !modeloSeleccionado.trim().isEmpty()) {
+        int confirmacion = JOptionPane.showConfirmDialog(
+            this,
+            "¿Está seguro que desea eliminar el producto con modelo: " + modeloSeleccionado + "?",
+            "Confirmar Eliminación",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.WARNING_MESSAGE
+        );
 
-            if (confirmacion == JOptionPane.YES_OPTION) {
-                ropaController.eliminarRopaPorId(productoSeleccionado.getId()); 
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            ropaController.eliminarRopaPorModelo(modeloSeleccionado);
 
-                JOptionPane.showMessageDialog(this,
-                    "Producto eliminado exitosamente.",
-                    "Éxito",
-                    JOptionPane.INFORMATION_MESSAGE);
-                cargarProductosEnComboBox(); 
-            }
-        } else {
             JOptionPane.showMessageDialog(this,
-                "Por favor, selecciona un producto válido para eliminar.",
-                "Advertencia",
-                JOptionPane.WARNING_MESSAGE);
+                "Producto eliminado exitosamente.",
+                "Éxito",
+                JOptionPane.INFORMATION_MESSAGE);
+            cargarProductosEnComboBox(); 
+            registrarAccion(modeloSeleccionado);
         }
+    } else {
+        JOptionPane.showMessageDialog(this,
+            "Por favor, selecciona un modelo válido para eliminar.",
+            "Advertencia",
+            JOptionPane.WARNING_MESSAGE);
+    }
     }//GEN-LAST:event_eliminarButtonActionPerformed
 
     private void cancelarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarButtonActionPerformed
