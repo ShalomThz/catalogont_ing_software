@@ -109,7 +109,7 @@ for (CarritoItem item : productosCarrito) {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         productosPanel = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
+        regresarButton = new javax.swing.JButton();
         generarPDFButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabelFecha = new javax.swing.JLabel();
@@ -134,11 +134,11 @@ for (CarritoItem item : productosCarrito) {
 
         jScrollPane1.setViewportView(productosPanel);
 
-        jButton2.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        jButton2.setText("Regresar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        regresarButton.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        regresarButton.setText("Regresar");
+        regresarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                regresarButtonActionPerformed(evt);
             }
         });
 
@@ -189,7 +189,7 @@ for (CarritoItem item : productosCarrito) {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 249, Short.MAX_VALUE)
                 .addComponent(generarPDFButton, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(regresarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(282, 282, 282)
@@ -216,7 +216,7 @@ for (CarritoItem item : productosCarrito) {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(generarPDFButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(regresarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(32, 32, 32)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
                 .addContainerGap())
@@ -248,9 +248,12 @@ for (CarritoItem item : productosCarrito) {
     CarritoPDFGenerator.generarPDF(rutaArchivo, nombreCliente, productosCarrito);
     }//GEN-LAST:event_generarPDFButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void regresarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarButtonActionPerformed
         this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+        ClientePanelProductos nuevoPProducto = new ClientePanelProductos(null, true);
+        nuevoPProducto.setVisible(true);
+        
+    }//GEN-LAST:event_regresarButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -292,7 +295,6 @@ for (CarritoItem item : productosCarrito) {
     private Usuario usuario=null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton generarPDFButton;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -302,5 +304,6 @@ for (CarritoItem item : productosCarrito) {
     private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel productosPanel;
+    private javax.swing.JButton regresarButton;
     // End of variables declaration//GEN-END:variables
 }
