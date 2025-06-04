@@ -239,48 +239,4 @@ public class RopaController {
 
         return lista;
     }
-    public ArrayList<Ropa> obtenerTodaRopa() {
-    ArrayList<Ropa> lista = new ArrayList<>();
-    // Esta consulta obtiene TODA la ropa de la base de datos, uniendo con la tabla de categorías
-    String sql = "SELECT r.id, r.modelo, r.nombre, r.marca, r.precio, r.descuento, r.talla, r.color, r.disponible, r.foto, r.descripcion, "
-            + "c.id AS cat_id, c.nombre AS cat_nombre, c.descripcion AS cat_descripcion, c.foto AS cat_foto "
-            + "FROM ropa r JOIN categoria c ON r.categoria_id = c.id";
-
-    try (Connection con = ConexionDB.getConexion();
-         Statement st = con.createStatement();
-         ResultSet rs = st.executeQuery(sql)) {
-
-        while (rs.next()) {
-            Categoria categoria = new Categoria(
-                    rs.getInt("cat_id"),
-                    rs.getString("cat_nombre"),
-                    rs.getString("cat_descripcion"),
-                    rs.getString("cat_foto")
-            );
-
-            Ropa ropa = new Ropa(
-                    rs.getInt("id"),
-                    rs.getString("modelo"),
-                    rs.getString("nombre"),
-                    rs.getString("marca"),
-                    rs.getString("color"),
-                    rs.getString("talla"),
-                    rs.getBigDecimal("precio"),
-                    rs.getBigDecimal("descuento"),
-                    rs.getBoolean("disponible"),
-                    rs.getString("descripcion"),
-                    rs.getString("foto"),
-                    categoria
-            );
-
-            lista.add(ropa);
-        }
-
-    } catch (SQLException e) {
-        System.err.println("Error al obtener la ropa: " + e.getMessage());
-        e.printStackTrace();
-    }
-
-    return lista;
-}
 }
