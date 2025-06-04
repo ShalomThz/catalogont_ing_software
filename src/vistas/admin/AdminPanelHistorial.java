@@ -138,7 +138,7 @@ public class AdminPanelHistorial extends javax.swing.JDialog {
 
     private void regresarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarButtonActionPerformed
         this.dispose();
-        AdminPanel nuevoAPanel = new AdminPanel(null, true);
+        AdminPanelHome nuevoAPanel = new AdminPanelHome(null, true);
         nuevoAPanel.setVisible(true);
     }//GEN-LAST:event_regresarButtonActionPerformed
 

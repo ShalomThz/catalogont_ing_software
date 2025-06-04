@@ -4,7 +4,7 @@
  */
 package vistas;
 
-import vistas.admin.AdminPanel;
+import vistas.admin.AdminPanelHome;
 import vistas.cliente.Home;
 import controladores.UsuarioController;
 import javax.swing.JOptionPane;
@@ -199,7 +199,7 @@ public class Login extends javax.swing.JDialog {
             // Redirigir según el rol
             if (usuario.getRol().equalsIgnoreCase("admin")) {
                 this.dispose();
-                AdminPanel adminPanel = new AdminPanel(null, true);
+                AdminPanelHome adminPanel = new AdminPanelHome(null, true);
                 SesionUtil.iniciarSesion(usuario);
                 adminPanel.setVisible(true);
             } else {

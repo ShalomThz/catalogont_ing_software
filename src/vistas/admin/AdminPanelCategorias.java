@@ -268,13 +268,13 @@ public class AdminPanelCategorias extends javax.swing.JDialog {
     }//GEN-LAST:event_jFileChooser1ActionPerformed
 
     private void BotonEliminarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEliminarCategoriaActionPerformed
-        AdminEliminarCategoria dialog = new AdminEliminarCategoria(null, true);
+        AdminPanelEliminarCategoria dialog = new AdminPanelEliminarCategoria(null, true);
         dialog.setVisible(true);
     }//GEN-LAST:event_BotonEliminarCategoriaActionPerformed
 
     private void BotonRegresar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonRegresar1ActionPerformed
         this.dispose();
-        AdminPanel nuevoAPanel = new AdminPanel(null, true);
+        AdminPanelHome nuevoAPanel = new AdminPanelHome(null, true);
         nuevoAPanel.setVisible(true);
     }//GEN-LAST:event_BotonRegresar1ActionPerformed
 

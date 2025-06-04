@@ -24,7 +24,7 @@ import com.formdev.flatlaf.FlatDarculaLaf; // O el tema que quieras
 import java.awt.Cursor;
 import modelos.Usuario;
 import utiles.SesionUtil;
-import vistas.admin.AdminPanel;
+import vistas.admin.AdminPanelHome;
 
 /**
  *
@@ -349,7 +349,7 @@ public class ClientePanelProductos extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                AdminPanel dialog = new AdminPanel(new javax.swing.JFrame(), true);
+                AdminPanelHome dialog = new AdminPanelHome(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

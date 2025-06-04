@@ -14,13 +14,13 @@ import modelos.Ropa;
  *
  * @author Alejandro
  */
-public class AdminEliminarProducto extends javax.swing.JDialog {
+public class AdminPanelEliminarProducto extends javax.swing.JDialog {
     private final RopaController ropaController;
     private ArrayList<Ropa> listaProductos;
     /**
      * Creates new form AdminEliminarProducto
      */
-    public AdminEliminarProducto(java.awt.Frame parent, boolean modal) {
+    public AdminPanelEliminarProducto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(parent);
@@ -74,7 +74,6 @@ public class AdminEliminarProducto extends javax.swing.JDialog {
 
         tituloLabel.setBackground(new java.awt.Color(0, 0, 0));
         tituloLabel.setFont(new java.awt.Font("Segoe UI Black", 0, 48)); // NOI18N
-        tituloLabel.setForeground(new java.awt.Color(204, 204, 204));
         tituloLabel.setText("Eliminar Producto");
 
         seleccionaLabel.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
@@ -135,11 +134,11 @@ public class AdminEliminarProducto extends javax.swing.JDialog {
     
     private void cargarProductosEnComboBox() {
         listaProductos = ropaController.obtenerRopa(); 
-        DefaultComboBoxModel<Ropa> modelo = new DefaultComboBoxModel<>();
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel<>();
 
         if (listaProductos != null && !listaProductos.isEmpty()) {
             for (Ropa producto : listaProductos) {
-                modelo.addElement(producto); 
+                modelo.addElement(producto.getNombre()); 
             }
             eliminarButton.setEnabled(true); 
         } else {
@@ -207,20 +206,21 @@ public class AdminEliminarProducto extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AdminEliminarProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminPanelEliminarProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AdminEliminarProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminPanelEliminarProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AdminEliminarProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminPanelEliminarProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AdminEliminarProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminPanelEliminarProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                AdminEliminarProducto dialog = new AdminEliminarProducto(new javax.swing.JFrame(), true);
+                AdminPanelEliminarProducto dialog = new AdminPanelEliminarProducto(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

@@ -5,7 +5,7 @@
 package vistas.admin;
 
 import vistas.admin.AdminPanelCategorias;
-import vistas.admin.AdminPanelProductos;
+import vistas.admin.AdminPanelAgregarProducto;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import vistas.Login;
 import vistas.Registro;
@@ -14,12 +14,12 @@ import vistas.Registro;
  *
  * @author Villegas Velazquez Alejandro
  */
-public class AdminPanel extends javax.swing.JDialog {
+public class AdminPanelHome extends javax.swing.JDialog {
 
     /**
      * Creates new form AdminPanel
      */
-    public AdminPanel(java.awt.Frame parent, boolean modal) {
+    public AdminPanelHome(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -201,7 +201,7 @@ public class AdminPanel extends javax.swing.JDialog {
     java.awt.EventQueue.invokeLater(new Runnable() {
         @Override
 public void run() {
-            AdminPanel dialog = new AdminPanel(new javax.swing.JFrame(), true);
+            AdminPanelHome dialog = new AdminPanelHome(new javax.swing.JFrame(), true);
             dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
 public void windowClosing(java.awt.event.WindowEvent e) {

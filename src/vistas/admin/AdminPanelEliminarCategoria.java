@@ -14,13 +14,13 @@ import modelos.Categoria;
  *
  * @author Alejandro
  */
-public class AdminEliminarCategoria extends javax.swing.JDialog {
+public class AdminPanelEliminarCategoria extends javax.swing.JDialog {
 
     /**
-     * Creates new form AdminEliminarCategoria
+     * Creates new form AdminPanelEliminarCategoria
      */
     private final CategoriaController categoriaController;
-    public AdminEliminarCategoria(java.awt.Frame parent, boolean modal) {
+    public AdminPanelEliminarCategoria(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         categoriaController = new CategoriaController();
@@ -78,7 +78,6 @@ public class AdminEliminarCategoria extends javax.swing.JDialog {
 
         titutuloLabel.setBackground(new java.awt.Color(255, 255, 255));
         titutuloLabel.setFont(new java.awt.Font("Segoe UI Black", 0, 48)); // NOI18N
-        titutuloLabel.setForeground(new java.awt.Color(204, 204, 204));
         titutuloLabel.setText("Eliminar Categoría");
 
         seleccionarCategoriaComboBox.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
@@ -206,20 +205,21 @@ public class AdminEliminarCategoria extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AdminEliminarCategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminPanelEliminarCategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AdminEliminarCategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminPanelEliminarCategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AdminEliminarCategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminPanelEliminarCategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AdminEliminarCategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminPanelEliminarCategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                AdminEliminarCategoria dialog = new AdminEliminarCategoria(new javax.swing.JFrame(), true);
+                AdminPanelEliminarCategoria dialog = new AdminPanelEliminarCategoria(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

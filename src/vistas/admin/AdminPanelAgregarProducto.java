@@ -27,12 +27,12 @@ import utiles.SesionUtil;
  *
  * @author josha
  */
-public class AdminPanelProductos extends javax.swing.JDialog {
+public class AdminPanelAgregarProducto extends javax.swing.JDialog {
 
     /**
      * Creates new form AdminPanelProductos
      */
-    public AdminPanelProductos(java.awt.Frame parent, boolean modal) {
+    public AdminPanelAgregarProducto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         cargarCategoriasEnComboBox();
@@ -488,7 +488,7 @@ private void limpiarCampos() {
 
     private void regresarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarButtonActionPerformed
         this.dispose();
-        AdminPanel nuevoAPanel = new AdminPanel(null, true);
+        AdminPanelHome nuevoAPanel = new AdminPanelHome(null, true);
         nuevoAPanel.setVisible(true);
     }//GEN-LAST:event_regresarButtonActionPerformed
 
@@ -528,7 +528,7 @@ private void limpiarCampos() {
     java.awt.EventQueue.invokeLater(new Runnable() {
         @Override
         public void run() {
-            AdminPanelProductos dialog = new AdminPanelProductos(new javax.swing.JFrame(), true);
+            AdminPanelAgregarProducto dialog = new AdminPanelAgregarProducto(new javax.swing.JFrame(), true);
             dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosing(java.awt.event.WindowEvent e) {
