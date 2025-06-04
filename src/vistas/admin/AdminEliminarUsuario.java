@@ -3,19 +3,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package vistas.admin;
-
+import controladores.UsuarioController;
+import modelos.Usuario;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Alejandro
  */
 public class AdminEliminarUsuario extends javax.swing.JDialog {
-
+    private List<Usuario> usuarios;
     /**
      * Creates new form AdminEliminarUsuario
      */
     public AdminEliminarUsuario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.setLocationRelativeTo(null); 
+        cargarUsuariosEnComboBox();
     }
 
     /**
@@ -49,9 +55,19 @@ public class AdminEliminarUsuario extends javax.swing.JDialog {
 
         cancelarButton.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         cancelarButton.setText("Cancelar");
+        cancelarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarButtonActionPerformed(evt);
+            }
+        });
 
         eliminarButton.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         eliminarButton.setText("Eliminar");
+        eliminarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -106,6 +122,54 @@ public class AdminEliminarUsuario extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void eliminarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarButtonActionPerformed
+        int selectedIndex = jComboBox1.getSelectedIndex();
+        if (selectedIndex != -1 && usuarios != null && selectedIndex < usuarios.size()) {
+            Usuario usuarioAEliminar = usuarios.get(selectedIndex);
+
+            int confirmacion = JOptionPane.showConfirmDialog(this,
+                    "¿Estás seguro de que quieres eliminar a " + usuarioAEliminar.getNombre() + "?",
+                    "Confirmar Eliminación",
+                    JOptionPane.YES_NO_OPTION);
+
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                UsuarioController controller = new UsuarioController();
+                controller.eliminarUsuarioPorNombre(usuarioAEliminar.getNombre()); // Usamos el método existente
+
+                JOptionPane.showMessageDialog(this,
+                        "Usuario " + usuarioAEliminar.getNombre() + " eliminado exitosamente.",
+                        "Éxito",
+                        JOptionPane.INFORMATION_MESSAGE);
+                cargarUsuariosEnComboBox(); // Recargar la lista después de eliminar
+            }
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "Selecciona un usuario para eliminar.",
+                    "Error",
+                    JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_eliminarButtonActionPerformed
+
+    private void cancelarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarButtonActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_cancelarButtonActionPerformed
+    
+    private void cargarUsuariosEnComboBox() {
+        UsuarioController controller = new UsuarioController();
+        usuarios = controller.obtenerTodosLosUsuarios(); // Este método lo crearemos en UsuarioController
+
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+        if (usuarios != null && !usuarios.isEmpty()) {
+            for (Usuario user : usuarios) {
+                // Puedes mostrar el nombre de usuario o alguna otra identificación
+                model.addElement(user.getNombre() + " (ID: " + user.getId() + ")");
+            }
+        } else {
+            model.addElement("No hay usuarios para eliminar");
+            eliminarButton.setEnabled(false); // Deshabilitar el botón si no hay usuarios
+        }
+        jComboBox1.setModel(model);
+    }
     /**
      * @param args the command line arguments
      */

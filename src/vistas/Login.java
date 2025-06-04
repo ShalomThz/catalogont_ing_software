@@ -50,6 +50,7 @@ public class Login extends javax.swing.JDialog {
         iniciarSesionLabel = new javax.swing.JLabel();
         contraseñaPasswordField = new javax.swing.JPasswordField();
         registroLabel = new javax.swing.JLabel();
+        noTienesCuentaLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -99,7 +100,7 @@ public class Login extends javax.swing.JDialog {
         iniciarSesionLabel.setText("INICIA SESIÓN EN TU CUENTA");
 
         registroLabel.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        registroLabel.setText("¿No tienes una cuenta? Registrate aquí");
+        registroLabel.setText("Registrate aquí");
         registroLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 registroLabelMouseClicked(evt);
@@ -111,6 +112,9 @@ public class Login extends javax.swing.JDialog {
                 registroLabelMouseExited(evt);
             }
         });
+
+        noTienesCuentaLabel.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        noTienesCuentaLabel.setText("¿No tienes una cuenta?");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -135,10 +139,13 @@ public class Login extends javax.swing.JDialog {
                             .addComponent(usuarioTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(104, 104, 104)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(registroLabel)
-                            .addComponent(iniciarSesionLabel))))
-                .addContainerGap(107, Short.MAX_VALUE))
+                        .addComponent(iniciarSesionLabel))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(107, 107, 107)
+                        .addComponent(noTienesCuentaLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(registroLabel)))
+                .addContainerGap(101, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,9 +163,11 @@ public class Login extends javax.swing.JDialog {
                 .addComponent(contraseñaPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(59, 59, 59)
                 .addComponent(iniciarSesionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
-                .addComponent(registroLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(registroLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(noTienesCuentaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(45, 45, 45))
         );
 
         pack();
@@ -259,6 +268,7 @@ public class Login extends javax.swing.JDialog {
     private javax.swing.JPasswordField contraseñaPasswordField;
     private javax.swing.JButton iniciarSesionButton;
     private javax.swing.JLabel iniciarSesionLabel;
+    private javax.swing.JLabel noTienesCuentaLabel;
     private javax.swing.JLabel registroLabel;
     private javax.swing.JLabel tituloLabel;
     private javax.swing.JPanel tituloPanel;

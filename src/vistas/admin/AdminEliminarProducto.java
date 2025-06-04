@@ -4,18 +4,28 @@
  */
 package vistas.admin;
 
+import controladores.RopaController; 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import modelos.Ropa;
 /**
  *
  * @author Alejandro
  */
 public class AdminEliminarProducto extends javax.swing.JDialog {
-
+    private final RopaController ropaController;
+    private ArrayList<Ropa> listaProductos;
     /**
      * Creates new form AdminEliminarProducto
      */
     public AdminEliminarProducto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.setLocationRelativeTo(parent);
+        ropaController = new RopaController();
+        cargarProductosEnComboBox();
     }
 
     /**
@@ -122,9 +132,54 @@ public class AdminEliminarProducto extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    private void cargarProductosEnComboBox() {
+        listaProductos = ropaController.obtenerRopa(); 
+        DefaultComboBoxModel<Ropa> modelo = new DefaultComboBoxModel<>();
 
+        if (listaProductos != null && !listaProductos.isEmpty()) {
+            for (Ropa producto : listaProductos) {
+                modelo.addElement(producto); 
+            }
+            eliminarButton.setEnabled(true); 
+        } else {
+            modelo.addElement(new Ropa(0, "No hay productos para eliminar", "", "", "", "", BigDecimal.ZERO, BigDecimal.ZERO, false, "", "", null)); // Un producto "fantasma" o mensaje
+            eliminarButton.setEnabled(false); 
+            JOptionPane.showMessageDialog(this,
+                "No hay productos disponibles para eliminar.",
+                "Información",
+                JOptionPane.INFORMATION_MESSAGE);
+        }
+        seleccionaProductoComboBox.setModel(modelo);
+    }
+    
     private void eliminarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarButtonActionPerformed
-        
+        Ropa productoSeleccionado = (Ropa) seleccionaProductoComboBox.getSelectedItem();
+
+        if (productoSeleccionado != null && productoSeleccionado.getId() != 0) {
+            int confirmacion = JOptionPane.showConfirmDialog(
+                this,
+                "¿Está seguro que desea eliminar el producto: " + productoSeleccionado.getNombre() + " (Modelo: " + productoSeleccionado.getModelo() + ")?",
+                "Confirmar Eliminación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE
+            );
+
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                ropaController.eliminarRopaPorId(productoSeleccionado.getId()); 
+
+                JOptionPane.showMessageDialog(this,
+                    "Producto eliminado exitosamente.",
+                    "Éxito",
+                    JOptionPane.INFORMATION_MESSAGE);
+                cargarProductosEnComboBox(); 
+            }
+        } else {
+            JOptionPane.showMessageDialog(this,
+                "Por favor, selecciona un producto válido para eliminar.",
+                "Advertencia",
+                JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_eliminarButtonActionPerformed
 
     private void cancelarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarButtonActionPerformed
@@ -182,7 +237,7 @@ public class AdminEliminarProducto extends javax.swing.JDialog {
     private javax.swing.JButton eliminarButton;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel seleccionaLabel;
-    private javax.swing.JComboBox<modelos.Categoria> seleccionaProductoComboBox;
+    private javax.swing.JComboBox<modelos.Ropa> seleccionaProductoComboBox;
     private javax.swing.JLabel tituloLabel;
     // End of variables declaration//GEN-END:variables
 }

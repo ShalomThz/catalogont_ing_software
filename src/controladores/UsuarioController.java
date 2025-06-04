@@ -5,6 +5,8 @@ import modelos.Usuario;
 import utiles.SeguridadUtil;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UsuarioController {
 
@@ -92,5 +94,27 @@ public class UsuarioController {
             System.err.println("Error al eliminar usuario: " + e.getMessage());
             e.printStackTrace();
         }
+    }
+    public List<Usuario> obtenerTodosLosUsuarios() {
+        List<Usuario> usuarios = new ArrayList<>();
+        String sql = "SELECT id, nombre, email, rol FROM usuario"; // No seleccionar la contraseña
+        try (Connection con = ConexionDB.getConexion();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                usuarios.add(new Usuario(
+                        rs.getInt("id"),
+                        rs.getString("nombre"),
+                        rs.getString("email"),
+                        "", // No devolver contrasena por seguridad
+                        rs.getString("rol")
+                ));
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener usuarios: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return usuarios;
     }
 }

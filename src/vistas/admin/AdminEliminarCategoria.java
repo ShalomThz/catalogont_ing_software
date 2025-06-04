@@ -25,7 +25,7 @@ public class AdminEliminarCategoria extends javax.swing.JDialog {
         initComponents();
         categoriaController = new CategoriaController();
         cargarCategorias();
-        setLocationRelativeTo(parent); // Centrar respecto a la ventana padre
+        setLocationRelativeTo(parent);
     }
     private void cargarCategorias() {
         ArrayList<Categoria> categorias = categoriaController.obtenerCategorias();
@@ -43,6 +43,8 @@ public class AdminEliminarCategoria extends javax.swing.JDialog {
                 "No hay categorías disponibles para eliminar", 
                 "Información", 
                 JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            eliminarButton.setEnabled(true);
         }
     }
 
