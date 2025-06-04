@@ -44,13 +44,13 @@ public class ClientePanelProducto extends javax.swing.JDialog {
         try {
             if (ropa.getFoto() != null && !ropa.getFoto().isEmpty()) {
                 ImageIcon icon = new ImageIcon("imagenes/ropa/" + ropa.getFoto());
-                Image img = icon.getImage().getScaledInstance(jPanel1.getWidth(), jPanel1.getHeight(), Image.SCALE_SMOOTH);
-                jPanel1.setLayout(new BorderLayout());
+                Image img = icon.getImage().getScaledInstance(imagenProductoPanel.getWidth(), imagenProductoPanel.getHeight(), Image.SCALE_SMOOTH);
+                imagenProductoPanel.setLayout(new BorderLayout());
                 JLabel imagenLabel = new JLabel(new ImageIcon(img));
-                jPanel1.removeAll();
-                jPanel1.add(imagenLabel, BorderLayout.CENTER);
-                jPanel1.revalidate();
-                jPanel1.repaint();
+                imagenProductoPanel.removeAll();
+                imagenProductoPanel.add(imagenLabel, BorderLayout.CENTER);
+                imagenProductoPanel.revalidate();
+                imagenProductoPanel.repaint();
             }
         } catch (Exception e) {
             //logger.log(Level.WARNING, "Error al cargar imagen", e);
@@ -71,10 +71,10 @@ public class ClientePanelProducto extends javax.swing.JDialog {
         colorProducto = new javax.swing.JLabel();
         tallaProducto = new javax.swing.JLabel();
         descripcionProducto = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        regresarButton = new javax.swing.JButton();
         agregarAlCarrito = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        imagenProductoPanel = new javax.swing.JPanel();
+        nombreProductoPanel = new javax.swing.JPanel();
         nombreProducto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -94,11 +94,11 @@ public class ClientePanelProducto extends javax.swing.JDialog {
         descripcionProducto.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         descripcionProducto.setText("Descripcion del producto:");
 
-        jButton1.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        jButton1.setText("Regresar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        regresarButton.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        regresarButton.setText("Regresar");
+        regresarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                regresarButtonActionPerformed(evt);
             }
         });
 
@@ -110,35 +110,35 @@ public class ClientePanelProducto extends javax.swing.JDialog {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout imagenProductoPanelLayout = new javax.swing.GroupLayout(imagenProductoPanel);
+        imagenProductoPanel.setLayout(imagenProductoPanelLayout);
+        imagenProductoPanelLayout.setHorizontalGroup(
+            imagenProductoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 612, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        imagenProductoPanelLayout.setVerticalGroup(
+            imagenProductoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 521, Short.MAX_VALUE)
         );
 
-        jPanel2.setBackground(new java.awt.Color(255, 204, 204));
+        nombreProductoPanel.setBackground(new java.awt.Color(255, 204, 204));
 
         nombreProducto.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
         nombreProducto.setForeground(new java.awt.Color(153, 153, 153));
         nombreProducto.setText("Nombre del producto");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout nombreProductoPanelLayout = new javax.swing.GroupLayout(nombreProductoPanel);
+        nombreProductoPanel.setLayout(nombreProductoPanelLayout);
+        nombreProductoPanelLayout.setHorizontalGroup(
+            nombreProductoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(nombreProductoPanelLayout.createSequentialGroup()
                 .addGap(95, 95, 95)
                 .addComponent(nombreProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        nombreProductoPanelLayout.setVerticalGroup(
+            nombreProductoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(nombreProductoPanelLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addComponent(nombreProducto)
                 .addContainerGap(31, Short.MAX_VALUE))
@@ -150,7 +150,7 @@ public class ClientePanelProducto extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(imagenProductoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -165,14 +165,14 @@ public class ClientePanelProducto extends javax.swing.JDialog {
                             .addComponent(agregarAlCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(modeloProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(regresarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(37, 37, 37))))
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(nombreProductoPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(nombreProductoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -189,19 +189,19 @@ public class ClientePanelProducto extends javax.swing.JDialog {
                         .addGap(45, 45, 45)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(agregarAlCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(regresarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(imagenProductoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void regresarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarButtonActionPerformed
         this.dispose();
         ClientePanelProductos nuevoPProductos = new ClientePanelProductos(null, true);
         nuevoPProductos.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_regresarButtonActionPerformed
 
     private void agregarAlCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarAlCarritoActionPerformed
         if (ropaActual == null) {
@@ -266,12 +266,12 @@ public class ClientePanelProducto extends javax.swing.JDialog {
     private javax.swing.JButton agregarAlCarrito;
     private javax.swing.JLabel colorProducto;
     private javax.swing.JLabel descripcionProducto;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel imagenProductoPanel;
     private javax.swing.JLabel modeloProducto;
     private javax.swing.JLabel nombreProducto;
+    private javax.swing.JPanel nombreProductoPanel;
     private javax.swing.JLabel precioProducto;
+    private javax.swing.JButton regresarButton;
     private javax.swing.JLabel tallaProducto;
     // End of variables declaration//GEN-END:variables
 }
