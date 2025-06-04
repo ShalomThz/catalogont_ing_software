@@ -39,7 +39,7 @@ public class ClientePanelProductos extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         cargarCategoriasEnToolBar();
-        productosPanel.setLayout(new javax.swing.BoxLayout(productosPanel, javax.swing.BoxLayout.X_AXIS));
+        productosPanel.setLayout(new java.awt.GridLayout(0, 5, 10, 10));
         cargarRopa();
         cargarEtiquetas();
         usuarioActual = SesionUtil.getUsuarioActual();
@@ -50,7 +50,7 @@ public class ClientePanelProductos extends javax.swing.JDialog {
         initComponents();
         this.categoriaRequerida = categoriaRequerida;
         cargarCategoriasEnToolBar();
-        productosPanel.setLayout(new javax.swing.BoxLayout(productosPanel, javax.swing.BoxLayout.Y_AXIS));
+        productosPanel.setLayout(new java.awt.GridLayout(0, 5, 10, 10));
         cargarRopa();
         cargarEtiquetas();
         usuarioActual = SesionUtil.getUsuarioActual();
