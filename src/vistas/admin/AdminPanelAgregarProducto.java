@@ -75,14 +75,14 @@ public class AdminPanelAgregarProducto extends javax.swing.JDialog {
             return;
         }
 
-        String modelo = jTextFieldModelo.getText().trim();
+        String modelo = modeloTextField.getText().trim();
         String nombre = nombreTextField.getText().trim();
         String talla = tallaTextField.getText().trim();
-        String color = jTextField3.getText().trim();
-        String precioTexto = jTextField4.getText().trim();
-        String descripcion = jTextAreaDescripcion.getText().trim();
-        String marca = jTextFieldMarca.getText().trim(); // Nuevo campo requerido
-        boolean disponible = checkbox1.getState();
+        String color = colorTextField.getText().trim();
+        String precioTexto = precioTextField.getText().trim();
+        String descripcion = descripcionTextArea.getText().trim();
+        String marca = marcaTextField.getText().trim(); // Nuevo campo requerido
+        boolean disponible = disponibilidadCheckBox.getState();
 
         if (modelo.isEmpty() || nombre.isEmpty() || talla.isEmpty() || color.isEmpty() || 
             precioTexto.isEmpty() || descripcion.isEmpty() || imagenSeleccionada == null) {
@@ -124,12 +124,12 @@ public class AdminPanelAgregarProducto extends javax.swing.JDialog {
 }
 
 private void limpiarCampos() {
-    jTextFieldModelo.setText("");
+    modeloTextField.setText("");
     nombreTextField.setText("");
     tallaTextField.setText("");
-    jTextField3.setText("");
-    jTextField4.setText("");
-    jTextAreaDescripcion.setText("");
+    colorTextField.setText("");
+    precioTextField.setText("");
+    descripcionTextArea.setText("");
     vistaPrevia.setIcon(null);
     imagenSeleccionada = null;
 }
@@ -143,37 +143,37 @@ private void limpiarCampos() {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        tituloBanerPanel = new javax.swing.JPanel();
         tituloLabel = new javax.swing.JLabel();
         eliminacionProductoButton = new javax.swing.JButton();
         editarProductoButton = new javax.swing.JButton();
         seleccionaCategoriaComboBox = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         nombreTextField = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        nombreLabel = new javax.swing.JLabel();
+        tallaLabel = new javax.swing.JLabel();
         tallaTextField = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        colorLabel = new javax.swing.JLabel();
+        precioLabel = new javax.swing.JLabel();
+        colorTextField = new javax.swing.JTextField();
+        precioTextField = new javax.swing.JTextField();
         agregarPrendaButton = new javax.swing.JButton();
-        jFileChooser1 = new javax.swing.JFileChooser();
+        imagenPrendaFileChoseer = new javax.swing.JFileChooser();
         vistaPrevia = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jTextFieldModelo = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
+        seleccioneImagenLabel = new javax.swing.JLabel();
+        modeloLabel = new javax.swing.JLabel();
+        modeloTextField = new javax.swing.JTextField();
+        descripcionLabel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextAreaDescripcion = new javax.swing.JTextArea();
+        descripcionTextArea = new javax.swing.JTextArea();
         regresarButton = new javax.swing.JButton();
-        checkbox1 = new java.awt.Checkbox();
-        jLabel11 = new javax.swing.JLabel();
-        jTextFieldMarca = new javax.swing.JTextField();
+        disponibilidadCheckBox = new java.awt.Checkbox();
+        marcaLabel = new javax.swing.JLabel();
+        marcaTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(51, 0, 102));
+        tituloBanerPanel.setBackground(new java.awt.Color(51, 0, 102));
 
         tituloLabel.setFont(new java.awt.Font("Segoe UI Black", 0, 48)); // NOI18N
         tituloLabel.setText("AGREGADO DE PRODUCTO");
@@ -194,26 +194,26 @@ private void limpiarCampos() {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout tituloBanerPanelLayout = new javax.swing.GroupLayout(tituloBanerPanel);
+        tituloBanerPanel.setLayout(tituloBanerPanelLayout);
+        tituloBanerPanelLayout.setHorizontalGroup(
+            tituloBanerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tituloBanerPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(tituloLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 645, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(88, 88, 88)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(tituloBanerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(editarProductoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(eliminacionProductoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(68, 68, 68))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        tituloBanerPanelLayout.setVerticalGroup(
+            tituloBanerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tituloBanerPanelLayout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(tituloBanerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tituloLabel)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(tituloBanerPanelLayout.createSequentialGroup()
                         .addComponent(eliminacionProductoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(editarProductoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -237,11 +237,11 @@ private void limpiarCampos() {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        jLabel2.setText("Nombre:");
+        nombreLabel.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        nombreLabel.setText("Nombre:");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        jLabel3.setText("Talla:");
+        tallaLabel.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        tallaLabel.setText("Talla:");
 
         tallaTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -249,15 +249,15 @@ private void limpiarCampos() {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        jLabel4.setText("Color:");
+        colorLabel.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        colorLabel.setText("Color:");
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        jLabel5.setText("Precio:");
+        precioLabel.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        precioLabel.setText("Precio:");
 
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        colorTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                colorTextFieldActionPerformed(evt);
             }
         });
 
@@ -269,30 +269,30 @@ private void limpiarCampos() {
             }
         });
 
-        jFileChooser1.addActionListener(new java.awt.event.ActionListener() {
+        imagenPrendaFileChoseer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFileChooser1ActionPerformed(evt);
+                imagenPrendaFileChoseerActionPerformed(evt);
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        jLabel6.setText("Seleccione imagen para prenda...");
+        seleccioneImagenLabel.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        seleccioneImagenLabel.setText("Seleccione imagen para prenda...");
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        jLabel8.setText("Modelo:");
+        modeloLabel.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        modeloLabel.setText("Modelo:");
 
-        jTextFieldModelo.addActionListener(new java.awt.event.ActionListener() {
+        modeloTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldModeloActionPerformed(evt);
+                modeloTextFieldActionPerformed(evt);
             }
         });
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        jLabel10.setText("Descripcion");
+        descripcionLabel.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        descripcionLabel.setText("Descripcion");
 
-        jTextAreaDescripcion.setColumns(20);
-        jTextAreaDescripcion.setRows(5);
-        jScrollPane1.setViewportView(jTextAreaDescripcion);
+        descripcionTextArea.setColumns(20);
+        descripcionTextArea.setRows(5);
+        jScrollPane1.setViewportView(descripcionTextArea);
 
         regresarButton.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         regresarButton.setText("Regresar");
@@ -302,22 +302,22 @@ private void limpiarCampos() {
             }
         });
 
-        checkbox1.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        checkbox1.setForeground(new java.awt.Color(204, 204, 204));
-        checkbox1.setLabel("Disponibilidad");
-        checkbox1.setState(true);
-        checkbox1.addMouseListener(new java.awt.event.MouseAdapter() {
+        disponibilidadCheckBox.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        disponibilidadCheckBox.setForeground(new java.awt.Color(204, 204, 204));
+        disponibilidadCheckBox.setLabel("Disponibilidad");
+        disponibilidadCheckBox.setState(true);
+        disponibilidadCheckBox.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                checkbox1MouseClicked(evt);
+                disponibilidadCheckBoxMouseClicked(evt);
             }
         });
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        jLabel11.setText("Marca:");
+        marcaLabel.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        marcaLabel.setText("Marca:");
 
-        jTextFieldMarca.addActionListener(new java.awt.event.ActionListener() {
+        marcaTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldMarcaActionPerformed(evt);
+                marcaTextFieldActionPerformed(evt);
             }
         });
 
@@ -325,36 +325,36 @@ private void limpiarCampos() {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(tituloBanerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
+                    .addComponent(nombreLabel)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
+                            .addComponent(colorLabel)
+                            .addComponent(precioLabel)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(tallaLabel, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(tallaTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
                                 .addComponent(nombreTextField, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(precioTextField, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextFieldModelo)
-                                .addComponent(jTextFieldMarca))
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel10)
+                                .addComponent(colorTextField, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(modeloTextField)
+                                .addComponent(marcaTextField))
+                            .addComponent(modeloLabel)
+                            .addComponent(descripcionLabel)
                             .addComponent(seleccionaCategoriaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel11)
+                            .addComponent(marcaLabel)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(34, 34, 34)
-                                .addComponent(checkbox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(disponibilidadCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(101, 101, 101)
-                                .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(imagenPrendaFileChoseer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(83, 83, 83)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(vistaPrevia, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -364,18 +364,18 @@ private void limpiarCampos() {
                                 .addComponent(agregarPrendaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(269, 269, 269)
-                                .addComponent(jLabel6))))))
+                                .addComponent(seleccioneImagenLabel))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tituloBanerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(96, 96, 96)
-                        .addComponent(jLabel6)
+                        .addComponent(seleccioneImagenLabel)
                         .addGap(18, 18, 18)
-                        .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(imagenPrendaFileChoseer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(agregarPrendaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -386,36 +386,36 @@ private void limpiarCampos() {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(seleccionaCategoriaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel2)
+                                .addComponent(nombreLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(nombreTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel3)
+                                .addComponent(tallaLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(tallaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel4)
+                                .addComponent(colorLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(colorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel5)
+                                .addComponent(precioLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(precioTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel8)
+                                .addComponent(modeloLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(modeloTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(marcaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(marcaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(vistaPrevia, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(checkbox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(disponibilidadCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel10)
+                                .addComponent(descripcionLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
@@ -444,13 +444,13 @@ private void limpiarCampos() {
         // TODO add your handling code here:
     }//GEN-LAST:event_nombreTextFieldActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void colorTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_colorTextFieldActionPerformed
 
-    private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
+    private void imagenPrendaFileChoseerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imagenPrendaFileChoseerActionPerformed
         if (evt.getActionCommand().equals(javax.swing.JFileChooser.APPROVE_SELECTION)) {
-            java.io.File archivo = jFileChooser1.getSelectedFile();
+            java.io.File archivo = imagenPrendaFileChoseer.getSelectedFile();
 
             if (archivo != null && archivo.exists()) {
                 imagenSeleccionada = archivo.getName(); // Solo el nombre del archivo
@@ -480,11 +480,11 @@ private void limpiarCampos() {
             }
         }
 
-    }//GEN-LAST:event_jFileChooser1ActionPerformed
+    }//GEN-LAST:event_imagenPrendaFileChoseerActionPerformed
 
-    private void jTextFieldModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldModeloActionPerformed
+    private void modeloTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modeloTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldModeloActionPerformed
+    }//GEN-LAST:event_modeloTextFieldActionPerformed
 
     private void regresarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarButtonActionPerformed
         this.dispose();
@@ -496,13 +496,13 @@ private void limpiarCampos() {
         // TODO add your handling code here:
     }//GEN-LAST:event_eliminacionProductoButtonActionPerformed
 
-    private void checkbox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkbox1MouseClicked
+    private void disponibilidadCheckBoxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_disponibilidadCheckBoxMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_checkbox1MouseClicked
+    }//GEN-LAST:event_disponibilidadCheckBoxMouseClicked
 
-    private void jTextFieldMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldMarcaActionPerformed
+    private void marcaTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_marcaTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldMarcaActionPerformed
+    }//GEN-LAST:event_marcaTextFieldActionPerformed
 
     private void editarProductoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarProductoButtonActionPerformed
         this.dispose();
@@ -544,30 +544,30 @@ private void limpiarCampos() {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregarPrendaButton;
-    private java.awt.Checkbox checkbox1;
+    private javax.swing.JLabel colorLabel;
+    private javax.swing.JTextField colorTextField;
+    private javax.swing.JLabel descripcionLabel;
+    private javax.swing.JTextArea descripcionTextArea;
+    private java.awt.Checkbox disponibilidadCheckBox;
     private javax.swing.JButton editarProductoButton;
     private javax.swing.JButton eliminacionProductoButton;
-    private javax.swing.JFileChooser jFileChooser1;
+    private javax.swing.JFileChooser imagenPrendaFileChoseer;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextAreaDescripcion;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextFieldMarca;
-    private javax.swing.JTextField jTextFieldModelo;
+    private javax.swing.JLabel marcaLabel;
+    private javax.swing.JTextField marcaTextField;
+    private javax.swing.JLabel modeloLabel;
+    private javax.swing.JTextField modeloTextField;
+    private javax.swing.JLabel nombreLabel;
     private javax.swing.JTextField nombreTextField;
+    private javax.swing.JLabel precioLabel;
+    private javax.swing.JTextField precioTextField;
     private javax.swing.JButton regresarButton;
     private javax.swing.JComboBox<String> seleccionaCategoriaComboBox;
+    private javax.swing.JLabel seleccioneImagenLabel;
+    private javax.swing.JLabel tallaLabel;
     private javax.swing.JTextField tallaTextField;
+    private javax.swing.JPanel tituloBanerPanel;
     private javax.swing.JLabel tituloLabel;
     private javax.swing.JLabel vistaPrevia;
     // End of variables declaration//GEN-END:variables

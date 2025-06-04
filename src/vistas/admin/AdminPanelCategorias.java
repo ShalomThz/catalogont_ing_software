@@ -41,25 +41,25 @@ public class AdminPanelCategorias extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        tituloBanerPanel = new javax.swing.JPanel();
+        tituloLabel = new javax.swing.JLabel();
         BotonEliminarCategoria = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButtonGuardar = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jFileChooser1 = new javax.swing.JFileChooser();
+        nombreCategoriaLabel = new javax.swing.JLabel();
+        nombreCategoriaTextField = new javax.swing.JTextField();
+        descripcionCategoriaLabel = new javax.swing.JLabel();
+        descripcionCategoriaTextField = new javax.swing.JTextField();
+        guardarButton = new javax.swing.JButton();
+        seleccioneImagenLabel = new javax.swing.JLabel();
+        imagenCategoriaFileChooser = new javax.swing.JFileChooser();
         vistaPrevia = new javax.swing.JLabel();
-        BotonRegresar1 = new javax.swing.JButton();
+        regresarButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(51, 0, 102));
+        tituloBanerPanel.setBackground(new java.awt.Color(51, 0, 102));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI Black", 0, 48)); // NOI18N
-        jLabel4.setText("CREACÍON DE CATEGORÍA");
+        tituloLabel.setFont(new java.awt.Font("Segoe UI Black", 0, 48)); // NOI18N
+        tituloLabel.setText("CREACÍON DE CATEGORÍA");
 
         BotonEliminarCategoria.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         BotonEliminarCategoria.setText("Eliminacion de Categoria");
@@ -69,70 +69,70 @@ public class AdminPanelCategorias extends javax.swing.JDialog {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(173, 173, 173)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 657, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(77, 77, 77)
+        javax.swing.GroupLayout tituloBanerPanelLayout = new javax.swing.GroupLayout(tituloBanerPanel);
+        tituloBanerPanel.setLayout(tituloBanerPanelLayout);
+        tituloBanerPanelLayout.setHorizontalGroup(
+            tituloBanerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tituloBanerPanelLayout.createSequentialGroup()
+                .addGap(219, 219, 219)
+                .addComponent(tituloLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 657, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
                 .addComponent(BotonEliminarCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(104, 104, 104))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(42, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(21, 21, 21))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        tituloBanerPanelLayout.setVerticalGroup(
+            tituloBanerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tituloBanerPanelLayout.createSequentialGroup()
+                .addContainerGap(51, Short.MAX_VALUE)
+                .addGroup(tituloBanerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tituloBanerPanelLayout.createSequentialGroup()
                         .addComponent(BotonEliminarCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30))))
+                        .addGap(30, 30, 30))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tituloBanerPanelLayout.createSequentialGroup()
+                        .addComponent(tituloLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))))
         );
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        jLabel1.setText("Nombre de categoría ");
+        nombreCategoriaLabel.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        nombreCategoriaLabel.setText("Nombre de categoría ");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        nombreCategoriaTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                nombreCategoriaTextFieldActionPerformed(evt);
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        jLabel2.setText("Descripcion de categoría");
+        descripcionCategoriaLabel.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        descripcionCategoriaLabel.setText("Descripcion de categoría");
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        descripcionCategoriaTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                descripcionCategoriaTextFieldActionPerformed(evt);
             }
         });
 
-        jButtonGuardar.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        jButtonGuardar.setText("Guardar Categoría");
-        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
+        guardarButton.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        guardarButton.setText("Guardar Categoría");
+        guardarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonGuardarActionPerformed(evt);
+                guardarButtonActionPerformed(evt);
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        jLabel3.setText("Seleccione imagen para la categoría");
+        seleccioneImagenLabel.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        seleccioneImagenLabel.setText("Seleccione imagen para la categoría");
 
-        jFileChooser1.addActionListener(new java.awt.event.ActionListener() {
+        imagenCategoriaFileChooser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFileChooser1ActionPerformed(evt);
+                imagenCategoriaFileChooserActionPerformed(evt);
             }
         });
 
-        BotonRegresar1.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        BotonRegresar1.setText("Regresar");
-        BotonRegresar1.addActionListener(new java.awt.event.ActionListener() {
+        regresarButton.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        regresarButton.setText("Regresar");
+        regresarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotonRegresar1ActionPerformed(evt);
+                regresarButtonActionPerformed(evt);
             }
         });
 
@@ -140,39 +140,40 @@ public class AdminPanelCategorias extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(tituloBanerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1255, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField2)
-                    .addComponent(jTextField1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
-                .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(vistaPrevia, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(104, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(376, 376, 376)
-                .addComponent(jLabel3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(descripcionCategoriaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(nombreCategoriaLabel)
+                    .addComponent(descripcionCategoriaTextField)
+                    .addComponent(nombreCategoriaTextField))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
+                        .addComponent(imagenCategoriaFileChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(vistaPrevia, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(104, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(295, 295, 295)
+                        .addComponent(seleccioneImagenLabel)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonGuardar)
+                .addComponent(guardarButton)
                 .addGap(397, 397, 397)
-                .addComponent(BotonRegresar1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(regresarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tituloBanerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel1))
+                    .addComponent(seleccioneImagenLabel)
+                    .addComponent(nombreCategoriaLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -182,33 +183,33 @@ public class AdminPanelCategorias extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(nombreCategoriaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(58, 58, 58)
-                                .addComponent(jLabel2)
+                                .addComponent(descripcionCategoriaLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(descripcionCategoriaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(imagenCategoriaFileChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BotonRegresar1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(guardarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(regresarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 36, Short.MAX_VALUE))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void descripcionCategoriaTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descripcionCategoriaTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_descripcionCategoriaTextFieldActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void nombreCategoriaTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreCategoriaTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_nombreCategoriaTextFieldActionPerformed
 
-    private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
- String nombre = jTextField1.getText().trim();
-    String descripcion = jTextField2.getText().trim();
+    private void guardarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarButtonActionPerformed
+ String nombre = nombreCategoriaTextField.getText().trim();
+    String descripcion = descripcionCategoriaTextField.getText().trim();
 
     if (nombre.isEmpty()) {
         javax.swing.JOptionPane.showMessageDialog(this, "El nombre de la categoría no puede estar vacío.");
@@ -229,16 +230,16 @@ public class AdminPanelCategorias extends javax.swing.JDialog {
 
     javax.swing.JOptionPane.showMessageDialog(this, "Categoría guardada exitosamente.");
 
-    jTextField1.setText("");
-    jTextField2.setText("");
+    nombreCategoriaTextField.setText("");
+    descripcionCategoriaTextField.setText("");
     vistaPrevia.setIcon(null);
     imagenSeleccionada = null;
-    }//GEN-LAST:event_jButtonGuardarActionPerformed
+    }//GEN-LAST:event_guardarButtonActionPerformed
 
-    private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
+    private void imagenCategoriaFileChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imagenCategoriaFileChooserActionPerformed
         // TODO add your handling code here:
         if (evt.getActionCommand().equals(javax.swing.JFileChooser.APPROVE_SELECTION)) {
-        File archivoSeleccionado = jFileChooser1.getSelectedFile();
+        File archivoSeleccionado = imagenCategoriaFileChooser.getSelectedFile();
         if (archivoSeleccionado != null && archivoSeleccionado.exists()) {
             try {
                 File carpetaDestino = new File("imagenes/categoria");
@@ -265,18 +266,18 @@ public class AdminPanelCategorias extends javax.swing.JDialog {
     } else if (evt.getActionCommand().equals(javax.swing.JFileChooser.CANCEL_SELECTION)) {
         System.out.println("Selección cancelada");
     }
-    }//GEN-LAST:event_jFileChooser1ActionPerformed
+    }//GEN-LAST:event_imagenCategoriaFileChooserActionPerformed
 
     private void BotonEliminarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEliminarCategoriaActionPerformed
         AdminPanelEliminarCategoria dialog = new AdminPanelEliminarCategoria(null, true);
         dialog.setVisible(true);
     }//GEN-LAST:event_BotonEliminarCategoriaActionPerformed
 
-    private void BotonRegresar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonRegresar1ActionPerformed
+    private void regresarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarButtonActionPerformed
         this.dispose();
         AdminPanelHome nuevoAPanel = new AdminPanelHome(null, true);
         nuevoAPanel.setVisible(true);
-    }//GEN-LAST:event_BotonRegresar1ActionPerformed
+    }//GEN-LAST:event_regresarButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -311,16 +312,16 @@ public class AdminPanelCategorias extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonEliminarCategoria;
-    private javax.swing.JButton BotonRegresar1;
-    private javax.swing.JButton jButtonGuardar;
-    private javax.swing.JFileChooser jFileChooser1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JLabel descripcionCategoriaLabel;
+    private javax.swing.JTextField descripcionCategoriaTextField;
+    private javax.swing.JButton guardarButton;
+    private javax.swing.JFileChooser imagenCategoriaFileChooser;
+    private javax.swing.JLabel nombreCategoriaLabel;
+    private javax.swing.JTextField nombreCategoriaTextField;
+    private javax.swing.JButton regresarButton;
+    private javax.swing.JLabel seleccioneImagenLabel;
+    private javax.swing.JPanel tituloBanerPanel;
+    private javax.swing.JLabel tituloLabel;
     private javax.swing.JLabel vistaPrevia;
     // End of variables declaration//GEN-END:variables
 }

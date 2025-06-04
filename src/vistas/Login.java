@@ -193,9 +193,7 @@ public class Login extends javax.swing.JDialog {
         Usuario usuario = controlador.autenticarUsuario(username, contrasena);
 
         if (usuario != null) {
-            // Autenticación exitosa
-            this.dispose(); // Cerrar la ventana de login
-
+            this.dispose(); 
             // Redirigir según el rol
             if (usuario.getRol().equalsIgnoreCase("admin")) {
                 this.dispose();
@@ -217,8 +215,6 @@ public class Login extends javax.swing.JDialog {
                     "Error de autenticación",
                     JOptionPane.ERROR_MESSAGE);
         }
-        
-        
     }//GEN-LAST:event_iniciarSesionButtonActionPerformed
 
     private void registroLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registroLabelMouseClicked
@@ -239,7 +235,6 @@ public class Login extends javax.swing.JDialog {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* --- CÓDIGO PARA INICIAR FLATLAF --- */
         try {
             FlatDarculaLaf.setup();
         } catch (Exception ex) {
@@ -247,7 +242,6 @@ public class Login extends javax.swing.JDialog {
         }
 
 
- /* Creamos y mostramos la ventana UNA SOLA VEZ */
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
