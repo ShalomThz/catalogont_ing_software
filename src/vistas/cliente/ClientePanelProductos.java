@@ -39,7 +39,7 @@ public class ClientePanelProductos extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         cargarCategoriasEnToolBar();
-        productosPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 10));
+        productosPanel.setLayout(new javax.swing.BoxLayout(productosPanel, javax.swing.BoxLayout.X_AXIS));
         cargarRopa();
         cargarEtiquetas();
         usuarioActual = SesionUtil.getUsuarioActual();
