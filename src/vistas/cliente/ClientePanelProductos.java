@@ -39,11 +39,10 @@ public class ClientePanelProductos extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         cargarCategoriasEnToolBar();
-        productosPanel.setLayout(new javax.swing.BoxLayout(productosPanel, javax.swing.BoxLayout.Y_AXIS));
+        productosPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 10));
         cargarRopa();
         cargarEtiquetas();
         usuarioActual = SesionUtil.getUsuarioActual();
-
     }
 
     public ClientePanelProductos(java.awt.Frame parent, boolean modal, Categoria categoriaRequerida) {
@@ -59,10 +58,9 @@ public class ClientePanelProductos extends javax.swing.JDialog {
     }
 
     private void cargarEtiquetas() {
-        // --- NUEVA VERIFICACIÓN AL INICIO ---
         if (this.categoriaRequerida == null) {
             titulo.setText("Catálogo General");
-            Font fuenteTitulo = new Font("Arial", Font.BOLD, 24); // Puedes definir una fuente general
+            Font fuenteTitulo = new Font("Segoe UI Black", Font.BOLD, 18); // Puedes definir una fuente general
             titulo.setFont(fuenteTitulo);
             titulo.setForeground(Color.white);
             titulo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -71,9 +69,8 @@ public class ClientePanelProductos extends javax.swing.JDialog {
             return;
         }
 
-        // Si llegamos aquí, this.categoriaRequerida NO es null
         nombreUsuario.setText("Bienvenido ");
-        Font fuenteTitulo = new Font("Arial", Font.BOLD, 24);
+        Font fuenteTitulo = new Font("Segoe UI Black", Font.BOLD, 24);
         titulo.setText("Ropa para " + this.categoriaRequerida.getNombre());
         titulo.setFont(fuenteTitulo);
         titulo.setForeground(Color.white);
@@ -100,7 +97,7 @@ public class ClientePanelProductos extends javax.swing.JDialog {
         CategoriaController categoriaController = new CategoriaController();
         categoriasLista = categoriaController.obtenerCategorias();
 
-        jToolBar1.removeAll(); // Limpia por si acaso se vuelve a llamar
+        nombreCategoriasToolBar.removeAll(); 
 
         for (Categoria categoria : categoriasLista) {
             JButton boton = new JButton(categoria.getNombre());
@@ -114,27 +111,23 @@ public class ClientePanelProductos extends javax.swing.JDialog {
                 ClientePanelProductos.this.setTitle("Catálogo - " + categoria.getNombre());
             });
 
-            jToolBar1.add(boton);
+            nombreCategoriasToolBar.add(boton);
         }
 
-        jToolBar1.revalidate();
-        jToolBar1.repaint();
+        nombreCategoriasToolBar.revalidate();
+        nombreCategoriasToolBar.repaint();
     }
 
     private void cargarRopa() {
         RopaController controller = new RopaController();
-        ArrayList<Ropa> listaDeRopa; // Declaramos la lista
+        ArrayList<Ropa> listaDeRopa;
 
-        // --- LÓGICA MODIFICADA PARA CARGAR ROPA ---
         if (this.categoriaRequerida != null) {
-            // Si SÍ tenemos una categoría específica, filtramos por ella
             listaDeRopa = controller.buscarRopaPorNombreCategoria(this.categoriaRequerida.getNombre());
         } else {
-            // Si NO tenemos categoría (ej. al abrir desde el main), obtenemos toda la ropa
-            listaDeRopa = controller.obtenerRopa(); // ¡Usamos el método que ya tienes!
+            listaDeRopa = controller.obtenerRopa(); 
         }
 
-        // Limpiar el panel antes de agregar nuevos productos
         productosPanel.removeAll();
 
         if (listaDeRopa.isEmpty()) {
@@ -160,7 +153,7 @@ public class ClientePanelProductos extends javax.swing.JDialog {
                 panel.add(new JLabel("Nombre: " + ropa.getNombre()));
                 panel.add(new JLabel("Talla: " + ropa.getTalla()));
                 panel.add(new JLabel("Color: " + ropa.getColor()));
-                panel.add(new JLabel("Precio: $" + String.format("%.2f", ropa.getPrecio()))); // Formatear precio
+                panel.add(new JLabel("Precio: $" + String.format("%.2f", ropa.getPrecio()))); 
                 // Botón para ver más detalles
                 JButton verDetalleBtn = new JButton("Ver Detalles");
                 verDetalleBtn.setBackground(new Color(52, 152, 219));
@@ -168,10 +161,11 @@ public class ClientePanelProductos extends javax.swing.JDialog {
                 verDetalleBtn.setFocusPainted(false);
                 verDetalleBtn.setBorderPainted(false);
                 verDetalleBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                verDetalleBtn.setFont(new Font("Segoe UI", Font.BOLD, 14));
+                verDetalleBtn.setFont(new Font("Segoe UI Black", Font.BOLD, 14));
 
                 // Evento del botón
                 verDetalleBtn.addActionListener(e -> {
+                    this.dispose();
                     ClientePanelProducto vistaDetalle = new ClientePanelProducto(null, true);
                     vistaDetalle.mostrarProducto(ropa);
                     vistaDetalle.setLocationRelativeTo(null);
@@ -198,26 +192,27 @@ public class ClientePanelProductos extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        tituloLabel = new javax.swing.JLabel();
         nombreUsuario = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         productosPanel = new javax.swing.JPanel();
         titulo = new javax.swing.JLabel();
-        jToolBar1 = new javax.swing.JToolBar();
+        nombreCategoriasToolBar = new javax.swing.JToolBar();
         banner = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButtonVerCarrito = new javax.swing.JButton();
+        regresarButton = new javax.swing.JButton();
+        verCarritoButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 204));
 
-        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setFont(new java.awt.Font("Arial Black", 0, 48)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("CatalogoNT");
+        tituloLabel.setBackground(new java.awt.Color(255, 255, 255));
+        tituloLabel.setFont(new java.awt.Font("Arial Black", 0, 48)); // NOI18N
+        tituloLabel.setForeground(new java.awt.Color(102, 102, 102));
+        tituloLabel.setText("CatalogoNT");
 
-        nombreUsuario.setForeground(new java.awt.Color(0, 0, 0));
+        nombreUsuario.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        nombreUsuario.setForeground(new java.awt.Color(153, 153, 153));
         nombreUsuario.setText("jLabel2");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -225,57 +220,46 @@ public class ClientePanelProductos extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(479, 479, 479)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(tituloLabel)
+                .addGap(341, 341, 341)
                 .addComponent(nombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(94, 94, 94))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(44, 44, 44)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(nombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(32, Short.MAX_VALUE))
+                    .addComponent(tituloLabel)
+                    .addComponent(nombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        javax.swing.GroupLayout productosPanelLayout = new javax.swing.GroupLayout(productosPanel);
-        productosPanel.setLayout(productosPanelLayout);
-        productosPanelLayout.setHorizontalGroup(
-            productosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1081, Short.MAX_VALUE)
-        );
-        productosPanelLayout.setVerticalGroup(
-            productosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 488, Short.MAX_VALUE)
-        );
-
+        productosPanel.setLayout(new javax.swing.BoxLayout(productosPanel, javax.swing.BoxLayout.LINE_AXIS));
         jScrollPane1.setViewportView(productosPanel);
         productosPanel.getAccessibleContext().setAccessibleDescription("");
 
         titulo.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         titulo.setText("CATALOGO");
 
-        jToolBar1.setRollover(true);
+        nombreCategoriasToolBar.setRollover(true);
 
-        jButton1.setText("Regresar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        regresarButton.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        regresarButton.setText("Regresar");
+        regresarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                regresarButtonActionPerformed(evt);
             }
         });
 
-        jButtonVerCarrito.setText("ver mi carrito");
-        jButtonVerCarrito.addActionListener(new java.awt.event.ActionListener() {
+        verCarritoButton.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        verCarritoButton.setText("Ver Carrito");
+        verCarritoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonVerCarritoActionPerformed(evt);
+                verCarritoButtonActionPerformed(evt);
             }
         });
 
@@ -283,24 +267,23 @@ public class ClientePanelProductos extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(nombreCategoriasToolBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1093, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(banner, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(51, 51, 51))
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(banner, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(54, 54, 54)
-                                .addComponent(jButtonVerCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
+                                .addComponent(regresarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(35, 35, 35)
+                                .addComponent(verCarritoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(51, 51, 51))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 1406, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -312,44 +295,41 @@ public class ClientePanelProductos extends javax.swing.JDialog {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(nombreCategoriasToolBar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(banner, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(94, 94, 94)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(verCarritoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(regresarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(16, 16, 16))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(banner, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-                            .addComponent(jButtonVerCarrito, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(16, 16, 16))))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void regresarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarButtonActionPerformed
         this.dispose();
         Home nuevoHome = new Home(null, true);
         nuevoHome.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_regresarButtonActionPerformed
 
 
-    private void jButtonVerCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerCarritoActionPerformed
+    private void verCarritoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verCarritoButtonActionPerformed
         // Crear e inicializar la vista del carrito
+        this.dispose();
         CarritoVista carritoVista = new CarritoVista(new javax.swing.JFrame(), true);
-
-        // Asegúrate de tener el usuario actual disponible
         carritoVista.cargarCarrito(usuarioActual);
-
-        // Mostrar el diálogo
         carritoVista.setLocationRelativeTo(null); // Centrar en pantalla
         carritoVista.setVisible(true);
-    }//GEN-LAST:event_jButtonVerCarritoActionPerformed
+    }//GEN-LAST:event_verCarritoButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -385,14 +365,14 @@ public class ClientePanelProductos extends javax.swing.JDialog {
     private Usuario usuarioActual = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel banner;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButtonVerCarrito;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JToolBar nombreCategoriasToolBar;
     private javax.swing.JLabel nombreUsuario;
     private javax.swing.JPanel productosPanel;
+    private javax.swing.JButton regresarButton;
     private javax.swing.JLabel titulo;
+    private javax.swing.JLabel tituloLabel;
+    private javax.swing.JButton verCarritoButton;
     // End of variables declaration//GEN-END:variables
 }
