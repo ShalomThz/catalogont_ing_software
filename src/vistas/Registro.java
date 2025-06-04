@@ -5,14 +5,17 @@
 package vistas;
 
 import com.formdev.flatlaf.FlatDarculaLaf;
+import java.awt.Color;
 import utiles.SesionUtil;
+import vistas.admin.AdminPanel;
 
 /**
  *
- * @author josha
+ * @author Villegas Velázquez Alejandro
  */
 public class Registro extends javax.swing.JDialog {
-
+    private Color originalBackgroundColor;
+    private final Color moradoAdmin = new Color(51, 0, 102);
     /**
      * Creates new form Registro
      */
@@ -23,10 +26,11 @@ public class Registro extends javax.swing.JDialog {
         if (SesionUtil.isLoggedIn() && SesionUtil.getUsuarioActual() != null && SesionUtil.getUsuarioActual().getRol().equalsIgnoreCase("admin")) {
             rolLabel.setVisible(true);
             seleccionarRolComboBox.setVisible(true);
+            volverAdminPanelButton.setVisible(true);
         } else {
-            // Si no hay sesión, o el usuario no es admin, oculta los campos de rol
             rolLabel.setVisible(false);
             seleccionarRolComboBox.setVisible(false);
+            volverAdminPanelButton.setVisible(false);
         }
     }
 
@@ -113,6 +117,7 @@ public class Registro extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         registrarButton = new javax.swing.JButton();
         loginButton = new javax.swing.JButton();
+        volverAdminPanelButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -196,26 +201,45 @@ public class Registro extends javax.swing.JDialog {
             }
         });
 
+        volverAdminPanelButton.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        volverAdminPanelButton.setText("Volver al Panel");
+        volverAdminPanelButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                volverAdminPanelButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                volverAdminPanelButtonMouseExited(evt);
+            }
+        });
+        volverAdminPanelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                volverAdminPanelButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(148, 148, 148)
-                        .addComponent(registrarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(155, 155, 155)
+                .addComponent(registrarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(volverAdminPanelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(registrarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
-                .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(volverAdminPanelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
@@ -253,7 +277,7 @@ public class Registro extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(213, 213, 213)
                         .addComponent(rolLabel)))
-                .addContainerGap(113, Short.MAX_VALUE))
+                .addContainerGap(105, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -310,6 +334,20 @@ public class Registro extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_seleccionarRolComboBoxActionPerformed
 
+    private void volverAdminPanelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverAdminPanelButtonActionPerformed
+        this.dispose();
+        AdminPanel adminPanel = new AdminPanel(null, true);
+        adminPanel.setVisible(true);
+    }//GEN-LAST:event_volverAdminPanelButtonActionPerformed
+
+    private void volverAdminPanelButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_volverAdminPanelButtonMouseEntered
+        volverAdminPanelButton.setBackground(moradoAdmin);
+    }//GEN-LAST:event_volverAdminPanelButtonMouseEntered
+
+    private void volverAdminPanelButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_volverAdminPanelButtonMouseExited
+        volverAdminPanelButton.setBackground(originalBackgroundColor);
+    }//GEN-LAST:event_volverAdminPanelButtonMouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -354,5 +392,6 @@ public class Registro extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> seleccionarRolComboBox;
     private javax.swing.JLabel tituloLabel;
     private javax.swing.JPanel tituloPanel;
+    private javax.swing.JButton volverAdminPanelButton;
     // End of variables declaration//GEN-END:variables
 }
