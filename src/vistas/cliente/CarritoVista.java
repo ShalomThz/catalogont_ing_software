@@ -6,9 +6,11 @@ package vistas.cliente;
 
 import controladores.CarritoController;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import modelos.CarritoItem;
@@ -50,12 +52,24 @@ public void cargarCarrito(Usuario usuario) {
     } else {
 for (CarritoItem item : productosCarrito) {
     JPanel itemPanel = new JPanel();
-    itemPanel.setLayout(new GridLayout(1, 4)); // Cambiado de 3 a 4 para agregar el botón
+    itemPanel.setLayout(new GridLayout(1, 5)); // Cambiado de 3 a 4 para agregar el botón
     itemPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
+    try {
+                    ImageIcon icon = new ImageIcon("imagenes/ropa/" + item.getRopa().getFoto());
+                    Image img = icon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+                    JLabel imgLabel = new JLabel(new ImageIcon(img));
+                    itemPanel.add(imgLabel);
+                } catch (Exception e) {
+                    itemPanel.add(new JLabel("Imagen no disponible"));
+                    System.err.println("Error al cargar imagen de ropa: " + item.getRopa().getFoto() + " - " + e.getMessage());
+                }
+    
     JLabel nombreLabel = new JLabel("Producto: " + item.getRopa().getNombre());
     JLabel cantidadLabel = new JLabel("Cantidad: " + item.getCantidad());
     JLabel precioLabel = new JLabel("Precio: $" + item.getRopa().getPrecio());
+    
+    
 
     // Crear botón de eliminar
     javax.swing.JButton eliminarBtn = new javax.swing.JButton("Eliminar");
