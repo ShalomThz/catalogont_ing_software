@@ -185,7 +185,7 @@ public class AdminPanelHome extends javax.swing.JDialog {
 
     private void agregarProductoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarProductoButtonActionPerformed
         this.dispose();
-        AdminPanelProductos nuevoAdminPanelProductos = new AdminPanelProductos(null, true);
+        AdminPanelAgregarProducto nuevoAdminPanelProductos = new AdminPanelAgregarProducto(null, true);
         nuevoAdminPanelProductos.setVisible(true);
     }//GEN-LAST:event_agregarProductoButtonActionPerformed
 

@@ -38,8 +38,8 @@ public class CarritoVista extends javax.swing.JDialog {
     
 public void cargarCarrito(Usuario usuario) {
     this.usuario = usuario;
-    jLabelCliente.setText(this.usuario.getNombre());
-    jLabelFecha.setText(java.time.LocalDate.now().toString());
+    clienteActualLabel.setText(this.usuario.getNombre());
+    fechaActualLabel.setText(java.time.LocalDate.now().toString());
 
     CarritoController controller = new CarritoController();
     Carrito carritoUsuario = controller.obtenerCarritoUsuario(this.usuario.getNombre());
@@ -106,20 +106,20 @@ for (CarritoItem item : productosCarrito) {
     private void initComponents() {
 
         jScrollBar1 = new javax.swing.JScrollBar();
-        jPanel1 = new javax.swing.JPanel();
+        globalPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         productosPanel = new javax.swing.JPanel();
         regresarButton = new javax.swing.JButton();
         generarPDFButton = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jLabelFecha = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabelCliente = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        fechaLabel = new javax.swing.JLabel();
+        fechaActualLabel = new javax.swing.JLabel();
+        clienteLabel = new javax.swing.JLabel();
+        clienteActualLabel = new javax.swing.JLabel();
+        tituloLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 204, 204));
+        globalPanel.setBackground(new java.awt.Color(255, 204, 204));
 
         javax.swing.GroupLayout productosPanelLayout = new javax.swing.GroupLayout(productosPanel);
         productosPanel.setLayout(productosPanelLayout);
@@ -150,71 +150,71 @@ for (CarritoItem item : productosCarrito) {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel3.setText("Fecha:");
+        fechaLabel.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        fechaLabel.setForeground(new java.awt.Color(102, 102, 102));
+        fechaLabel.setText("Fecha:");
 
-        jLabelFecha.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        jLabelFecha.setForeground(new java.awt.Color(102, 102, 102));
-        jLabelFecha.setText("...");
+        fechaActualLabel.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        fechaActualLabel.setForeground(new java.awt.Color(102, 102, 102));
+        fechaActualLabel.setText("...");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel2.setText("Cliente:");
+        clienteLabel.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        clienteLabel.setForeground(new java.awt.Color(102, 102, 102));
+        clienteLabel.setText("Cliente:");
 
-        jLabelCliente.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        jLabelCliente.setForeground(new java.awt.Color(102, 102, 102));
-        jLabelCliente.setText("...");
+        clienteActualLabel.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        clienteActualLabel.setForeground(new java.awt.Color(102, 102, 102));
+        clienteActualLabel.setText("...");
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI Black", 0, 48)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel1.setText("TU CARRRITO");
+        tituloLabel.setFont(new java.awt.Font("Segoe UI Black", 0, 48)); // NOI18N
+        tituloLabel.setForeground(new java.awt.Color(102, 102, 102));
+        tituloLabel.setText("TU CARRRITO");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout globalPanelLayout = new javax.swing.GroupLayout(globalPanel);
+        globalPanel.setLayout(globalPanelLayout);
+        globalPanelLayout.setHorizontalGroup(
+            globalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(globalPanelLayout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, globalPanelLayout.createSequentialGroup()
                 .addGap(116, 116, 116)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                .addGroup(globalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(clienteLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fechaLabel))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(globalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(fechaActualLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(clienteActualLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 249, Short.MAX_VALUE)
                 .addComponent(generarPDFButton, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
                 .addComponent(regresarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29))
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(globalPanelLayout.createSequentialGroup()
                 .addGap(282, 282, 282)
-                .addComponent(jLabel1)
+                .addComponent(tituloLabel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        globalPanelLayout.setVerticalGroup(
+            globalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(globalPanelLayout.createSequentialGroup()
                 .addGap(52, 52, 52)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(tituloLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(globalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(globalPanelLayout.createSequentialGroup()
                         .addGap(42, 42, 42)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabelCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(globalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(clienteLabel)
+                            .addComponent(clienteActualLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabelFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(globalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(fechaLabel)
+                            .addComponent(fechaActualLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(globalPanelLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(globalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(generarPDFButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(regresarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(32, 32, 32)))
@@ -226,11 +226,11 @@ for (CarritoItem item : productosCarrito) {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(globalPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(globalPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -294,16 +294,16 @@ for (CarritoItem item : productosCarrito) {
     private List<CarritoItem> productosCarrito= null;
     private Usuario usuario=null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel clienteActualLabel;
+    private javax.swing.JLabel clienteLabel;
+    private javax.swing.JLabel fechaActualLabel;
+    private javax.swing.JLabel fechaLabel;
     private javax.swing.JButton generarPDFButton;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabelCliente;
-    private javax.swing.JLabel jLabelFecha;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel globalPanel;
     private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel productosPanel;
     private javax.swing.JButton regresarButton;
+    private javax.swing.JLabel tituloLabel;
     // End of variables declaration//GEN-END:variables
 }

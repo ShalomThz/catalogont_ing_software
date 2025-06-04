@@ -7,7 +7,7 @@ package vistas;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import java.awt.Color;
 import utiles.SesionUtil;
-import vistas.admin.AdminPanel;
+import vistas.admin.AdminPanelHome;
 
 /**
  *
@@ -114,7 +114,7 @@ public class Registro extends javax.swing.JDialog {
         contraseñaTextField = new javax.swing.JPasswordField();
         seleccionarRolComboBox = new javax.swing.JComboBox<>();
         rolLabel = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        botonesInferioresPanel = new javax.swing.JPanel();
         registrarButton = new javax.swing.JButton();
         loginButton = new javax.swing.JButton();
         volverAdminPanelButton = new javax.swing.JButton();
@@ -217,27 +217,27 @@ public class Registro extends javax.swing.JDialog {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout botonesInferioresPanelLayout = new javax.swing.GroupLayout(botonesInferioresPanel);
+        botonesInferioresPanel.setLayout(botonesInferioresPanelLayout);
+        botonesInferioresPanelLayout.setHorizontalGroup(
+            botonesInferioresPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(botonesInferioresPanelLayout.createSequentialGroup()
                 .addGap(155, 155, 155)
                 .addComponent(registrarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(botonesInferioresPanelLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(volverAdminPanelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        botonesInferioresPanelLayout.setVerticalGroup(
+            botonesInferioresPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(botonesInferioresPanelLayout.createSequentialGroup()
                 .addComponent(registrarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(botonesInferioresPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(volverAdminPanelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(30, Short.MAX_VALUE))
@@ -248,7 +248,7 @@ public class Registro extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(tituloPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(botonesInferioresPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -302,7 +302,7 @@ public class Registro extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(seleccionarRolComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(botonesInferioresPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -336,7 +336,7 @@ public class Registro extends javax.swing.JDialog {
 
     private void volverAdminPanelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverAdminPanelButtonActionPerformed
         this.dispose();
-        AdminPanel adminPanel = new AdminPanel(null, true);
+        AdminPanelHome adminPanel = new AdminPanelHome(null, true);
         adminPanel.setVisible(true);
     }//GEN-LAST:event_volverAdminPanelButtonActionPerformed
 
@@ -380,11 +380,11 @@ public class Registro extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel UsuarioLabel;
     private javax.swing.JTextField UsuarioTextField;
+    private javax.swing.JPanel botonesInferioresPanel;
     private javax.swing.JLabel contraseñaLabel;
     private javax.swing.JPasswordField contraseñaTextField;
     private javax.swing.JLabel correoLabel;
     private javax.swing.JTextField correoTextField;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JButton loginButton;
     private javax.swing.JButton registrarButton;
     private javax.swing.JLabel registrateLabel;
